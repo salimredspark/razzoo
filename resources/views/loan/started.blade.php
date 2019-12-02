@@ -6,10 +6,10 @@
     	<div class="row">
         	<div class="col-sm-12">
             	<div class="tagline">
-                	<h1 class="text-center text-primary">Welcome to razzoo...</h1>
+                	<h1 class="text-center text-primary">Your go to place for Business Loans</h1>
                 </div>
 			    <div class="find-business text-center">
-                    <p>Home Page</p>
+                <a href="{{ url('/loan-process') }}" class="btn btn-primary">Find a Business Loan</a>
                 </div>
                 
             </div>

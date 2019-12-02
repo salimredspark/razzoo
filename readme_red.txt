@@ -149,8 +149,15 @@ companies, customers, uploaded_csv,
 Laravel Created Tables after migrate command run
 users, password_resets, migrations
 ---------------------------------------------------------------------------------------------------------------------------------------------
-
-Admin
-http://localhost:8000/admin/login
-http://localhost/projects/razzoo/public/admin/login
+HTML
 http://redspark.biz/Designers/razzoo/index.html
+
+Admin Users
+http://localhost/projects/razzoo/public/admin/login
+Username: salim@redsparkinfo.co.in
+Password: red@spark
+
+admin@Razzoo.com
+Username: admin@Razzoo.com
+Password: red@spark
+---------------------------------------------------------------------------------------------------------------------------------------------

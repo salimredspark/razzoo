@@ -1,0 +1,354 @@
+html, body {
+	height:calc(100% - 60px);
+	margin: 0;
+}
+.main-wrapper {
+	padding: 0px;
+	min-height: 100%;
+	margin: 0 auto 0px;
+}
+.callus {
+	display: inline-block;
+	vertical-align: middle;
+	color: #2968e6;
+	font-size: 20px;
+	font-weight: 700;
+	margin-right: 2rem;
+}
+.callus .call-icon {
+	display: inline-block;
+	vertical-align: middle;
+}
+.tagline {
+	padding:8% 0;
+}
+.tagline h1 {
+	margin: 0;
+	font-weight: 700;
+	font-size: 3rem;
+}
+.find-business .btn {
+	font-size: 2rem;
+	padding: 0.8rem 4rem;
+	border-radius: 10px;
+	font-weight: 600;
+}
+
+
+.wizard-steps {
+	background-color: #ffffff;
+	margin: 0;
+	padding: 40px;
+	width: 100%;
+}
+.wizard-steps h3 {
+	margin-bottom: 2rem;
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: normal;
+}
+.tab {
+	display: none;
+	min-height:auto;
+}
+.tab.current{display: block;}
+.action-buttons button {
+	border-radius: 50px;
+	border: 0 !important;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: normal;
+	padding: 14px 0px;
+	width: 140px;
+	margin: 0px 10px;
+	cursor:pointer;
+}
+.action-buttons button.btn-primary {
+	box-shadow:0px 0px 10px rgba(41,104,230,0.3);
+	-webkit-box-shadow:0px 0px 10px rgba(41,104,230,0.3);
+	-moz-box-shadow:0px 0px 10px rgba(41,104,230,0.3);
+	-o-box-shadow:0px 0px 10px rgba(41,104,230,0.3);
+}
+.action-buttons button.btn-warning {
+	box-shadow:0px 0px 10px rgba(255,193,7,0.3);
+	-webkit-box-shadow:0px 0px 10px rgba(255,193,7,0.3);
+	-moz-box-shadow:0px 0px 10px rgba(255,193,7,0.3);
+	-o-box-shadow:0px 0px 10px rgba(255,193,7,0.3);
+}
+
+.previous { }
+
+.modal-steps {
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 100%;
+	-ms-flex: 0 0 100%;
+	flex: 0 0 100%;
+	-webkit-justify-content: space-around;
+	-ms-flex-pack: distribute;
+	justify-content: space-around;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	padding:1rem 0px;
+}
+.modal-steps .step {
+	width:40px;
+	height:40px;
+	border-radius:50%;
+	line-height:40px;
+	color:#ffffff;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	background:rgba(0,0,0,0.4);
+}
+
+
+.step.active {opacity: 1; background-color: #2968e6;}
+
+.step.finish {background-color: #4CAF50; }
+.action-buttons {
+	margin-top: 30px;
+}
+ul.eligibility li {
+	margin-bottom:20px;
+	list-style:none;
+	font-size:18px;
+	line-height:40px;
+	font-weight:300;
+	padding-left:50px;
+	background:url(../images/icon-list.png) no-repeat left center;
+}
+.signup-facebook {
+	margin-bottom:20px;
+}
+.signup-facebook a {
+	background: #415dae;
+	color: #ffffff;
+	border-radius: 5px;
+	line-height: normal;
+	padding: 14px 40px;
+	display: inline-block;
+	font-size: 18px;
+	font-weight: 500;
+}
+.or {
+	position: relative;
+}
+.or span {
+	display: block;
+	margin: 20px auto;
+	width: 50px;
+	height: 50px;
+	background: #e2e7f2;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 50px;
+	position: relative;
+}
+.or:before {
+	content: "";
+	height: 1px;
+	width: 100%;
+	position: absolute;
+	background: #eee;
+	top: 25px;
+}
+.task-types {
+	text-align: center;
+	margin-top: 100px;
+}
+.task-type {
+	display: inline-block;
+	width: 150px;
+	margin: 0px 25px;
+}
+.task-type input[type=radio].task-radio {
+	position: absolute;
+	z-index: -1000;
+	left: -1000px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+}
+
+.task-type input[type=radio].task-radio+label.task-label, 
+.task-type input[type=radio].task-radio+label.task-label.clr
+	{
+width:100%;
+height:150px;
+display:block;
+line-height:normal;
+overflow:hidden;
+background-repeat: no-repeat;
+background-position: 0 0;
+vertical-align: middle;
+cursor: pointer;
+font-weight:bold;
+text-align: center;
+border:2px solid transparent;
+border-radius:10px;
+padding:0px 0px;
+color: #2968e6;
+}
+.task-type input[type=radio].task-radio+label.task-label span, 
+.task-type input[type=radio].task-radio+label.task-label.clr span
+	{
+	display: block;
+	font-size:18px;
+	margin:0px;
+	font-weight:bold;
+	line-height:150px;
+}
+.task-type input[type=radio].task-radio:checked+label.task-label, 
+.task-type input[type=radio].task-radio+label.task-label.chk
+	{
+	border-color: #2968e6;
+	background: #ffffff;
+}
+.tick {
+	width: 80px;
+	display: block;
+	margin: 0 auto 20px auto;
+}
+.radio-option {
+	list-style:none;
+	padding:0;
+	margin:0px;
+}
+.radio-option li {
+	margin-bottom: 20px;
+}
+.radio-option input[type=radio].css-radio {
+	position: absolute;
+	z-index: -1000;
+	left: -1000px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+}
+.radio-option input[type=radio].css-radio+label.css-label, 
+.radio-option input[type=radio].css-radio+label.css-label.clr
+	{
+	padding-left:30px;
+	height:22px;
+	display: inline-block;
+	line-height:22px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	vertical-align:middle;
+	cursor: pointer;
+	font-weight:300;
+}
+
+.radio-option input[type=radio].css-radio:checked+label.css-label, 
+.radio-option input[type=radio].css-radio+label.css-label.chk
+	{
+	background-position: 0 -22px;
+}
+
+.radio-option label.css-label {
+	background-image:url(../images/radio-icon.png);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+
+
+
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding:20% 0px;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+}
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+ }
+.files{ position:relative}
+.files:after {  pointer-events: none;
+   pointer-events: none;
+position: absolute;
+bottom: 50px;
+left: 0;
+width: 50px;
+right: 0;
+height: 56px;
+content: "";
+background-image: url(../images/icon-upload.png);
+display: block;
+margin: 0 auto;
+background-size: 100%;
+background-repeat: no-repeat;
+}
+.color input{ background-color:#f1f1f1;}
+.files:before {
+   position: absolute;
+top: 50px;
+left: 0;
+pointer-events: none;
+width: 60%;
+right: 0;
+height: auto;
+content: "Upload bankstatements via Bankstatements.com.au";
+display: block;
+margin: 0 auto;
+color:
+#2968e6;
+font-weight: 700;
+text-transform: capitalize;
+text-align: center;
+font-size: 28px;
+line-height: normal;
+}
+.files1:before {
+content: "Upload Supporting Business Plans!";
+}
+footer {
+	text-align: center;
+	line-height:60px;
+	font-size:14px;
+	background: rgba(0,0,0,0.05);
+	border-top: 1px solid rgba(0,0,0,0.05);
+	position:relative;
+	width:100%;
+	bottom:-58px;
+	clear: both;
+}
+.radio-option-1 li {
+	display:inline-block;
+}
+.radio-option-1 li {
+	display: inline-block;
+	margin-right: 20px;
+}
+.radio-option-1 li label {
+	font-size:18px;
+}
