@@ -37,6 +37,7 @@ then open http://localhost:8000/
 ///Login
 GIThub Login
 https://github.com/salimredspark/razzoo.git
+salimredspark
 salim@redsparkinfo.co.in
 sk@spark123
 ---------------------------------------------------------------------------------------------------
@@ -152,3 +153,4 @@ users, password_resets, migrations
 Admin
 http://localhost:8000/admin/login
 http://localhost/projects/razzoo/public/admin/login
+http://redspark.biz/Designers/razzoo/index.html
