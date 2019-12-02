@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2019 at 09:42 AM
+-- Generation Time: Dec 02, 2019 at 03:43 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -118,6 +118,66 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loan_application`
+--
+
+CREATE TABLE `loan_application` (
+  `id` int(11) NOT NULL,
+  `customer_firstname` varchar(256) NOT NULL,
+  `customer_lastname` varchar(256) NOT NULL,
+  `customer_email` varchar(256) NOT NULL,
+  `customer_mobile` varchar(20) NOT NULL,
+  `customer_industry` varchar(255) NOT NULL,
+  `loan_amout` varchar(20) NOT NULL,
+  `loan_purpose` text NOT NULL,
+  `abn_number` varchar(100) NOT NULL,
+  `dl_number` varchar(100) NOT NULL,
+  `state_issue` text NOT NULL,
+  `business_trading` varchar(100) NOT NULL,
+  `business_monthly_turnover` varchar(100) NOT NULL,
+  `business_name` varchar(256) NOT NULL,
+  `business_state` varchar(256) NOT NULL,
+  `accounting_software` varchar(150) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `loan_application`
+--
+
+INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_industry`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `created_at`, `updated_at`) VALUES
+(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'on', 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'on', '2500', 'Red', 'Gujarat', 'on', '2019-12-01 21:04:40', '2019-12-01 21:04:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loan_application_bankstatements`
+--
+
+CREATE TABLE `loan_application_bankstatements` (
+  `id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  `file_name` varchar(256) NOT NULL,
+  `file_url` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loan_application_business_plan`
+--
+
+CREATE TABLE `loan_application_business_plan` (
+  `id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  `file_name` varchar(256) NOT NULL,
+  `file_url` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -456,6 +516,25 @@ ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `loan_application`
+--
+ALTER TABLE `loan_application`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `loan_application_bankstatements`
+--
+ALTER TABLE `loan_application_bankstatements`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_id` (`application_id`);
+
+--
+-- Indexes for table `loan_application_business_plan`
+--
+ALTER TABLE `loan_application_business_plan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `menus`
 --
 ALTER TABLE `menus`
@@ -556,6 +635,24 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `loan_application`
+--
+ALTER TABLE `loan_application`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000002;
+
+--
+-- AUTO_INCREMENT for table `loan_application_bankstatements`
+--
+ALTER TABLE `loan_application_bankstatements`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `loan_application_business_plan`
+--
+ALTER TABLE `loan_application_business_plan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
@@ -612,6 +709,18 @@ ALTER TABLE `users`
 --
 ALTER TABLE `data_rows`
   ADD CONSTRAINT `data_rows_data_type_id_foreign` FOREIGN KEY (`data_type_id`) REFERENCES `data_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `loan_application_bankstatements`
+--
+ALTER TABLE `loan_application_bankstatements`
+  ADD CONSTRAINT `loan_application_bankstatements_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `loan_application` (`id`);
+
+--
+-- Constraints for table `loan_application_business_plan`
+--
+ALTER TABLE `loan_application_business_plan`
+  ADD CONSTRAINT `loan_application_business_plan_ibfk_1` FOREIGN KEY (`id`) REFERENCES `loan_application` (`id`);
 
 --
 -- Constraints for table `menu_items`
