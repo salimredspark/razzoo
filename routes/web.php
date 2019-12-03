@@ -23,6 +23,7 @@ Route::group(['prefix' => '/admin'], function () {
 Route::get('loan-started', 'LoanController@started')->name('loan-started');
 Route::get('loan-process', 'LoanController@process')->name('loan-process');
 Route::post('loan-submit', 'LoanController@save')->name('loan-submit');
+Route::post('loan-save-step1', 'LoanController@saveStep1')->name('loan-save-step1');
 
 /*
 #manage companies

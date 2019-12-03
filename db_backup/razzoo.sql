@@ -236,7 +236,8 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 12, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 13, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.bread.index', NULL),
 (10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.settings.index', NULL),
-(11, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 13, '2019-12-02 01:29:29', '2019-12-02 01:29:29', 'voyager.hooks', NULL);
+(11, 1, 'Loan', '', '_self', 'voyager-list', NULL, NULL, 14, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.loan.index', NULL),
+(12, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 13, '2019-12-02 01:29:29', '2019-12-02 01:29:29', 'voyager.hooks', NULL);
 
 -- --------------------------------------------------------
 

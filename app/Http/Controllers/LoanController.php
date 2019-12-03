@@ -67,18 +67,16 @@ class LoanController extends Controller
             $saveApplication->state_issue =  $request->state_issue;
 
             $saveApplication->business_trading =  $request->business_trading;
-
             $saveApplication->business_monthly_turnover =  $request->business_monthly_turnover;
-
             $saveApplication->business_name =  $request->business_name;
             $saveApplication->business_state =  $request->business_state;
+
             $saveApplication->accounting_software =  $request->accounting_software;
+            $saveApplication->ip_address =  $this->getIp();
 
             $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
             $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
             $saveApplication->save();
-
-
 
             if ($saveApplication->id) {
                 //file information
@@ -96,11 +94,68 @@ class LoanController extends Controller
             }
         }
 
-        echo "<pre>";
-        print_r($request->fname);
-        echo "</pre>";
-        die("all done");
-
         return redirect()->route('/');
+    }
+    public function saveStep1(Request $request)
+    {
+        $response = array();
+
+        $postdata = $request->postdata;
+
+        $existAppData = LoanApplication::where('customer_email', '=', $postdata['customer_email'])
+            ->orWhere('customer_mobile', '=', $postdata['customer_mobile'])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        $applicationId = 0;
+        if ($existAppData) {
+            $applicationId = $existAppData->id;
+
+            $existAppData->customer_firstname =  $postdata['customer_firstname'];
+            $existAppData->customer_lastname =  $postdata['customer_lastname'];
+            $existAppData->customer_email =  $postdata['customer_email'];
+            $existAppData->customer_mobile =  $postdata['customer_mobile'];
+            $existAppData->customer_industry =  $postdata['customer_industry'];
+            $existAppData->ip_address =  $this->getIp();
+
+            $existAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
+            $existAppData->save();
+        } else {
+            echo "New User";
+            $saveApplication = new LoanApplication($postdata);
+            $saveApplication->customer_firstname =  $postdata['customer_firstname'];
+            $saveApplication->customer_lastname =  $postdata['customer_lastname'];
+            $saveApplication->customer_email =  $postdata['customer_email'];
+            $saveApplication->customer_mobile =  $postdata['customer_mobile'];
+            $saveApplication->customer_industry =  $postdata['customer_industry'];
+            $saveApplication->ip_address =  $this->getIp();
+
+            $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
+            $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
+            $saveApplication->save();
+
+            $applicationId = $saveApplication->id;
+        }
+
+        $response = array(
+            'status' => 'success',
+            'application_id' => $applicationId,
+        );
+
+        return response()->json($response);
+    }
+
+    public function getIp()
+    {
+        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
+            if (array_key_exists($key, $_SERVER) === true) {
+                foreach (explode(',', $_SERVER[$key]) as $ip) {
+                    $ip = trim($ip); // just to be safe
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
+                        return $ip;
+                    }
+                }
+            }
+        }
     }
 }
