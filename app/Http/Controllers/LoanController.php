@@ -7,6 +7,7 @@ use App\User;
 use App\LoanApplication;
 use App\LoanApplicationBusinessFiles;
 use Illuminate\Support\Facades\File;
+use Session;
 
 class LoanController extends Controller
 {
@@ -42,9 +43,9 @@ class LoanController extends Controller
 
     public function save(Request $request)
     {
-
+        
+        /*
         $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
-
         if ($saveExistAppData) {
             $applicationId = $saveExistAppData->id;
             $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
@@ -98,9 +99,13 @@ class LoanController extends Controller
                 $filepath = public_path($location . "/" . $filename);
             }
         }
-
-        return redirect()->route('/');
+        */
+        
+        Session::put('application_id', $request->application_id);
+        //return redirect()->route('thankyou')->with('success', 'Loan Application Submitted');
+        return redirect()->route('thankyou');
     }
+
     public function saveStep1(Request $request)
     {
         $response = array();
@@ -283,6 +288,12 @@ class LoanController extends Controller
             'upload_path' => '<img src="' . $uploadPath . '" width="50" />',
         );
         return response()->json($response);
+    }
+
+    public function thankyou(){
+
+        $application_id = Session::get('application_id');
+        return view('loan.thankyou', ['application_id'=>$application_id]);
     }
 
     public function getClientIPAddress()

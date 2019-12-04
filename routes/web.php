@@ -31,6 +31,8 @@ Route::post('loan-save-step4', 'LoanController@saveStep4')->name('loan-save-step
 Route::post('loan-save-step5', 'LoanController@saveStep5')->name('loan-save-step5');
 Route::post('ajax-upload', 'LoanController@ajaxUploadFile')->name('ajax-upload');
 
+Route::get('thankyou', 'LoanController@thankyou')->name('thankyou');
+
 /*
 #manage companies
 Route::get('companies', 'CompaniesController@index')->name('companies-list');

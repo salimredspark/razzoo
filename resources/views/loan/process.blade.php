@@ -5,8 +5,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <form id="stepsLoanProcess" action="{{ route('loan-submit') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-                    {!! csrf_field() !!}
+                <form id="stepsLoanProcess" action="{{ route('loan-submit') }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+                    {!! csrf_field() !!}                    
                     <input type="hidden" name="application_id" id="application_id" value="" />
                     <div class="wizard-steps">
                         <div class="tab">
@@ -577,6 +577,13 @@
                             }
                         },
                     },
+                    supporting_business_plan: {
+                        required:true,
+                        callback: function() {
+                            $(".next").hide();
+                            $(".submit").show();
+                        },
+                    },
                 },
 
                 // Specify validation error messages
@@ -601,7 +608,8 @@
                     business_monthly_turnover: "Please enter monthly turnover",
                     business_name: "Please enter current credit profile",
                     business_state: "Please enter state name",
-                    accounting_software: "Please select accounting software ",
+                    accounting_software: "Please select accounting software",
+                    supporting_business_plan: "Please upload business plan",
                 }
             }
 
@@ -668,7 +676,7 @@
 
             //upload business plan file
             $("#supporting_business_plan").on('change', function(event) {
-                event.preventDefault();
+                //event.preventDefault();
 
                 var form = $('#stepsLoanProcess')[0];
                 var formData = new FormData(form);
