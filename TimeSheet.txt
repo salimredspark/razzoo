@@ -1,15 +1,17 @@
 Date: 02/12/2019
-1) Work start at 2:30pm
-1) Design / HTML received at 2:00pm
+1) Razzoo -- Start working at 2:30pm
+1) Razzoo -- Design / HTML received at 2:00pm
 2) Meeting with HuntGreen Client between (4:30pm to 5:35pm)
-3) Sir informed no need to create User when wizard form submit
+3) Razzoo -- Sir informed no need to create User when wizard form submit in Razzoo project
 Puch Out: 8:15
 ------------------------------------------------------------------------------
 Date: 03/12/2019
-1) Work start at 10:00am
-2) Vasudev Call -- 11:40 to 12:00
-3) Huntgreen Meeting and Changes -- 04:20 to 06:10
+1) Razzoo -- Start working at 10:00am
+2) Vasudev Call -- 11:40 to 12:00 (20mins)
+3) Huntgreen Meeting and Changes -- 04:20 to 08:00
+Puch Out: 8:10
 ------------------------------------------------------------------------------
-
-
-* * * * * date >> /var/www/html/var/log/cron.log;/usr/bin/php -f /var/www/html/cron.php >> /var/www/html/var/log/cron.log;
+Date: 04/12/2019
+1) HuntGreen -- start working from 10:00am to 11:00am
+2) Razzoo -- Start working at 11:00am
+------------------------------------------------------------------------------

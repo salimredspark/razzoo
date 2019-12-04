@@ -7,6 +7,7 @@
             <div class="col-sm-12">
                 <form id="stepsLoanProcess" action="{{ route('loan-submit') }}" method="post">
                     {!! csrf_field() !!}
+                    <input type="hidden" name="application_id" id="application_id" value="" />
                     <div class="wizard-steps">
                         <div class="tab">
                             <h3 class="text-center">Eligibility Criteria</h3>
@@ -95,25 +96,25 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>How much loan do you need?</label>
-                                            <select class="form-control custom-select" name="loan_amout">
-                                                <option>Less than $5,000</option>
-                                                <option>$5,000 - $10,000</option>
-                                                <option>$10,000 - $20,000</option>
-                                                <option>$20,000 - $40,000</option>
-                                                <option>More than $50,000</option>
+                                            <select class="form-control custom-select" name="loan_amout" id="loan_amout">
+                                                <option value="Less than $5,000">Less than $5,000</option>
+                                                <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+                                                <option value="$10,000 - $20,000">$10,000 - $20,000</option>
+                                                <option value="$20,000 - $40,000">$20,000 - $40,000</option>
+                                                <option value="More than $50,000">More than $50,000</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>What is the main purpose of laon?</label>
-                                            <select class="form-control custom-select" name="loan_purpose">
-                                                <option>Marketing</option>
-                                                <option>Inventory</option>
-                                                <option>Buying Equipment</option>
-                                                <option>Working Capital</option>
-                                                <option>Business Expansion</option>
-                                                <option>Hiring</option>
+                                            <select class="form-control custom-select" name="loan_purpose" id="loan_purpose">
+                                                <option value="Marketing">Marketing</option>
+                                                <option value="Inventory">Inventory</option>
+                                                <option value="Buying Equipment">Buying Equipment</option>
+                                                <option value="Working Capital">Working Capital</option>
+                                                <option value="Business Expansion">Business Expansion</option>
+                                                <option value="Hiring">Hiring</option>
                                             </select>
                                         </div>
                                     </div>
@@ -321,6 +322,7 @@
     document.addEventListener("DOMContentLoaded", function(event) {
         $(document).ready(function() {
             var CSRF_TOKEN = false;
+            var step2 = false;
             var val = {
                 // Specify validation rules
                 rules: {
@@ -345,17 +347,16 @@
                             var createDiv = ".section-" + radioValue;
                             $(createDiv).show();
 
-                            if (radioValue != 'Healthcare') 
-                            {
+                            if (radioValue != 'Healthcare') {
                                 var createDivTab = createDiv + " .tab";
-                                $(createDivTab).show(); 
+                                $(createDivTab).show();
 
                                 $(".wizard-action-buttons").hide();
                             }
-                            
+
                             if (CSRF_TOKEN == false) {
 
-                                //calling ajax request            
+                                //calling ajax request for step 1
                                 exporturl = "{{ route('loan-save-step1') }}";
                                 CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
@@ -364,7 +365,7 @@
                                 lname = $("input[name='customer_lastname']").val();
                                 email = $("input[name='customer_email']").val();
                                 mobile = $("input[name='customer_mobile']").val();
-                                cusIndst = $("input[name='customer_industry']").val();
+                                cusIndst = radioValue;
 
                                 $.ajax({
                                     type: 'POST',
@@ -372,18 +373,27 @@
                                     dataType: 'json',
                                     url: exporturl,
                                     data: {
-                                        postdata: {customer_firstname:fname, customer_lastname:lname, customer_email:email, customer_mobile:mobile, customer_industry:cusIndst},
+                                        postdata: {
+                                            customer_firstname: fname,
+                                            customer_lastname: lname,
+                                            customer_email: email,
+                                            customer_mobile: mobile,
+                                            customer_industry: cusIndst
+                                        },
                                         _token: CSRF_TOKEN
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
                                             console.log("Sucess Data: " + data);
+                                            if (data.application_id) {
+                                                $("#application_id").val(data.application_id);
+                                            }
                                         } else {
-                                            console.log("Error Data: " + data);
+                                            console.log("Step 1 Error Data: " + data);
                                         }
                                     },
-                                    error: function(xhr) {                                        
-                                        console.log("Ajax Error: Something went wrong!");
+                                    error: function(xhr) {
+                                        console.log("Step 1 Error: Something went wrong!");
                                     }
                                 });
                             }
@@ -399,13 +409,174 @@
                         required: true,
                         minlength: 8,
                         maxlength: 10,
-                        digits: true
+                        digits: true,
                     },
-                    business_trading: "required",
+                    state_issue: {
+                        required: true,
+                        callback: function() {
+
+                            //calling ajax request for step 2
+                            exporturl = "{{ route('loan-save-step2') }}";
+                            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                            application_id = $("input[name='application_id']").val();
+
+                            //save to database
+                            loan_amout = $("#loan_amout").val();
+                            loan_purpose = $("#loan_purpose").val();
+                            abn_number = $("input[name='abn_number']").val();
+                            dl_number = $("input[name='dl_number']").val();
+                            state_issue = $("input[name='state_issue']").val();
+
+                            $.ajax({
+                                type: 'POST',
+                                cache: false,
+                                dataType: 'json',
+                                url: exporturl,
+                                data: {
+                                    postdata: {
+                                        loan_amout: loan_amout,
+                                        loan_purpose: loan_purpose,
+                                        abn_number: abn_number,
+                                        dl_number: dl_number,
+                                        state_issue: state_issue,
+                                        application_id: application_id
+                                    },
+                                    _token: CSRF_TOKEN
+                                },
+                                success: function(data) {
+                                    if (data.status == 'success') {} else {
+                                        console.log("Step 1 Error Data: " + data);
+                                    }
+                                },
+                                error: function(xhr) {
+                                    console.log("Step 2 Error: Something went wrong!");
+                                }
+                            });
+                        }
+                    },
+                    business_trading: {
+                        required: true,
+                        callback: function() {
+                            console.log("done business_trading");
+
+                            exporturl = "{{ route('loan-save-step3') }}";
+                            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                            business_trading = $("input[name='business_trading']").val();
+                            application_id = $("input[name='application_id']").val();
+
+                            if (application_id > 0) {
+                                $.ajax({
+                                    type: 'POST',
+                                    cache: false,
+                                    dataType: 'json',
+                                    url: exporturl,
+                                    data: {
+                                        postdata: {
+                                            business_trading: business_trading,
+                                            application_id: application_id,
+                                        },
+                                        _token: CSRF_TOKEN
+                                    },
+                                    success: function(data) {
+                                        if (data.status == 'success') {
+                                            console.log("Sucess Data: " + data);
+                                        } else {
+                                            console.log("Step 3 Error Data: " + data);
+                                        }
+                                    },
+                                    error: function(xhr) {
+                                        console.log("Step 3 Ajax Error: Something went wrong!");
+                                    }
+                                });
+                            } else {
+                                console.log("Step 3 Error: Application Id does not exist");
+                            }
+                        },
+                    },
                     business_monthly_turnover: "required",
                     business_name: "required",
-                    business_state: "required",
-                    accounting_software: "required",
+                    business_state: {
+                        required: true,
+                        callback: function() {
+                            console.log("done accounting_software");
+
+                            exporturl = "{{ route('loan-save-step4') }}";
+                            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                            business_monthly_turnover = $("input[name='business_monthly_turnover']").val();
+                            business_name = $("input[name='business_name']").val();
+                            business_state = $("input[name='business_state']").val();
+                            application_id = $("input[name='application_id']").val();
+
+                            if (application_id > 0) {
+                                $.ajax({
+                                    type: 'POST',
+                                    cache: false,
+                                    dataType: 'json',
+                                    url: exporturl,
+                                    data: {
+                                        postdata: {
+                                            business_monthly_turnover: business_monthly_turnover,
+                                            business_name: business_name,
+                                            business_state: business_state,
+                                            application_id: application_id,
+                                        },
+                                        _token: CSRF_TOKEN
+                                    },
+                                    success: function(data) {
+                                        if (data.status == 'success') {
+                                            console.log("Sucess Data: " + data);
+                                        } else {
+                                            console.log("Step 4 Error Data: " + data);
+                                        }
+                                    },
+                                    error: function(xhr) {
+                                        console.log("Step 4 Ajax Error: Something went wrong!");
+                                    }
+                                });
+                            } else {
+                                console.log("Step 4 Error: Application Id does not exist");
+                            }
+                        },
+                    },
+                    accounting_software: {
+                        required: true,
+                        callback: function() {
+                            console.log("done accounting_software");
+
+                            exporturl = "{{ route('loan-save-step5') }}";
+                            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                            accounting_software = $("input[name='accounting_software']").val();
+                            application_id = $("input[name='application_id']").val();
+
+                            if (application_id > 0) {
+                                $.ajax({
+                                    type: 'POST',
+                                    cache: false,
+                                    dataType: 'json',
+                                    url: exporturl,
+                                    data: {
+                                        postdata: {
+                                            accounting_software: accounting_software,
+                                            application_id: application_id,
+                                        },
+                                        _token: CSRF_TOKEN
+                                    },
+                                    success: function(data) {
+                                        if (data.status == 'success') {
+                                            console.log("Sucess Data: " + data);
+                                        } else {
+                                            console.log("Step 5 Error Data: " + data);
+                                        }
+                                    },
+                                    error: function(xhr) {
+                                        console.log("Step 5 Ajax Error: Something went wrong!");
+                                    }
+                                });
+                            } else {
+                                console.log("Step 5 Error: Application Id does not exist");
+                            }
+                        },
+                    },
                 },
 
                 // Specify validation error messages
@@ -425,6 +596,7 @@
                     customer_industry: "Please selecy Industry name",
                     abn_number: "ABNACN number is required",
                     dl_number: "DL number is required",
+                    state_issue: "Please enter state of issue",
                     business_trading: "Please selecy trading time",
                     business_monthly_turnover: "Please enter monthly turnover",
                     business_name: "Please enter current credit profile",
@@ -445,7 +617,7 @@
 
             //opt-hospitality 
             $(".opt-hospitality .interest-yesno").click(function() {
-                $(".clicked-customer").hide();                
+                $(".clicked-customer").hide();
                 $(".opt-hospitality .response-from-customer").show();
 
                 var clickedVal = $(this).text();
@@ -456,11 +628,13 @@
                     $(".opt-hospitality .response-from-customer .resp-yes").hide();
                     $(".opt-hospitality .response-from-customer .resp-no").show();
                 }
+
+                allowConsultantsToCall(clickedVal);
             })
 
             //opt-education
             $(".opt-education .interest-yesno").click(function() {
-                $(".clicked-customer").hide();                
+                $(".clicked-customer").hide();
                 $(".opt-education .response-from-customer").show();
 
                 var clickedVal = $(this).text();
@@ -471,11 +645,13 @@
                     $(".opt-education .response-from-customer .resp-yes").hide();
                     $(".opt-education .response-from-customer .resp-no").show();
                 }
+
+                allowConsultantsToCall(clickedVal);
             })
 
             //opt-other
             $(".opt-other .interest-yesno").click(function() {
-                $(".clicked-customer").hide();                
+                $(".clicked-customer").hide();
                 $(".opt-other .response-from-customer").show();
 
                 var clickedVal = $(this).text();
@@ -486,8 +662,44 @@
                     $(".opt-other .response-from-customer .resp-yes").hide();
                     $(".opt-other .response-from-customer .resp-no").show();
                 }
+
+                allowConsultantsToCall(clickedVal);
             })
 
+            function allowConsultantsToCall(customer_ans) {
+                //calling ajax request for other category            
+                exporturl = "{{ route('allow-consultants-call') }}";
+                CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                application_id = $("input[name='application_id']").val();
+
+                if (application_id > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        dataType: 'json',
+                        url: exporturl,
+                        data: {
+                            postdata: {
+                                customer_ans: customer_ans,
+                                application_id: application_id,
+                            },
+                            _token: CSRF_TOKEN
+                        },
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                console.log("Sucess Data: " + data);
+                            } else {
+                                console.log("Error Data: " + data);
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log("Ajax Error: Something went wrong!");
+                        }
+                    });
+                } else {
+                    console.log("Error: Application Id does not exist");
+                }
+            }
         });
     });
 </script>

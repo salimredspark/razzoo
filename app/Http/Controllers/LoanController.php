@@ -15,7 +15,7 @@ class LoanController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -41,17 +41,20 @@ class LoanController extends Controller
     public function save(Request $request)
     {
 
-        $existAppData = LoanApplication::where('customer_email', '=', "$request->customer_email")
-            ->orWhere('customer_mobile', '=', "$request->customer_mobile")
-            ->orderBy('created_at', 'DESC')
-            ->get()
-            ->toArray();
+        $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
 
-        if ($existAppData) {
-            echo "<br> User Exist";
+        if ($saveExistAppData) {
+            $applicationId = $saveExistAppData->id;            
+            $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
+            $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
+            $saveExistAppData->customer_email =  $postdata['customer_email'];
+            $saveExistAppData->customer_mobile =  $postdata['customer_mobile'];
+            $saveExistAppData->customer_industry =  $postdata['customer_industry'];
+            $saveExistAppData->ip_address = $this->getClientIPAddress();
+
+            $saveExistAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
+            $saveExistAppData->save();
         } else {
-            echo "<br> New User";
-
             $saveApplication = new LoanApplication($request->all());
 
             $saveApplication->customer_firstname =  $request->customer_firstname;
@@ -72,7 +75,7 @@ class LoanController extends Controller
             $saveApplication->business_state =  $request->business_state;
 
             $saveApplication->accounting_software =  $request->accounting_software;
-            $saveApplication->ip_address =  $this->getIp();
+            $saveApplication->ip_address =  $this->getClientIPAddress();
 
             $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
             $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
@@ -99,36 +102,28 @@ class LoanController extends Controller
     public function saveStep1(Request $request)
     {
         $response = array();
-
         $postdata = $request->postdata;
+        
+        $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
+        if ($saveExistAppData) {
+            $applicationId = $saveExistAppData->id;            
+            $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
+            $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
+            $saveExistAppData->customer_email =  $postdata['customer_email'];
+            $saveExistAppData->customer_mobile =  $postdata['customer_mobile'];
+            $saveExistAppData->customer_industry =  $postdata['customer_industry'];
+            $saveExistAppData->ip_address = $this->getClientIPAddress();
 
-        $existAppData = LoanApplication::where('customer_email', '=', $postdata['customer_email'])
-            ->orWhere('customer_mobile', '=', $postdata['customer_mobile'])
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-        $applicationId = 0;
-        if ($existAppData) {
-            $applicationId = $existAppData->id;
-
-            $existAppData->customer_firstname =  $postdata['customer_firstname'];
-            $existAppData->customer_lastname =  $postdata['customer_lastname'];
-            $existAppData->customer_email =  $postdata['customer_email'];
-            $existAppData->customer_mobile =  $postdata['customer_mobile'];
-            $existAppData->customer_industry =  $postdata['customer_industry'];
-            $existAppData->ip_address =  $this->getIp();
-
-            $existAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
-            $existAppData->save();
+            $saveExistAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
+            $saveExistAppData->save();
         } else {
-            echo "New User";
             $saveApplication = new LoanApplication($postdata);
             $saveApplication->customer_firstname =  $postdata['customer_firstname'];
             $saveApplication->customer_lastname =  $postdata['customer_lastname'];
             $saveApplication->customer_email =  $postdata['customer_email'];
             $saveApplication->customer_mobile =  $postdata['customer_mobile'];
             $saveApplication->customer_industry =  $postdata['customer_industry'];
-            $saveApplication->ip_address =  $this->getIp();
+            $saveApplication->ip_address =  $this->getClientIPAddress();
 
             $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
             $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
@@ -141,21 +136,137 @@ class LoanController extends Controller
             'status' => 'success',
             'application_id' => $applicationId,
         );
-
         return response()->json($response);
     }
 
-    public function getIp()
+    public function allowConsultantsToCall(Request $request)
     {
-        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
-            if (array_key_exists($key, $_SERVER) === true) {
-                foreach (explode(',', $_SERVER[$key]) as $ip) {
-                    $ip = trim($ip); // just to be safe
-                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
-                        return $ip;
-                    }
-                }
-            }
+        $response = array();
+        $postdata = $request->postdata;
+        if ($postdata['application_id'] > 0) {
+
+            $applicationId = $postdata['application_id'];
+
+            $saveExistAppData = LoanApplication::find($applicationId);
+            $saveExistAppData->allow_consultants_call = $postdata['customer_ans'];
+            $saveExistAppData->save();
+
+            $response = array(
+                'status' => 'success',
+                'application_id' => $applicationId,
+            );
+            return response()->json($response);
         }
+    }
+
+    public function saveStep2(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        
+        if ($postdata['application_id'] > 0) {
+
+            $applicationId = $postdata['application_id'];
+
+            $saveExistAppData = LoanApplication::find($applicationId);
+            $saveExistAppData->loan_amout = $postdata['loan_amout'];
+            $saveExistAppData->loan_purpose = $postdata['loan_purpose'];
+            $saveExistAppData->abn_number = $postdata['abn_number'];
+            $saveExistAppData->dl_number = $postdata['dl_number'];
+            $saveExistAppData->state_issue = $postdata['state_issue'];
+            $saveExistAppData->save();
+
+            $response = array(
+                'status' => 'success',
+                'application_id' => $applicationId,
+            );
+            return response()->json($response);
+        }
+    }
+
+    public function saveStep3(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        
+        if ($postdata['application_id'] > 0) {
+
+            $applicationId = $postdata['application_id'];
+
+            $saveExistAppData = LoanApplication::find($applicationId);
+            $saveExistAppData->business_trading = $postdata['business_trading'];            
+            $saveExistAppData->save();
+
+            $response = array(
+                'status' => 'success',
+                'application_id' => $applicationId,
+            );
+            return response()->json($response);
+        }
+    }
+
+    public function saveStep4(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        
+        if ($postdata['application_id'] > 0) {
+
+            $applicationId = $postdata['application_id'];
+
+            $saveExistAppData = LoanApplication::find($applicationId);
+            $saveExistAppData->business_monthly_turnover = $postdata['business_monthly_turnover'];
+            $saveExistAppData->business_name = $postdata['business_name'];
+            $saveExistAppData->business_state = $postdata['business_state'];            
+            $saveExistAppData->save();
+
+            $response = array(
+                'status' => 'success',
+                'application_id' => $applicationId,
+            );
+            return response()->json($response);
+        }
+    }
+
+    public function saveStep5(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        
+        if ($postdata['application_id'] > 0) {
+
+            $applicationId = $postdata['application_id'];
+
+            $saveExistAppData = LoanApplication::find($applicationId);
+            $saveExistAppData->business_trading = $postdata['business_trading'];            
+            $saveExistAppData->save();
+
+            $response = array(
+                'status' => 'success',
+                'application_id' => $applicationId,
+            );
+            return response()->json($response);
+        }
+    }
+
+    public function getClientIPAddress()
+    {
+        //return \Request::getClientIp(true);
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if (isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
     }
 }
