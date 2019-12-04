@@ -14,4 +14,6 @@ Puch Out: 8:10
 Date: 04/12/2019
 1) HuntGreen -- start working from 10:00am to 11:00am
 2) Razzoo -- Start working at 11:00am
+3) HuntGreen Discussion and work -- 02:00pm to 2:30pm
+4) Vasudev -- 02:40pm to 3:30pm -- issue with DataTable 
 ------------------------------------------------------------------------------

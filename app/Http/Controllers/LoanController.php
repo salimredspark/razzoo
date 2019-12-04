@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\LoanApplication;
+use Illuminate\Support\Facades\File;
 
 class LoanController extends Controller
 {
@@ -44,7 +45,7 @@ class LoanController extends Controller
         $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
 
         if ($saveExistAppData) {
-            $applicationId = $saveExistAppData->id;            
+            $applicationId = $saveExistAppData->id;
             $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
             $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
             $saveExistAppData->customer_email =  $postdata['customer_email'];
@@ -103,10 +104,10 @@ class LoanController extends Controller
     {
         $response = array();
         $postdata = $request->postdata;
-        
+
         $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
         if ($saveExistAppData) {
-            $applicationId = $saveExistAppData->id;            
+            $applicationId = $saveExistAppData->id;
             $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
             $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
             $saveExistAppData->customer_email =  $postdata['customer_email'];
@@ -163,7 +164,7 @@ class LoanController extends Controller
     {
         $response = array();
         $postdata = $request->postdata;
-        
+
         if ($postdata['application_id'] > 0) {
 
             $applicationId = $postdata['application_id'];
@@ -188,13 +189,13 @@ class LoanController extends Controller
     {
         $response = array();
         $postdata = $request->postdata;
-        
+
         if ($postdata['application_id'] > 0) {
 
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->business_trading = $postdata['business_trading'];            
+            $saveExistAppData->business_trading = $postdata['business_trading'];
             $saveExistAppData->save();
 
             $response = array(
@@ -209,7 +210,7 @@ class LoanController extends Controller
     {
         $response = array();
         $postdata = $request->postdata;
-        
+
         if ($postdata['application_id'] > 0) {
 
             $applicationId = $postdata['application_id'];
@@ -217,7 +218,7 @@ class LoanController extends Controller
             $saveExistAppData = LoanApplication::find($applicationId);
             $saveExistAppData->business_monthly_turnover = $postdata['business_monthly_turnover'];
             $saveExistAppData->business_name = $postdata['business_name'];
-            $saveExistAppData->business_state = $postdata['business_state'];            
+            $saveExistAppData->business_state = $postdata['business_state'];
             $saveExistAppData->save();
 
             $response = array(
@@ -232,13 +233,13 @@ class LoanController extends Controller
     {
         $response = array();
         $postdata = $request->postdata;
-        
+
         if ($postdata['application_id'] > 0) {
 
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->business_trading = $postdata['business_trading'];            
+            $saveExistAppData->accounting_software = $postdata['accounting_software'];
             $saveExistAppData->save();
 
             $response = array(
@@ -247,6 +248,35 @@ class LoanController extends Controller
             );
             return response()->json($response);
         }
+    }
+
+    public function ajaxUploadFile(Request $request)
+    {        
+        $response = array();
+        $postdata = $request->postdata;
+        $applicationId = $postdata['application_id'];
+
+        if ($request->hasFile('supporting_business_plan')) {
+            $file = $request->file('supporting_business_plan');
+            $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+              
+            $uploadPath = public_path() . '/uploads/loan_application/'.$applicationId."/";
+
+            File::isDirectory($uploadPath) or File::makeDirectory($uploadPath, 0777, true, true);
+
+            $file->move($uploadPath, $name);
+
+            //$saveExistAppData = LoanApplication::find($applicationId);
+            //$saveExistAppData->business_images = public_path().'/uploads/'. $name;
+            //$saveExistAppData->save();
+        }
+
+        $response = array(
+            'status' => 'success',
+            'application_id' => $applicationId,
+            'upload_path' => $uploadPath,
+        );
+        return response()->json($response);
     }
 
     public function getClientIPAddress()

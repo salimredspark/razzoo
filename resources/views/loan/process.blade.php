@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <form id="stepsLoanProcess" action="{{ route('loan-submit') }}" method="post">
+                <form id="stepsLoanProcess" action="{{ route('loan-submit') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                     {!! csrf_field() !!}
                     <input type="hidden" name="application_id" id="application_id" value="" />
                     <div class="wizard-steps">
@@ -224,7 +224,7 @@
                             <div class="tab">
                                 <div class="form-group">
                                     <div class="form-group files files1">
-                                        <input type="file" class="form-control" multiple name="group_file_new">
+                                        <input type="file" class="form-control" multiple name="supporting_business_plan" id="supporting_business_plan">
                                     </div>
                                 </div>
                             </div>
@@ -665,6 +665,42 @@
 
                 allowConsultantsToCall(clickedVal);
             })
+
+            //upload business plan file
+            $("#supporting_business_plan").on('change', function(event) {
+                event.preventDefault();
+
+                var form = $('#stepsLoanProcess')[0];
+                var formData = new FormData(form);
+
+                //calling ajax request for upload files
+                exporturl = "{{ route('ajax-upload') }}";
+                CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                application_id = $("input[name='application_id']").val();
+
+                formData.append("_token", CSRF_TOKEN);
+                formData.append("application_id", application_id);
+
+                if (application_id > 0) {
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: exporturl,
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 600000,
+                        success: function(result) {
+                            console.log("upload result: " + result);
+                        },
+                        error: function(data) {
+                            console.log("ajax upload: " + data.responseText);
+                        }
+                    });
+                }
+            })
+
 
             function allowConsultantsToCall(customer_ans) {
                 //calling ajax request for other category            
