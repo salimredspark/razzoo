@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2019 at 03:43 PM
+-- Generation Time: Dec 04, 2019 at 02:20 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -132,26 +132,32 @@ CREATE TABLE `loan_application` (
   `customer_email` varchar(256) NOT NULL,
   `customer_mobile` varchar(20) NOT NULL,
   `customer_industry` varchar(255) NOT NULL,
-  `loan_amout` varchar(20) NOT NULL,
-  `loan_purpose` text NOT NULL,
-  `abn_number` varchar(100) NOT NULL,
-  `dl_number` varchar(100) NOT NULL,
-  `state_issue` text NOT NULL,
-  `business_trading` varchar(100) NOT NULL,
-  `business_monthly_turnover` varchar(100) NOT NULL,
-  `business_name` varchar(256) NOT NULL,
-  `business_state` varchar(256) NOT NULL,
-  `accounting_software` varchar(150) NOT NULL,
+  `allow_consultants_call` varchar(10) DEFAULT NULL,
+  `loan_amout` varchar(20) DEFAULT NULL,
+  `loan_purpose` text,
+  `abn_number` varchar(100) DEFAULT NULL,
+  `dl_number` varchar(100) DEFAULT NULL,
+  `state_issue` text,
+  `business_trading` varchar(100) DEFAULT NULL,
+  `business_monthly_turnover` varchar(100) DEFAULT NULL,
+  `business_name` varchar(256) DEFAULT NULL,
+  `business_state` varchar(256) DEFAULT NULL,
+  `accounting_software` varchar(150) DEFAULT NULL,
+  `ip_address` varchar(150) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `loan_application`
 --
 
-INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_industry`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `created_at`, `updated_at`) VALUES
-(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'on', 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'on', '2500', 'Red', 'Gujarat', 'on', '2019-12-01 21:04:40', '2019-12-01 21:04:40');
+INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `created_at`, `updated_at`) VALUES
+(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Healthcare', NULL, 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', '2019-12-04 13:10:44', '2019-12-03 19:40:43'),
+(1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
+(1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
+(1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
+(1000000005, 'Suhas', 'Patel', 'suhas@redsparkinfo.co.in', '9298474737', 'Healthcare', NULL, '$5,000 - $10,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Spark', 'Gujarat', 'MYOB', '::1', '2019-12-04 07:08:48', '2019-12-04 01:38:48');
 
 -- --------------------------------------------------------
 
@@ -169,15 +175,25 @@ CREATE TABLE `loan_application_bankstatements` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `loan_application_business_plan`
+-- Table structure for table `loan_application_business_files`
 --
 
-CREATE TABLE `loan_application_business_plan` (
+CREATE TABLE `loan_application_business_files` (
   `id` int(11) NOT NULL,
   `application_id` int(11) NOT NULL,
   `file_name` varchar(256) NOT NULL,
-  `file_url` varchar(256) NOT NULL
+  `file_url` varchar(256) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `loan_application_business_files`
+--
+
+INSERT INTO `loan_application_business_files` (`id`, `application_id`, `file_name`, `file_url`, `updated_at`, `created_at`) VALUES
+(2, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 05:24:53', '2019-12-04 05:24:53'),
+(3, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 07:41:04', '2019-12-04 07:41:04');
 
 -- --------------------------------------------------------
 
@@ -197,7 +213,7 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '2019-12-02 01:29:11', '2019-12-02 01:29:11');
+(1, 'Administrator Menus', '2019-12-02 01:29:11', '2019-12-02 23:46:03');
 
 -- --------------------------------------------------------
 
@@ -226,18 +242,17 @@ CREATE TABLE `menu_items` (
 --
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
-(1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-12-02 01:29:11', '2019-12-02 01:29:11', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.media.index', NULL),
-(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 3, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.users.index', NULL),
-(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 2, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.roles.index', NULL),
-(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 9, '2019-12-02 01:29:12', '2019-12-02 01:29:12', NULL, NULL),
-(6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 10, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.menus.index', NULL),
-(7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 11, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.database.index', NULL),
-(8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 12, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.compass.index', NULL),
-(9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 13, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.settings.index', NULL),
-(11, 1, 'Loan', '', '_self', 'voyager-list', NULL, NULL, 14, '2019-12-02 01:29:12', '2019-12-02 01:29:12', 'voyager.loan.index', NULL),
-(12, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 13, '2019-12-02 01:29:29', '2019-12-02 01:29:29', 'voyager.hooks', NULL);
+(1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-12-01 19:59:11', '2019-12-01 19:59:11', 'voyager.dashboard', NULL),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:14', 'voyager.media.index', NULL),
+(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 3, '2019-12-01 19:59:12', '2019-12-01 19:59:12', 'voyager.users.index', NULL),
+(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 2, '2019-12-01 19:59:12', '2019-12-01 19:59:12', 'voyager.roles.index', NULL),
+(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-03 00:31:15', NULL, NULL),
+(6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.menus.index', NULL),
+(7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.database.index', NULL),
+(8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.compass.index', NULL),
+(9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.bread.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.settings.index', NULL),
+(12, 1, 'Loan', '', '_self', 'voyager-list', NULL, NULL, 5, '2019-12-01 19:59:29', '2019-12-03 00:31:14', 'voyager.loan.index', '');
 
 -- --------------------------------------------------------
 
@@ -336,7 +351,8 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (23, 'edit_settings', 'settings', '2019-12-02 01:29:21', '2019-12-02 01:29:21'),
 (24, 'add_settings', 'settings', '2019-12-02 01:29:21', '2019-12-02 01:29:21'),
 (25, 'delete_settings', 'settings', '2019-12-02 01:29:22', '2019-12-02 01:29:22'),
-(26, 'browse_hooks', NULL, '2019-12-02 01:29:29', '2019-12-02 01:29:29');
+(26, 'browse_hooks', NULL, '2019-12-02 01:29:29', '2019-12-02 01:29:29'),
+(27, 'read_loan', 'loan_application', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -355,6 +371,7 @@ CREATE TABLE `permission_role` (
 
 INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (1, 1),
+(1, 2),
 (2, 1),
 (3, 1),
 (4, 1),
@@ -370,15 +387,28 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (14, 1),
 (15, 1),
 (16, 1),
+(16, 2),
 (17, 1),
+(17, 2),
 (18, 1),
+(18, 2),
 (19, 1),
+(19, 2),
 (20, 1),
+(20, 2),
 (21, 1),
+(21, 2),
 (22, 1),
+(22, 2),
 (23, 1),
+(23, 2),
 (24, 1),
-(25, 1);
+(24, 2),
+(25, 1),
+(25, 2),
+(26, 1),
+(27, 1),
+(27, 2);
 
 -- --------------------------------------------------------
 
@@ -399,8 +429,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'Administrator', '2019-12-02 01:29:13', '2019-12-02 01:29:13'),
-(2, 'user', 'Normal User', '2019-12-02 01:29:13', '2019-12-02 01:29:13');
+(1, 'Super Admin', 'Super Admin', '2019-12-02 01:29:13', '2019-12-03 00:29:35'),
+(2, 'Admin', 'Administrator', '2019-12-02 01:29:13', '2019-12-03 00:29:53');
 
 -- --------------------------------------------------------
 
@@ -425,15 +455,15 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`, `order`, `group`) VALUES
 (1, 'site.title', 'Site Title', 'Razzoo', '', 'text', 1, 'Site'),
-(2, 'site.description', 'Site Description', 'Site Description', '', 'text', 2, 'Site'),
-(3, 'site.logo', 'Site Logo', '', '', 'image', 3, 'Site'),
-(4, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', '', '', 'text', 4, 'Site'),
+(2, 'site.description', 'Site Description', 'Your go to place for Business Loans', '', 'text', 2, 'Site'),
+(3, 'site.logo', 'Site Logo', 'settings\\December2019\\pu06Nzrk9DyFRMjBcacz.png', '', 'image', 3, 'Site'),
+(4, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', NULL, '', 'text', 4, 'Site'),
 (5, 'admin.bg_image', 'Admin Background Image', '', '', 'image', 5, 'Admin'),
-(6, 'admin.title', 'Admin Title', 'Voyager', '', 'text', 1, 'Admin'),
-(7, 'admin.description', 'Admin Description', 'Welcome to Voyager. The Missing Admin for Laravel', '', 'text', 2, 'Admin'),
+(6, 'admin.title', 'Admin Title', 'Razzoo', '', 'text', 1, 'Admin'),
+(7, 'admin.description', 'Admin Description', 'Welcome to Razzoo.', '', 'text', 2, 'Admin'),
 (8, 'admin.loader', 'Admin Loader', '', '', 'image', 3, 'Admin'),
 (9, 'admin.icon_image', 'Admin Icon Image', '', '', 'image', 4, 'Admin'),
-(10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', '', '', 'text', 1, 'Admin');
+(10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', '121332432432323232432', '', 'text', 1, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -477,8 +507,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Admin', 'salim@redsparkinfo.co.in', 'users/default.png', NULL, '$2y$10$SKrIacr302vUad8kEMQwbuva/nXyhnXtc9eNXR.hqHs2gKWzfDwYW', NULL, NULL, NULL, NULL),
-(2, 1, 'Admin', 'admin@Razzoo.com', 'users/default.png', NULL, '$2y$10$xFgnOoLgUsgnDFuNqUWqe.W0WUUa3wKrSD0knMwDk9084eEKM85fO', NULL, NULL, NULL, NULL);
+(1, 1, 'Super Admin', 'salim@redsparkinfo.co.in', 'users/default.png', NULL, '$2y$10$SKrIacr302vUad8kEMQwbuva/nXyhnXtc9eNXR.hqHs2gKWzfDwYW', NULL, NULL, NULL, NULL),
+(2, 2, 'Admin', 'admin@razzoo.com', 'users/default.png', NULL, '$2y$10$xFgnOoLgUsgnDFuNqUWqe.W0WUUa3wKrSD0knMwDk9084eEKM85fO', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -490,6 +520,14 @@ CREATE TABLE `user_roles` (
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `role_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
+(1, 1),
+(2, 2);
 
 --
 -- Indexes for dumped tables
@@ -530,9 +568,9 @@ ALTER TABLE `loan_application_bankstatements`
   ADD KEY `application_id` (`application_id`);
 
 --
--- Indexes for table `loan_application_business_plan`
+-- Indexes for table `loan_application_business_files`
 --
-ALTER TABLE `loan_application_business_plan`
+ALTER TABLE `loan_application_business_files`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -639,7 +677,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `loan_application`
 --
 ALTER TABLE `loan_application`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000002;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000006;
 
 --
 -- AUTO_INCREMENT for table `loan_application_bankstatements`
@@ -648,10 +686,10 @@ ALTER TABLE `loan_application_bankstatements`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `loan_application_business_plan`
+-- AUTO_INCREMENT for table `loan_application_business_files`
 --
-ALTER TABLE `loan_application_business_plan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `loan_application_business_files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `menus`
@@ -663,7 +701,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -675,7 +713,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -716,12 +754,6 @@ ALTER TABLE `data_rows`
 --
 ALTER TABLE `loan_application_bankstatements`
   ADD CONSTRAINT `loan_application_bankstatements_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `loan_application` (`id`);
-
---
--- Constraints for table `loan_application_business_plan`
---
-ALTER TABLE `loan_application_business_plan`
-  ADD CONSTRAINT `loan_application_business_plan_ibfk_1` FOREIGN KEY (`id`) REFERENCES `loan_application` (`id`);
 
 --
 -- Constraints for table `menu_items`

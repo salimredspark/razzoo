@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\LoanApplication;
+use App\LoanApplicationBusinessFiles;
 use Illuminate\Support\Facades\File;
 
 class LoanController extends Controller
@@ -251,30 +252,35 @@ class LoanController extends Controller
     }
 
     public function ajaxUploadFile(Request $request)
-    {        
+    {
         $response = array();
         $postdata = $request->postdata;
-        $applicationId = $postdata['application_id'];
-
+        $applicationId = $request['application_id'];
+        
         if ($request->hasFile('supporting_business_plan')) {
             $file = $request->file('supporting_business_plan');
             $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
-              
-            $uploadPath = public_path() . '/uploads/loan_application/'.$applicationId."/";
 
-            File::isDirectory($uploadPath) or File::makeDirectory($uploadPath, 0777, true, true);
+            $rootPath = '/uploads/loan_application/' . $applicationId . "/";
+            $uploadPath = public_path() . $rootPath;
+
+            if (!file_exists($rootPath.$name)) {
+                File::makeDirectory($uploadPath, 0777, true, true);
+            }
 
             $file->move($uploadPath, $name);
 
-            //$saveExistAppData = LoanApplication::find($applicationId);
-            //$saveExistAppData->business_images = public_path().'/uploads/'. $name;
-            //$saveExistAppData->save();
+            $saveFilesData = new LoanApplicationBusinessFiles($request->all());
+            $saveFilesData->application_id = $applicationId;
+            $saveFilesData->file_name = $name;
+            $saveFilesData->file_url = $rootPath;
+            $saveFilesData->save();
         }
 
         $response = array(
             'status' => 'success',
             'application_id' => $applicationId,
-            'upload_path' => $uploadPath,
+            'upload_path' => '<img src="' . $uploadPath . '" width="50" />',
         );
         return response()->json($response);
     }

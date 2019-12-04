@@ -691,8 +691,8 @@
                         contentType: false,
                         cache: false,
                         timeout: 600000,
-                        success: function(result) {
-                            console.log("upload result: " + result);
+                        success: function(result) {                            
+                            $("#supporting_business_plan").append(result.upload_path);
                         },
                         error: function(data) {
                             console.log("ajax upload: " + data.responseText);
