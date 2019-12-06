@@ -1,5 +1,5 @@
 <p><span>Search</span> - <a href="searchme.php">reset</a></p>
-<?php $paths = array('/', '/app', '/config', '/public', '/resources', '/vendor'); ?>
+<?php $paths = array('/', '/app', '/config', '/public', '/resources', '/vendor', '/vendor/tcg'); ?>
 <form method="post">
     <label for="keyword">Keyword:</label>
     <input type="text" name="keyword" id="keyword" value="<?=(isset($_POST['keyword']))?$_POST['keyword']:'';?>" />

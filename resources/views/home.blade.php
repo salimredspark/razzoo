@@ -9,7 +9,7 @@
                 	<h1 class="text-center text-primary">Welcome to razzoo...</h1>
                 </div>
 			    <div class="find-business text-center">
-                    <p>Home Page</p>
+                    <h3>Your go to place for Business Loans</h3>
                 </div>
                 
             </div>

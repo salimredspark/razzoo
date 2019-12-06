@@ -149,5 +149,9 @@ companies, customers, uploaded_csv,
 Laravel Created Tables after migrate command run
 users, password_resets, migrations
 ---------------------------------------------------------------------------------------------------------------------------------------------
-
+How to add menu in admin panel
+1) vendor\tcg\voyager\src\Http\Controllers -- Create controller like [VoyagerLoanController.php]
+2) vendor\tcg\voyager\src\Models -- Create model like [Loan.php]
+3) Create Bread -- or check data_types table in DB
+4) And Create Menu in Admin
 ---------------------------------------------------------------------------------------------------------------------------------------------
