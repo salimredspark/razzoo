@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2019 at 03:44 PM
+-- Generation Time: Dec 04, 2019 at 02:20 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -69,28 +69,7 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (18, 3, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, NULL, 3),
 (19, 3, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 4),
 (20, 3, 'display_name', 'text', 'Display Name', 1, 1, 1, 1, 1, 1, NULL, 5),
-(21, 1, 'role_id', 'text', 'Role', 1, 1, 1, 1, 1, 1, NULL, 9),
-(42, 7, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
-(43, 7, 'customer_firstname', 'text', 'Firstname', 1, 1, 1, 1, 1, 1, '{}', 2),
-(44, 7, 'customer_lastname', 'text', 'Lastname', 1, 1, 1, 1, 1, 1, '{}', 3),
-(45, 7, 'customer_email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 4),
-(46, 7, 'customer_mobile', 'text', 'Mobile', 1, 1, 1, 1, 1, 1, '{}', 5),
-(47, 7, 'customer_industry', 'text', 'Industry', 1, 1, 1, 1, 1, 1, '{}', 6),
-(48, 7, 'allow_consultants_call', 'text', 'Allow Consultants Call', 0, 1, 1, 1, 1, 1, '{}', 7),
-(49, 7, 'loan_amout', 'text', 'Loan Amout', 0, 1, 1, 1, 1, 1, '{}', 8),
-(50, 7, 'loan_purpose', 'text', 'Loan Purpose', 0, 1, 1, 1, 1, 1, '{}', 9),
-(51, 7, 'abn_number', 'text', 'ABN Number', 0, 1, 1, 1, 1, 1, '{}', 10),
-(52, 7, 'dl_number', 'text', 'DL Number', 0, 1, 1, 1, 1, 1, '{}', 11),
-(53, 7, 'state_issue', 'text', 'State Issue', 0, 1, 1, 1, 1, 1, '{}', 12),
-(54, 7, 'business_trading', 'text', 'Business Trading', 0, 1, 1, 1, 1, 1, '{}', 13),
-(55, 7, 'business_monthly_turnover', 'text', 'Monthly Turnover', 0, 1, 1, 1, 1, 1, '{}', 14),
-(56, 7, 'business_name', 'text', 'Business Name', 0, 1, 1, 1, 1, 1, '{}', 15),
-(57, 7, 'business_state', 'text', 'Business State', 0, 1, 1, 1, 1, 1, '{}', 16),
-(58, 7, 'accounting_software', 'text', 'Accounting Software', 0, 1, 1, 1, 1, 1, '{}', 17),
-(59, 7, 'ip_address', 'text', 'IP Address', 1, 1, 1, 0, 0, 0, '{}', 18),
-(60, 7, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 0, 0, 0, '{}', 19),
-(61, 7, 'updated_at', 'timestamp', 'Updated At', 1, 1, 1, 0, 0, 0, '{}', 20),
-(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Loan\",\"table\":\"loan_application_business_files\",\"type\":\"belongsTo\",\"column\":\"id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"loan_application_business_files\",\"pivot\":\"0\",\"taggable\":\"0\"}', 21);
+(21, 1, 'role_id', 'text', 'Role', 1, 1, 1, 1, 1, 1, NULL, 9);
 
 -- --------------------------------------------------------
 
@@ -123,8 +102,7 @@ CREATE TABLE `data_types` (
 INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `details`, `created_at`, `updated_at`) VALUES
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
-(3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
-(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', NULL, 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-06 07:23:53');
+(3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03');
 
 -- --------------------------------------------------------
 
@@ -175,7 +153,7 @@ CREATE TABLE `loan_application` (
 --
 
 INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `created_at`, `updated_at`) VALUES
-(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Healthcare', NULL, 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', '2019-12-04 14:09:53', '2019-12-03 20:39:53'),
+(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Healthcare', NULL, 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', '2019-12-04 13:10:44', '2019-12-03 19:40:43'),
 (1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
 (1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
 (1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
@@ -215,10 +193,7 @@ CREATE TABLE `loan_application_business_files` (
 
 INSERT INTO `loan_application_business_files` (`id`, `application_id`, `file_name`, `file_url`, `updated_at`, `created_at`) VALUES
 (2, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 05:24:53', '2019-12-04 05:24:53'),
-(3, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 07:41:04', '2019-12-04 07:41:04'),
-(4, 1000000001, 'logo.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:19:29', '2019-12-04 08:19:29'),
-(5, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:21:54', '2019-12-04 08:21:54'),
-(6, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:40:22', '2019-12-04 08:40:22');
+(3, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 07:41:04', '2019-12-04 07:41:04');
 
 -- --------------------------------------------------------
 
@@ -238,7 +213,7 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '2019-12-02 01:29:11', '2019-12-02 23:46:03');
+(1, 'Administrator Menus', '2019-12-02 01:29:11', '2019-12-02 23:46:03');
 
 -- --------------------------------------------------------
 
@@ -268,16 +243,16 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-12-01 19:59:11', '2019-12-01 19:59:11', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.media.index', NULL),
-(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 4, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.users.index', NULL),
-(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 3, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.roles.index', NULL),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:14', 'voyager.media.index', NULL),
+(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 3, '2019-12-01 19:59:12', '2019-12-01 19:59:12', 'voyager.users.index', NULL),
+(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 2, '2019-12-01 19:59:12', '2019-12-01 19:59:12', 'voyager.roles.index', NULL),
 (5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-03 00:31:15', NULL, NULL),
 (6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.menus.index', NULL),
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.bread.index', NULL),
 (10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.settings.index', NULL),
-(14, 1, 'Loan Application', '', '_self', 'voyager-list', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-06 07:01:00', 'voyager.loan.index', 'null');
+(12, 1, 'Loan', '', '_self', 'voyager-list', NULL, NULL, 5, '2019-12-01 19:59:29', '2019-12-03 00:31:14', 'voyager.loan.index', '');
 
 -- --------------------------------------------------------
 
@@ -377,12 +352,7 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (24, 'add_settings', 'settings', '2019-12-02 01:29:21', '2019-12-02 01:29:21'),
 (25, 'delete_settings', 'settings', '2019-12-02 01:29:22', '2019-12-02 01:29:22'),
 (26, 'browse_hooks', NULL, '2019-12-02 01:29:29', '2019-12-02 01:29:29'),
-(27, 'read_loan', 'loan_application', NULL, NULL),
-(28, 'browse_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17'),
-(29, 'read_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17'),
-(30, 'edit_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17'),
-(31, 'add_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17'),
-(32, 'delete_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17');
+(27, 'read_loan', 'loan_application', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -438,17 +408,7 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (25, 2),
 (26, 1),
 (27, 1),
-(27, 2),
-(28, 1),
-(28, 2),
-(29, 1),
-(29, 2),
-(30, 1),
-(30, 2),
-(31, 1),
-(31, 2),
-(32, 1),
-(32, 2);
+(27, 2);
 
 -- --------------------------------------------------------
 
@@ -498,11 +458,11 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 (2, 'site.description', 'Site Description', 'Your go to place for Business Loans', '', 'text', 2, 'Site'),
 (3, 'site.logo', 'Site Logo', 'settings\\December2019\\pu06Nzrk9DyFRMjBcacz.png', '', 'image', 3, 'Site'),
 (4, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', NULL, '', 'text', 4, 'Site'),
-(5, 'admin.bg_image', 'Admin Background Image', NULL, '', 'image', 5, 'Admin'),
+(5, 'admin.bg_image', 'Admin Background Image', '', '', 'image', 5, 'Admin'),
 (6, 'admin.title', 'Admin Title', 'Razzoo', '', 'text', 1, 'Admin'),
 (7, 'admin.description', 'Admin Description', 'Welcome to Razzoo.', '', 'text', 2, 'Admin'),
-(8, 'admin.loader', 'Admin Loader', NULL, '', 'image', 3, 'Admin'),
-(9, 'admin.icon_image', 'Admin Icon Image', 'settings\\December2019\\6R5C9Pnq2MuyVVzYVoXK.png', '', 'image', 4, 'Admin'),
+(8, 'admin.loader', 'Admin Loader', '', '', 'image', 3, 'Admin'),
+(9, 'admin.icon_image', 'Admin Icon Image', '', '', 'image', 4, 'Admin'),
 (10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', '121332432432323232432', '', 'text', 1, 'Admin');
 
 -- --------------------------------------------------------
@@ -611,8 +571,7 @@ ALTER TABLE `loan_application_bankstatements`
 -- Indexes for table `loan_application_business_files`
 --
 ALTER TABLE `loan_application_business_files`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `application_id` (`application_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `menus`
@@ -700,13 +659,13 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -730,7 +689,7 @@ ALTER TABLE `loan_application_bankstatements`
 -- AUTO_INCREMENT for table `loan_application_business_files`
 --
 ALTER TABLE `loan_application_business_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `menus`
@@ -742,7 +701,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -754,7 +713,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -795,12 +754,6 @@ ALTER TABLE `data_rows`
 --
 ALTER TABLE `loan_application_bankstatements`
   ADD CONSTRAINT `loan_application_bankstatements_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `loan_application` (`id`);
-
---
--- Constraints for table `loan_application_business_files`
---
-ALTER TABLE `loan_application_business_files`
-  ADD CONSTRAINT `loan_application_business_files_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `loan_application` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `menu_items`
