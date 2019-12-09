@@ -80,7 +80,7 @@
 
     <script src="{{ asset('js/jquery-1.11.3.min.js') }}"></script>
     <script language="javascript" src="{{ asset('js/popper.min.js') }}"></script>
-    <script language="javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script language="javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>    
 
 </body>
 

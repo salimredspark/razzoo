@@ -40,10 +40,10 @@ class LoanController extends Controller
     public function process(Request $request)
     {
         $appid = Session::get('fb_loan_application_id');
-        $existLoan['customer_firstname'] = '';
-        $existLoan['customer_lastname'] = '';
-        $existLoan['customer_email'] = '';
-        $existLoan['customer_mobile'] = '';
+        $existLoan ['customer_firstname']='';
+        $existLoan ['customer_lastname']='';
+        $existLoan ['customer_email']='';
+        $existLoan ['customer_mobile']='';
 
         if ($appid > 0) {
             $existLoan = LoanApplication::find($appid);
@@ -59,7 +59,6 @@ class LoanController extends Controller
         return redirect()->route('thankyou');
     }
 
-    //step 1
     public function saveStep1(Request $request)
     {
         $response = array();
@@ -72,6 +71,7 @@ class LoanController extends Controller
             $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
             $saveExistAppData->customer_email =  $postdata['customer_email'];
             $saveExistAppData->customer_mobile =  $postdata['customer_mobile'];
+            $saveExistAppData->customer_industry =  $postdata['customer_industry'];
             $saveExistAppData->ip_address = $this->getClientIPAddress();
             $saveExistAppData->loan_status = 'Pending';
 
@@ -83,6 +83,7 @@ class LoanController extends Controller
             $saveApplication->customer_lastname =  $postdata['customer_lastname'];
             $saveApplication->customer_email =  $postdata['customer_email'];
             $saveApplication->customer_mobile =  $postdata['customer_mobile'];
+            $saveApplication->customer_industry =  $postdata['customer_industry'];
             $saveApplication->ip_address =  $this->getClientIPAddress();
             $saveExistAppData->loan_status = 'Pending';
 
@@ -100,56 +101,27 @@ class LoanController extends Controller
         return response()->json($response);
     }
 
-    //step 2
+    public function allowConsultantsToCall(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        if ($postdata['application_id'] > 0) {
+
+            $applicationId = $postdata['application_id'];
+
+            $saveExistAppData = LoanApplication::find($applicationId);
+            $saveExistAppData->allow_consultants_call = $postdata['customer_ans'];
+            $saveExistAppData->save();
+
+            $response = array(
+                'status' => 'success',
+                'application_id' => $applicationId,
+            );
+            return response()->json($response);
+        }
+    }
+
     public function saveStep2(Request $request)
-    {
-        $response = array();
-        $postdata = $request->postdata;
-
-        if ($postdata['application_id'] > 0) {
-            $applicationId = $postdata['application_id'];
-
-            $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->customer_address1 = $postdata['customer_address1'];
-            $saveExistAppData->customer_address2 = $postdata['customer_address2'];
-            $saveExistAppData->customer_state = $postdata['customer_state'];
-            $saveExistAppData->customer_city = $postdata['customer_city'];
-            $saveExistAppData->customer_postalcode = $postdata['customer_postalcode'];
-            $saveExistAppData->customer_country = $postdata['customer_country'];
-            $saveExistAppData->save();
-
-            $response = array(
-                'status' => 'success',
-                'application_id' => $applicationId,
-            );
-            return response()->json($response);
-        }
-    }
-
-    //step 3
-    public function saveStep3(Request $request)
-    {
-        $response = array();
-        $postdata = $request->postdata;
-
-        if ($postdata['application_id'] > 0) {
-
-            $applicationId = $postdata['application_id'];
-
-            $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->customer_industry = $postdata['customer_industry'];
-            $saveExistAppData->save();
-
-            $response = array(
-                'status' => 'success',
-                'application_id' => $applicationId,
-            );
-            return response()->json($response);
-        }
-    }
-
-    //step 4
-    public function saveStep4(Request $request)
     {
         $response = array();
         $postdata = $request->postdata;
@@ -174,8 +146,7 @@ class LoanController extends Controller
         }
     }
 
-    //step 5
-    public function saveStep5(Request $request)
+    public function saveStep3(Request $request)
     {
         $response = array();
         $postdata = $request->postdata;
@@ -196,8 +167,7 @@ class LoanController extends Controller
         }
     }
 
-    //step 6
-    public function saveStep6(Request $request)
+    public function saveStep4(Request $request)
     {
         $response = array();
         $postdata = $request->postdata;
@@ -220,8 +190,7 @@ class LoanController extends Controller
         }
     }
 
-    //step 6
-    public function saveStep7(Request $request)
+    public function saveStep5(Request $request)
     {
         $response = array();
         $postdata = $request->postdata;
@@ -232,26 +201,6 @@ class LoanController extends Controller
 
             $saveExistAppData = LoanApplication::find($applicationId);
             $saveExistAppData->accounting_software = $postdata['accounting_software'];
-            $saveExistAppData->save();
-
-            $response = array(
-                'status' => 'success',
-                'application_id' => $applicationId,
-            );
-            return response()->json($response);
-        }
-    }
-
-    public function allowConsultantsToCall(Request $request)
-    {
-        $response = array();
-        $postdata = $request->postdata;
-        if ($postdata['application_id'] > 0) {
-
-            $applicationId = $postdata['application_id'];
-
-            $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->allow_consultants_call = $postdata['customer_ans'];
             $saveExistAppData->save();
 
             $response = array(

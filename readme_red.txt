@@ -64,34 +64,19 @@ Step 6 : Make Setting File
 config/voyager.php
 php artisan vendor:publish --tag=voyager_assets --force
 php artisan serve
-http://localhost:8000/admin/login
-
-email: admin@admin.com
-password: password
 ---------------------------------------------------------------------------------------------------
-IP: 123.201.9.132
-root 
-roo123
-mongodb+srv://root:<password>@cluster0-axlbd.mongodb.net/test?retryWrites=true&w=majority
+http://localhost/projects/razzoo/public/admin/login
 
-https://downloads.mongodb.com/compass/mongodb-compass-community-1.19.12-win32-x64.exe
+Admin
+email: admin@razzoo.com
+password: red@spark
 
-C:\Users\Redspark\AppData\Roaming\Composer\vendor\bin;C:\python37;%PyCharm Community Edition%;C:\Program Files\MongoDB\Server\3.2\bin
-----------------------------------------
-Remote Access | DB Host
-----------------------------------------
-Prinmary
-cluster0-shard-00-00-axlbd.mongodb.net
-User: root 
-Pass: roo123
-DB: redspark
-----------------------------------------
-MongoDB Connection
-https://github.com/salimredspark/razzoo.git
+Super Admin
+email: salim@redsparkinfo.co.in
+password: red@spark
+---------------------------------------------------------------------------------------------------
 
-Final Installation : E:\xampp\htdocs\projects\laravel
-------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 Database Migraetion
 php artisan migrate
 php artisan migrate:rollback
@@ -114,41 +99,6 @@ https://laravel.com/docs/master/controllers
 add in system varibale
 C:\Program Files\MongoDB\Server\3.2\bin;
 ---------------------------------------------------------------------------------------------------------------------------------------------
-vasudev.com
-admin@vasudev.com
-vasu@dev
----------------------------------------------------------------------------------------------------------------------------------------------
-Note:
-Column C, “SederID”,  in file name “VSLLP MDR _ vasupujya _ 21 Aug2019.xlsx”, Please consider it as on of the Tag, as discussed.  Also use another tag, “Real Estate Supplier”.
-For other excel file, please use City, Pin Code, Locality, Level1, Level2 and Level3 as Tags. 
----------------------------------------------------------------------------------------------------------------------------------------------
-1) Same customers in multiple company 
-2) Assign tag to multilpe company and there companies customers
-3) Import CSV in fast way
----------------------------------------------------------------------------------------------------------------------------------------------
-26/09
-Assign Tag
-1) Change selection of company like Tags page.
-2) Query Builder for Customer
----------------------------------------------------------------------------------------------------------------------------------------------
-
-Setup MongoDB in Local
-
-1) Download MongoDB and Laravel configure
-https://medium.com/@LondonAppBrewery/how-to-download-install-mongodb-on-windows-4ee4b3493514
-
-2) Install MSI Setup
-
-3) Configure local database credentials into Database file in Laravel .env
-
-3) run laravel migrate command in to CMD php artisan migrate:refresh
----------------------------------------------------------------------------------------------------------------------------------------------
-MongoDB Database Tables
-companies, customers, uploaded_csv, 
-
-Laravel Created Tables after migrate command run
-users, password_resets, migrations
----------------------------------------------------------------------------------------------------------------------------------------------
 How to add menu in admin panel
 1) vendor\tcg\voyager\src\Http\Controllers -- Create controller like [VoyagerLoanController.php]
 2) vendor\tcg\voyager\src\Models -- Create model like [Loan.php]
@@ -170,4 +120,5 @@ https://swagger.io/tools/open-source/open-source-integrations/
 
 MogoPluse
 https://mogoplus.com/
+https://www.mogo.ca/signup
 ---------------------------------------------------------------------------------------------------------------------------------------------

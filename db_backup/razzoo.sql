@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2019 at 10:54 AM
+-- Generation Time: Dec 09, 2019 at 01:11 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -155,6 +155,12 @@ CREATE TABLE `loan_application` (
   `customer_lastname` varchar(256) NOT NULL,
   `customer_email` varchar(256) NOT NULL,
   `customer_mobile` varchar(20) DEFAULT NULL,
+  `customer_address1` varchar(256) DEFAULT NULL,
+  `customer_address2` varchar(256) DEFAULT NULL,
+  `customer_state` varchar(150) DEFAULT NULL,
+  `customer_city` varchar(150) DEFAULT NULL,
+  `customer_postalcode` varchar(100) DEFAULT NULL,
+  `customer_country` varchar(150) DEFAULT NULL,
   `customer_industry` varchar(255) DEFAULT NULL,
   `allow_consultants_call` varchar(10) DEFAULT NULL,
   `loan_amout` varchar(20) DEFAULT NULL,
@@ -178,12 +184,12 @@ CREATE TABLE `loan_application` (
 -- Dumping data for table `loan_application`
 --
 
-INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `loan_status`, `facebook_id`, `created_at`, `updated_at`) VALUES
-(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Healthcare', NULL, 'Less than $5,000', 'Marketing', '0092882882', '12345657', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', '', '2019-12-09 09:52:04', '2019-12-09 04:22:04'),
-(1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
-(1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
-(1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
-(1000000005, 'Suhas', 'Patel', 'suhas@redsparkinfo.co.in', '9298474737', 'Healthcare', NULL, '$5,000 - $10,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Spark', 'Gujarat', 'MYOB', '::1', '', '', '2019-12-04 07:08:48', '2019-12-04 01:38:48');
+INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_address1`, `customer_address2`, `customer_state`, `customer_city`, `customer_postalcode`, `customer_country`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `loan_status`, `facebook_id`, `created_at`, `updated_at`) VALUES
+(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', '1 Bass Pro Mills Dr, Concord, ON L4K 2M9, Canada', '1 Bass Pro Mills Dr', 'ON', 'Vaughan', 'L4K 2M9', 'CA', 'Healthcare', 'No', 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', '', '2019-12-09 12:09:06', '2019-12-09 06:39:06'),
+(1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', '', '', '', '', '', NULL, 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
+(1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', '', '', '', '', '', NULL, 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
+(1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', '', '', '', '', '', NULL, 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
+(1000000005, 'Suhas', 'Patel', 'suhas@redsparkinfo.co.in', '9298474737', '', '', '', '', '', NULL, 'Healthcare', NULL, '$5,000 - $10,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Spark', 'Gujarat', 'MYOB', '::1', '', '', '2019-12-04 07:08:48', '2019-12-04 01:38:48');
 
 -- --------------------------------------------------------
 
@@ -245,7 +251,11 @@ INSERT INTO `loan_application_business_files` (`id`, `application_id`, `file_nam
 (28, 1000000001, '2019_11_07_13_46_21_C.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:39:29', '2019-12-09 01:39:29'),
 (30, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:39:39', '2019-12-09 01:39:39'),
 (32, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:40:51', '2019-12-09 01:40:51'),
-(33, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:51:50', '2019-12-09 01:51:50');
+(33, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:51:50', '2019-12-09 01:51:50'),
+(34, 1000000001, 'image_1.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:34', '2019-12-09 06:33:34'),
+(35, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:37', '2019-12-09 06:33:37'),
+(37, 1000000001, 'index2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:50', '2019-12-09 06:33:50'),
+(38, 1000000001, 'index2.webp.webp', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:53', '2019-12-09 06:33:53');
 
 -- --------------------------------------------------------
 
@@ -758,7 +768,7 @@ ALTER TABLE `loan_application_bankstatements`
 -- AUTO_INCREMENT for table `loan_application_business_files`
 --
 ALTER TABLE `loan_application_business_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `menus`

@@ -23,12 +23,16 @@ Route::group(['prefix' => '/admin'], function () {
 Route::get('loan-started', 'LoanController@started')->name('loan-started');
 Route::get('loan-process', 'LoanController@process')->name('loan-process');
 Route::post('loan-submit', 'LoanController@save')->name('loan-submit');
+
 Route::post('loan-save-step1', 'LoanController@saveStep1')->name('loan-save-step1');
-Route::post('allow-consultants-call', 'LoanController@allowConsultantsToCall')->name('allow-consultants-call');
 Route::post('loan-save-step2', 'LoanController@saveStep2')->name('loan-save-step2');
 Route::post('loan-save-step3', 'LoanController@saveStep3')->name('loan-save-step3');
 Route::post('loan-save-step4', 'LoanController@saveStep4')->name('loan-save-step4');
 Route::post('loan-save-step5', 'LoanController@saveStep5')->name('loan-save-step5');
+Route::post('loan-save-step6', 'LoanController@saveStep6')->name('loan-save-step6');
+Route::post('loan-save-step7', 'LoanController@saveStep7')->name('loan-save-step7');
+
+Route::post('allow-consultants-call', 'LoanController@allowConsultantsToCall')->name('allow-consultants-call');
 Route::post('ajax-upload', 'LoanController@ajaxUploadFile')->name('ajax-upload');
 
 Route::get('thankyou', 'LoanController@thankyou')->name('thankyou');
