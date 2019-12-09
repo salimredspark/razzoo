@@ -547,7 +547,7 @@
 
                         }
                     },
-                    abn_number_valid: "required",
+                    //abn_number_valid: "required",
                     abn_number: {
                         required: true,
                         minlength: 9,
