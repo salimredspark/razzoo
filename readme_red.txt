@@ -75,7 +75,8 @@ Super Admin
 email: salim@redsparkinfo.co.in
 password: red@spark
 ---------------------------------------------------------------------------------------------------
-
+Multi-Step Form
+https://www.jqueryscript.net/form/Signup-Form-Wizard-jQuery-multiStepForm.html
 ---------------------------------------------------------------------------------------------------
 Database Migraetion
 php artisan migrate
@@ -121,4 +122,10 @@ https://swagger.io/tools/open-source/open-source-integrations/
 MogoPluse
 https://mogoplus.com/
 https://www.mogo.ca/signup
+
+I can not find any API documentation for MogoPlus. I have request for demo. Following website I have referer for help
+https://mogoplus.com/
+https://www.mogo.ca/signup
+
+So please provide API document for development help.
 ---------------------------------------------------------------------------------------------------------------------------------------------

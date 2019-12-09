@@ -268,87 +268,41 @@ class LoanController extends Controller
         $postdata = $request->postdata;
         $applicationId = $request['application_id'];
 
+        $fileoutput = '';
+        $files = $request->file('supporting_business_plan');
+
         if ($request->hasFile('supporting_business_plan')) {
-            $file = $request->file('supporting_business_plan');
-            $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            foreach ($files as $file) {
+                //$file = $request->file('supporting_business_plan');
+                $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
 
-            $rootPath = '/uploads/loan_application/' . $applicationId . "/";
-            $uploadPath = public_path() . $rootPath;
+                $rootPath = '/storage/loan_application/' . $applicationId . "/";
+                $uploadPath = public_path() . $rootPath;
 
-            if (!file_exists($rootPath . $name)) {
-                File::makeDirectory($uploadPath, 0777, true, true);
-            }
-
-            $file->move($uploadPath, $name);
-
-            $saveFilesData = new LoanApplicationBusinessFiles($request->all());
-            $saveFilesData->application_id = $applicationId;
-            $saveFilesData->file_name = $name;
-            $saveFilesData->file_url = $rootPath;
-            $saveFilesData->save();
-
-            $uploadUrl = url('/') . $rootPath . $name;
-        }
-
-        $response = array(
-            'status' => 'success',
-            'application_id' => $applicationId,
-            'upload_path' => '<li id="upload-image-' . $saveFilesData->id . '"><img src="' . $uploadUrl . '" width="50" /> <span>X</span></li>',
-        );
-        return response()->json($response);
-    }
-
-    public function ajaxUploadFileMulti(Request $request)
-    {
-        $response = array();
-        $postdata = $request->postdata;
-        $applicationId = $request['application_id'];
-        $upload_files = '';
-
-        if (count($request->file('supporting_business_plan')) > 0) {
-            foreach ($request->file('supporting_business_plan') as $k => $fileObj) {
-
-                echo "<br> k--" . $k;
-                echo "<pre>";
-                print_r($request->file('supporting_business_plan')[$k]);
-                die;
-
-                if ($request->hasFile($request->file('supporting_business_plan')[$k])) {
-                    $file = $request->file($request->file('supporting_business_plan')[$k]);
-                    echo "file: " . $file;
-                    die;
-
-                    $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
-
-                    $rootPath = '/uploads/loan_application/' . $applicationId . "/";
-                    $uploadPath = public_path() . $rootPath;
-
-                    if (!file_exists($rootPath . $name)) {
-                        File::makeDirectory($uploadPath, 0777, true, true);
-                    }
-
-                    $file->move($uploadPath, $name);
-
-                    $saveFilesData = new LoanApplicationBusinessFiles($request->all());
-                    $saveFilesData->application_id = $applicationId;
-                    $saveFilesData->file_name = $name;
-                    $saveFilesData->file_url = $rootPath;
-                    $saveFilesData->save();
-
-                    $uploadUrl = url('/') . $rootPath . $name;
-                    $upload_files .= '<li id="upload-image-' . $saveFilesData->id . '"><img src="' . $uploadUrl . '" width="50" /> <span>X</span></li>';
+                if (!file_exists($rootPath . $name)) {
+                    File::makeDirectory($uploadPath, 0777, true, true);
                 }
+
+                $file->move($uploadPath, $name);
+
+                $saveFilesData = new LoanApplicationBusinessFiles($request->all());
+                $saveFilesData->application_id = $applicationId;
+                $saveFilesData->file_name = $name;
+                $saveFilesData->file_url = $rootPath;
+                $saveFilesData->save();
+
+                $uploadUrl = url('/') . $rootPath . $name;
+                $fileoutput .= '<li id="upload-image-' . $saveFilesData->id . '"><img src="' . $uploadUrl . '" width="50" /> <span>X</span></li>';
             }
         }
 
         $response = array(
             'status' => 'success',
             'application_id' => $applicationId,
-            'upload_path' => $upload_files,
+            'upload_path' => $fileoutput,
         );
         return response()->json($response);
     }
-
 
     public function ajaxDeleteFile(Request $request)
     {
@@ -407,11 +361,11 @@ class LoanController extends Controller
 
         $response['application_id'] = $applicationId;
 
-        $proxyhost = '';
-        $proxyport = '';
-        $proxyusername = '';
-        $proxypassword = '';
-        $authenticationGuid = '';
+        $proxyhost = env('ABN_HOST');
+        $proxyport = env('ABN_PORT');
+        $proxyusername = env('ABN_USERNAME');
+        $proxypassword = env('ABN_PASSWORD');
+        $authenticationGuid = env('ABN_GUID');
 
         $client = new \SoapClient(
             'http://abr.business.gov.au/abrxmlsearch/ABRXMLSearch.asmx?WSDL',

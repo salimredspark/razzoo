@@ -171,6 +171,8 @@
                                         <div class="form-group">
                                             <label>Please enter your ABN/ACN number</label>
                                             <input type="text" class="form-control" name="abn_number" id="abn_number" placeholder="ABN(11 Digits) or ACN(9 Digits)">
+                                            <span class="api_process"></span>
+                                            <input type="text" id="abn_number_valid" name="abn_number_valid" value="" readonly />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -273,7 +275,7 @@
                             <div class="tab">
                                 <div class="form-group">
                                     <div class="form-group files files1">
-                                        <input type="file" class="form-control" multiple name="supporting_business_plan" id="supporting_business_plan">
+                                        <input type="file" class="form-control" multiple name="supporting_business_plan[]" id="supporting_business_plan">
                                     </div>
                                     <div id="uploaded_business_files">
                                         <ul></ul>
@@ -545,13 +547,14 @@
 
                         }
                     },
+                    abn_number_valid: "required",
                     abn_number: {
                         required: true,
                         minlength: 9,
                         maxlength: 11,
                         digits: true,
                         callback: function() {
-
+                            $("#abn_number_valid").val('');
                             exporturl = "{{ route('verifyabn') }}";
                             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                             application_id = $("input[name='application_id']").val();
@@ -559,6 +562,7 @@
                             //check to database
                             abn_number = $("input[name='abn_number']").val();
                             if (abn_number != '') {
+                                $(".api_process").html("Please wait....");
                                 $.ajax({
                                     type: 'POST',
                                     cache: false,
@@ -574,17 +578,16 @@
                                     success: function(data) {
                                         if (data.status == 'success') {
                                             console.log("ABC True");
+                                            $(".api_process").html("");        
+                                            $("#abn_number_valid").val('valid');
                                         } else {
-
-                                            $("input[name='abn_number']").attr("aria-invalid", true);
-                                            $("#abn_number-error").text(data.error);
-                                            $("#abn_number-error").show();
-
+                                            $(".api_process").html(data.error);                                            
                                             console.log("API Result: " + data.error);
                                         }
                                     },
                                     error: function(xhr) {
                                         console.log("ABC False");
+                                        $("button.next").hide();
                                     }
                                 });
                             }
@@ -798,7 +801,13 @@
                         digits: "Only numbers are allowed in this field"
                     },
                     customer_industry: "Please selecy Industry name",
-                    abn_number: "ABNACN number is required",
+                    abn_number: {
+                        required: "ABN/ACN number is required",
+                        digits: "Only numbers are allowed in this field"
+                    },
+                    abn_number_valid: {
+                        required: "Valid ABN/ACN number is required",
+                    },
                     dl_number: "DL number is required",
                     state_issue: "Please enter state of issue",
                     business_trading: "Please selecy trading time",
@@ -818,8 +827,6 @@
                 // defaultStep:0,
                 beforeSubmit: function(form, submit) {
                     console.log("called before submiting the form");
-                    console.log(form);
-                    console.log(submit);
                 },
                 validations: val,
             }).navigateTo(0);
@@ -1023,8 +1030,6 @@
                     console.log("Error: Application Id does not exist");
                 }
             }
-
-
         });
     });
 </script>
