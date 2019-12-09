@@ -35,6 +35,14 @@ Route::get('thankyou', 'LoanController@thankyou')->name('thankyou');
 Route::post('verifyabn', 'LoanController@verifyABN')->name('verifyabn');
 Route::post('delete-uploads-files', 'LoanController@ajaxDeleteFile')->name('delete-uploads-files');
 
+//for facebook login
+Route::get('facebook', function () {
+    return view('facebook');
+});
+Route::get('auth/facebook', 'Auth\FacebookController@redirectToFacebook');
+Route::get('auth/facebook/callback', 'Auth\FacebookController@handleFacebookCallback');
+
+
 /*
 #manage companies
 Route::get('companies', 'CompaniesController@index')->name('companies-list');

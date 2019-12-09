@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2019 at 03:44 PM
+-- Generation Time: Dec 09, 2019 at 10:54 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -74,8 +74,8 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (43, 7, 'customer_firstname', 'text', 'Firstname', 1, 1, 1, 1, 1, 1, '{}', 2),
 (44, 7, 'customer_lastname', 'text', 'Lastname', 1, 1, 1, 1, 1, 1, '{}', 3),
 (45, 7, 'customer_email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 4),
-(46, 7, 'customer_mobile', 'text', 'Mobile', 1, 1, 1, 1, 1, 1, '{}', 5),
-(47, 7, 'customer_industry', 'text', 'Industry', 1, 1, 1, 1, 1, 1, '{}', 6),
+(46, 7, 'customer_mobile', 'text', 'Mobile', 0, 1, 1, 1, 1, 1, '{}', 5),
+(47, 7, 'customer_industry', 'text', 'Industry', 0, 1, 1, 1, 1, 1, '{}', 6),
 (48, 7, 'allow_consultants_call', 'text', 'Allow Consultants Call', 0, 1, 1, 1, 1, 1, '{}', 7),
 (49, 7, 'loan_amout', 'text', 'Loan Amout', 0, 1, 1, 1, 1, 1, '{}', 8),
 (50, 7, 'loan_purpose', 'text', 'Loan Purpose', 0, 1, 1, 1, 1, 1, '{}', 9),
@@ -90,7 +90,9 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (59, 7, 'ip_address', 'text', 'IP Address', 1, 1, 1, 0, 0, 0, '{}', 18),
 (60, 7, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 0, 0, 0, '{}', 19),
 (61, 7, 'updated_at', 'timestamp', 'Updated At', 1, 1, 1, 0, 0, 0, '{}', 20),
-(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Loan\",\"table\":\"loan_application_business_files\",\"type\":\"belongsTo\",\"column\":\"id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"loan_application_business_files\",\"pivot\":\"0\",\"taggable\":\"0\"}', 21);
+(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Loan\",\"table\":\"loan_application_business_files\",\"type\":\"belongsTo\",\"column\":\"id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"loan_application_business_files\",\"pivot\":\"0\",\"taggable\":\"0\"}', 21),
+(63, 7, 'loan_status', 'text', 'Status', 1, 1, 1, 1, 1, 1, '{}', 19),
+(64, 7, 'facebook_id', 'text', 'Facebook Login', 0, 1, 1, 1, 1, 1, '{}', 20);
 
 -- --------------------------------------------------------
 
@@ -124,7 +126,7 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
-(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', NULL, 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-06 07:23:53');
+(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', NULL, 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-09 04:21:29');
 
 -- --------------------------------------------------------
 
@@ -152,8 +154,8 @@ CREATE TABLE `loan_application` (
   `customer_firstname` varchar(256) NOT NULL,
   `customer_lastname` varchar(256) NOT NULL,
   `customer_email` varchar(256) NOT NULL,
-  `customer_mobile` varchar(20) NOT NULL,
-  `customer_industry` varchar(255) NOT NULL,
+  `customer_mobile` varchar(20) DEFAULT NULL,
+  `customer_industry` varchar(255) DEFAULT NULL,
   `allow_consultants_call` varchar(10) DEFAULT NULL,
   `loan_amout` varchar(20) DEFAULT NULL,
   `loan_purpose` text,
@@ -166,6 +168,8 @@ CREATE TABLE `loan_application` (
   `business_state` varchar(256) DEFAULT NULL,
   `accounting_software` varchar(150) DEFAULT NULL,
   `ip_address` varchar(150) NOT NULL,
+  `loan_status` varchar(20) NOT NULL,
+  `facebook_id` varchar(256) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -174,12 +178,12 @@ CREATE TABLE `loan_application` (
 -- Dumping data for table `loan_application`
 --
 
-INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `created_at`, `updated_at`) VALUES
-(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Healthcare', NULL, 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', '2019-12-04 14:09:53', '2019-12-03 20:39:53'),
-(1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
-(1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
-(1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
-(1000000005, 'Suhas', 'Patel', 'suhas@redsparkinfo.co.in', '9298474737', 'Healthcare', NULL, '$5,000 - $10,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Spark', 'Gujarat', 'MYOB', '::1', '2019-12-04 07:08:48', '2019-12-04 01:38:48');
+INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `loan_status`, `facebook_id`, `created_at`, `updated_at`) VALUES
+(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Healthcare', NULL, 'Less than $5,000', 'Marketing', '0092882882', '12345657', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', '', '2019-12-09 09:52:04', '2019-12-09 04:22:04'),
+(1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
+(1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
+(1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
+(1000000005, 'Suhas', 'Patel', 'suhas@redsparkinfo.co.in', '9298474737', 'Healthcare', NULL, '$5,000 - $10,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Spark', 'Gujarat', 'MYOB', '::1', '', '', '2019-12-04 07:08:48', '2019-12-04 01:38:48');
 
 -- --------------------------------------------------------
 
@@ -218,7 +222,30 @@ INSERT INTO `loan_application_business_files` (`id`, `application_id`, `file_nam
 (3, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 07:41:04', '2019-12-04 07:41:04'),
 (4, 1000000001, 'logo.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:19:29', '2019-12-04 08:19:29'),
 (5, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:21:54', '2019-12-04 08:21:54'),
-(6, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:40:22', '2019-12-04 08:40:22');
+(6, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:40:22', '2019-12-04 08:40:22'),
+(7, 1000000001, 'icon-education.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 00:27:26', '2019-12-09 00:27:26'),
+(8, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 00:51:41', '2019-12-09 00:51:41'),
+(9, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:04:22', '2019-12-09 01:04:22'),
+(10, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:06:23', '2019-12-09 01:06:23'),
+(11, 1000000001, 'icon-education.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:09:15', '2019-12-09 01:09:15'),
+(12, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:10:22', '2019-12-09 01:10:22'),
+(13, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:11:00', '2019-12-09 01:11:00'),
+(14, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:11:03', '2019-12-09 01:11:03'),
+(15, 1000000001, 'logo.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:15:01', '2019-12-09 01:15:01'),
+(16, 1000000001, 'phone-icon.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:15:04', '2019-12-09 01:15:04'),
+(17, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:16:56', '2019-12-09 01:16:56'),
+(18, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:16:59', '2019-12-09 01:16:59'),
+(19, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:22:40', '2019-12-09 01:22:40'),
+(20, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:22:43', '2019-12-09 01:22:43'),
+(21, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:25:06', '2019-12-09 01:25:06'),
+(22, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:25:33', '2019-12-09 01:25:33'),
+(23, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:27:47', '2019-12-09 01:27:47'),
+(24, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:33:58', '2019-12-09 01:33:58'),
+(27, 1000000001, 'phone-icon.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:39:17', '2019-12-09 01:39:17'),
+(28, 1000000001, '2019_11_07_13_46_21_C.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:39:29', '2019-12-09 01:39:29'),
+(30, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:39:39', '2019-12-09 01:39:39'),
+(32, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:40:51', '2019-12-09 01:40:51'),
+(33, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:51:50', '2019-12-09 01:51:50');
 
 -- --------------------------------------------------------
 
@@ -531,6 +558,7 @@ CREATE TABLE `translations` (
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `role_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `facebook_id` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT 'users/default.png',
@@ -546,9 +574,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Super Admin', 'salim@redsparkinfo.co.in', 'users/default.png', NULL, '$2y$10$SKrIacr302vUad8kEMQwbuva/nXyhnXtc9eNXR.hqHs2gKWzfDwYW', NULL, NULL, NULL, NULL),
-(2, 2, 'Admin', 'admin@razzoo.com', 'users/default.png', NULL, '$2y$10$xFgnOoLgUsgnDFuNqUWqe.W0WUUa3wKrSD0knMwDk9084eEKM85fO', NULL, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `role_id`, `facebook_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, 'Super Admin', 'salim@redsparkinfo.co.in', 'users/default.png', NULL, '$2y$10$SKrIacr302vUad8kEMQwbuva/nXyhnXtc9eNXR.hqHs2gKWzfDwYW', NULL, NULL, NULL, NULL),
+(2, 2, NULL, 'Admin', 'admin@razzoo.com', 'users/default.png', NULL, '$2y$10$xFgnOoLgUsgnDFuNqUWqe.W0WUUa3wKrSD0knMwDk9084eEKM85fO', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -700,13 +728,13 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -730,7 +758,7 @@ ALTER TABLE `loan_application_bankstatements`
 -- AUTO_INCREMENT for table `loan_application_business_files`
 --
 ALTER TABLE `loan_application_business_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `menus`

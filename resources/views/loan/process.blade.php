@@ -1,14 +1,17 @@
 @extends('layouts.app')
 
-@section('content')
+@section('scripts')
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyDjJTAWtjK-xAQSCZc7xfE_NykXYuHgQdQ&libraries=places,drawing" async defer></script>
+@stop
 
+@section('content')
 <section class="content-section py-5">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <form id="stepsLoanProcess" action="{{ route('loan-submit') }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
                     {!! csrf_field() !!}
-                    <input type="hidden" name="application_id" id="application_id" value="" />
+                    <input type="hidden" name="application_id" id="application_id" value="{{ $application_id }}" />
                     <div class="wizard-steps">
                         <div class="tab">
                             <h3 class="text-center">Eligibility Criteria</h3>
@@ -23,7 +26,7 @@
                             <h3 class="text-center">Great, tell us about yourself</h3>
                             <div class="text-center">
                                 <div class="signup-facebook">
-                                    <a href="#"><span><i class="fa fa-facebook" aria-hidden="true"></i></span> Signup with Facebook</a>
+                                    <a href="{{ url('auth/facebook') }}"><span><i class="fa fa-facebook" aria-hidden="true"></i></span> Signup with Facebook</a>
                                 </div>
                             </div>
                             <div class="or">
@@ -34,12 +37,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="First Name" name="customer_firstname">
+                                            <input type="text" class="form-control" placeholder="First Name" name="customer_firstname" value="{{ $existLoan['customer_firstname'] }}">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Last Name" name="customer_lastname">
+                                            <input type="text" class="form-control" placeholder="Last Name" name="customer_lastname" value="{{ $existLoan['customer_lastname'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -49,12 +52,12 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Email Address" name="customer_email">
+                                            <input type="text" class="form-control" placeholder="Email Address" name="customer_email" value="{{ $existLoan['customer_email'] }}">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Mobile Number" name="customer_mobile">
+                                            <input type="text" class="form-control" placeholder="Mobile Number" name="customer_mobile" value="{{ $existLoan['customer_mobile'] }}">
                                         </div>
                                     </div>
                                 </div>

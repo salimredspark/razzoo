@@ -155,3 +155,19 @@ How to add menu in admin panel
 3) Create Bread -- or check data_types table in DB
 4) And Create Menu in Admin
 ---------------------------------------------------------------------------------------------------------------------------------------------
+facebook Login
+https://www.itsolutionstuff.com/post/laravel-56-login-with-facebook-with-socialiteexample.html
+
+App Created Login and App name : Razzoo
+testing016.test@gmail.com
+testers123
+---------------------------------------------------------------------------------------------------------------------------------------------
+Google Address API
+https://stackoverflow.com/questions/38321753/google-map-autocomplete-with-laravel
+---------------------------------------------------------------------------------------------------------------------------------------------
+Bank Statement APi
+https://swagger.io/tools/open-source/open-source-integrations/
+
+MogoPluse
+https://mogoplus.com/
+---------------------------------------------------------------------------------------------------------------------------------------------

@@ -181,6 +181,11 @@ return [
         TCG\Voyager\VoyagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+        /*
+        * for facebook login
+        */
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
     ],
 
     /*
@@ -231,6 +236,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //for facebook login
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

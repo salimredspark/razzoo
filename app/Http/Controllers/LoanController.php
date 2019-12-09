@@ -37,71 +37,23 @@ class LoanController extends Controller
         return view('loan.started');
     }
 
-    public function process()
+    public function process(Request $request)
     {
-        return view('loan.process');
+        $appid = Session::get('fb_loan_application_id');
+        $existLoan ['customer_firstname']='';
+        $existLoan ['customer_lastname']='';
+        $existLoan ['customer_email']='';
+        $existLoan ['customer_mobile']='';
+
+        if ($appid > 0) {
+            $existLoan = LoanApplication::find($appid);
+        }
+
+        return view('loan.process', ['application_id' => $appid, 'existLoan' => $existLoan]);
     }
 
     public function save(Request $request)
     {
-
-        /*
-        $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
-        if ($saveExistAppData) {
-            $applicationId = $saveExistAppData->id;
-            $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
-            $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
-            $saveExistAppData->customer_email =  $postdata['customer_email'];
-            $saveExistAppData->customer_mobile =  $postdata['customer_mobile'];
-            $saveExistAppData->customer_industry =  $postdata['customer_industry'];
-            $saveExistAppData->ip_address = $this->getClientIPAddress();
-
-            $saveExistAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
-            $saveExistAppData->save();
-        } else {
-            $saveApplication = new LoanApplication($request->all());
-
-            $saveApplication->customer_firstname =  $request->customer_firstname;
-            $saveApplication->customer_lastname =  $request->customer_lastname;
-            $saveApplication->customer_email =  $request->customer_email;
-            $saveApplication->customer_mobile =  $request->customer_mobile;
-            $saveApplication->customer_industry =  $request->customer_industry;
-            $saveApplication->loan_amout =  $request->loan_amout;
-            $saveApplication->loan_purpose =  $request->loan_purpose;
-            $saveApplication->abn_number =  $request->abn_number;
-            $saveApplication->dl_number =  $request->dl_number;
-
-            $saveApplication->state_issue =  $request->state_issue;
-
-            $saveApplication->business_trading =  $request->business_trading;
-            $saveApplication->business_monthly_turnover =  $request->business_monthly_turnover;
-            $saveApplication->business_name =  $request->business_name;
-            $saveApplication->business_state =  $request->business_state;
-
-            $saveApplication->accounting_software =  $request->accounting_software;
-            $saveApplication->ip_address =  $this->getClientIPAddress();
-
-            $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
-            $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
-            $saveApplication->save();
-
-            if ($saveApplication->id) {
-                //file information
-                $file = $request->file('group_file');
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $fileTmpPath = $file->getRealPath();
-                $fileSize = $file->getSize();
-                $fileMimeType = $file->getMimeType();
-
-                //Move Uploaded File
-                $location = 'uploads'; //public/uploads
-                $file->move($location, $filename);
-                $filepath = public_path($location . "/" . $filename);
-            }
-        }
-        */
-
         Session::put('application_id', $request->application_id);
         //return redirect()->route('thankyou')->with('success', 'Loan Application Submitted');
         return redirect()->route('thankyou');
@@ -294,6 +246,58 @@ class LoanController extends Controller
         );
         return response()->json($response);
     }
+
+    public function ajaxUploadFileMulti(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        $applicationId = $request['application_id'];
+        $upload_files = '';
+
+        if (count($request->file('supporting_business_plan')) > 0) {
+            foreach ($request->file('supporting_business_plan') as $k => $fileObj) {
+
+                echo "<br> k--" . $k;
+                echo "<pre>";
+                print_r($request->file('supporting_business_plan')[$k]);
+                die;
+
+                if ($request->hasFile($request->file('supporting_business_plan')[$k])) {
+                    $file = $request->file($request->file('supporting_business_plan')[$k]);
+                    echo "file: " . $file;
+                    die;
+
+                    $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+
+                    $rootPath = '/uploads/loan_application/' . $applicationId . "/";
+                    $uploadPath = public_path() . $rootPath;
+
+                    if (!file_exists($rootPath . $name)) {
+                        File::makeDirectory($uploadPath, 0777, true, true);
+                    }
+
+                    $file->move($uploadPath, $name);
+
+                    $saveFilesData = new LoanApplicationBusinessFiles($request->all());
+                    $saveFilesData->application_id = $applicationId;
+                    $saveFilesData->file_name = $name;
+                    $saveFilesData->file_url = $rootPath;
+                    $saveFilesData->save();
+
+                    $uploadUrl = url('/') . $rootPath . $name;
+                    $upload_files .= '<li id="upload-image-' . $saveFilesData->id . '"><img src="' . $uploadUrl . '" width="50" /> <span>X</span></li>';
+                }
+            }
+        }
+
+        $response = array(
+            'status' => 'success',
+            'application_id' => $applicationId,
+            'upload_path' => $upload_files,
+        );
+        return response()->json($response);
+    }
+
 
     public function ajaxDeleteFile(Request $request)
     {
