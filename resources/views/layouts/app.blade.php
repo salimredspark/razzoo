@@ -41,7 +41,7 @@
 
 </head>
 
-<body>
+<body>    
     <div class="main-wrapper">
         <header id="header">
             <nav class="navbar navbar-expand-sm navbar-light">
@@ -62,26 +62,27 @@
         </header>
 
         @if(Session::has('success'))
-                    <div class="alert alert-success">
-                        {{ Session::get('success') }}
-                    </div>
-                    @elseif(Session::has('error'))
-                    <div class="alert alert-error">
-                        {{ Session::get('error') }}
-                    </div>
-                    @endif
-
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+        @elseif(Session::has('error'))
+        <div class="alert alert-error">
+            {{ Session::get('error') }}
+        </div>
+        @endif
         @yield('content')
+
+        @include('cookieConsent::index')
     </div>
 
     <footer>
         &copy;{{date("Y")}}, Razzoo. All Rights Reserved.
     </footer>
-
+    
     <script src="{{ asset('js/jquery-1.11.3.min.js') }}"></script>
     <script language="javascript" src="{{ asset('js/popper.min.js') }}"></script>
-    <script language="javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>    
-
+    <script language="javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    
 </body>
 
 </html>

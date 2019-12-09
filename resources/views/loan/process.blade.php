@@ -371,7 +371,7 @@
     </div>
 </section>
 
-<script src="https://maps.google.com/maps/api/js?key=AIzaSyDjJTAWtjK-xAQSCZc7xfE_NykXYuHgQdQ&libraries=places,drawing"></script>
+<script src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places,drawing"></script>
 <script type="text/javascript" src="{{ asset('js/locationpicker.jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/multi-form.js?v2') }}"></script>
@@ -964,8 +964,8 @@
             //autocomplete adress
             $('#auto-complete-address').locationpicker({
                 location: {
-                    latitude: '',
-                    longitude: '',
+                    latitude: "{{ env('GOOGLE_MAPS_DEFAULT_CENTER_LAT') }}", //set default
+                    longitude: "{{ env('GOOGLE_MAPS_DEFAULT_CENTER_LNG') }}", //set default
                 },
                 radius: 300,
                 inputBinding: {
