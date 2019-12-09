@@ -84,7 +84,7 @@ class LoanController extends Controller
             $saveApplication->customer_email =  $postdata['customer_email'];
             $saveApplication->customer_mobile =  $postdata['customer_mobile'];
             $saveApplication->ip_address =  $this->getClientIPAddress();
-            $saveExistAppData->loan_status = 'Pending';
+            $saveApplication->loan_status = 'Pending';
 
             $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
             $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
@@ -220,7 +220,7 @@ class LoanController extends Controller
         }
     }
 
-    //step 6
+    //step 7
     public function saveStep7(Request $request)
     {
         $response = array();
