@@ -708,3 +708,13 @@ footer {
 	font-size:18px;
 
 }
+#uploaded_business_files ul{maring:0px; padding: 0px;}
+#uploaded_business_files ul li{float:left; list-style: none;border: solid 1px #eee;margin-right: 10px; position: relative;}
+#uploaded_business_files span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+	color: #555;
+	cursor: pointer;
+}

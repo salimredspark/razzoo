@@ -55,7 +55,7 @@ return [
     'url' => env('APP_URL', 'http://localhost/projects/razzoo/'),
 
     'asset_url' => env('ASSET_URL', null),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

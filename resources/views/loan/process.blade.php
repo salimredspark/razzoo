@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
 <section class="content-section py-5">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <form id="stepsLoanProcess" action="{{ route('loan-submit') }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
-                    {!! csrf_field() !!}                    
+                    {!! csrf_field() !!}
                     <input type="hidden" name="application_id" id="application_id" value="" />
                     <div class="wizard-steps">
                         <div class="tab">
@@ -226,6 +227,9 @@
                                     <div class="form-group files files1">
                                         <input type="file" class="form-control" multiple name="supporting_business_plan" id="supporting_business_plan">
                                     </div>
+                                    <div id="uploaded_business_files">
+                                        <ul></ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -384,7 +388,7 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-                                            console.log("Sucess Data: " + data);
+                                            console.log("Step 1 Saved");
                                             if (data.application_id) {
                                                 $("#application_id").val(data.application_id);
                                             }
@@ -403,7 +407,46 @@
                         required: true,
                         minlength: 9,
                         maxlength: 11,
-                        digits: true
+                        digits: true,
+                        callback: function() {
+
+                            exporturl = "{{ route('verifyabn') }}";
+                            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                            application_id = $("input[name='application_id']").val();
+
+                            //check to database
+                            abn_number = $("input[name='abn_number']").val();
+                            if (abn_number != '') {
+                                $.ajax({
+                                    type: 'POST',
+                                    cache: false,
+                                    dataType: 'json',
+                                    url: exporturl,
+                                    data: {
+                                        postdata: {
+                                            abn_number: abn_number,
+                                            application_id: application_id
+                                        },
+                                        _token: CSRF_TOKEN
+                                    },
+                                    success: function(data) {
+                                        if (data.status == 'success') {
+                                            console.log("ABC True");
+                                        } else {
+
+                                            $("input[name='abn_number']").attr("aria-invalid", true);
+                                            $("#abn_number-error").text(data.error);
+                                            $("#abn_number-error").show();
+
+                                            console.log("API Result: " + data.error);
+                                        }
+                                    },
+                                    error: function(xhr) {
+                                        console.log("ABC False");
+                                    }
+                                });
+                            }
+                        },
                     },
                     dl_number: {
                         required: true,
@@ -457,7 +500,6 @@
                     business_trading: {
                         required: true,
                         callback: function() {
-                            console.log("done business_trading");
 
                             exporturl = "{{ route('loan-save-step3') }}";
                             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -479,7 +521,7 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-                                            console.log("Sucess Data: " + data);
+                                            console.log("Step 3 Saved");
                                         } else {
                                             console.log("Step 3 Error Data: " + data);
                                         }
@@ -498,7 +540,6 @@
                     business_state: {
                         required: true,
                         callback: function() {
-                            console.log("done accounting_software");
 
                             exporturl = "{{ route('loan-save-step4') }}";
                             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -524,7 +565,7 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-                                            console.log("Sucess Data: " + data);
+                                            console.log("Step 4 Saved");
                                         } else {
                                             console.log("Step 4 Error Data: " + data);
                                         }
@@ -541,7 +582,6 @@
                     accounting_software: {
                         required: true,
                         callback: function() {
-                            console.log("done accounting_software");
 
                             exporturl = "{{ route('loan-save-step5') }}";
                             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -563,7 +603,7 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-                                            console.log("Sucess Data: " + data);
+                                            console.log("Step 5 Saved");
                                         } else {
                                             console.log("Step 5 Error Data: " + data);
                                         }
@@ -578,7 +618,7 @@
                         },
                     },
                     supporting_business_plan: {
-                        required:true,
+                        required: true,
                         callback: function() {
                             $(".next").hide();
                             $(".submit").show();
@@ -699,8 +739,9 @@
                         contentType: false,
                         cache: false,
                         timeout: 600000,
-                        success: function(result) {                            
-                            $("#supporting_business_plan").append(result.upload_path);
+                        success: function(result) {
+                            $("#uploaded_business_files ul").append(result.upload_path);
+                            //console.log("File: " + result.upload_path);
                         },
                         error: function(data) {
                             console.log("ajax upload: " + data.responseText);
@@ -709,6 +750,48 @@
                 }
             })
 
+            //$("#uploaded_business_files span").on('click', function(event) {
+            $(document).on("click", '#uploaded_business_files span', function(event) {
+
+                var cmf = confirm("Are you sure you want to delete?");
+
+                if (!cmf) return false;
+
+                var getUploadId = $(this).parent().attr("id");
+                getUploadId = getUploadId.replace("upload-image-", "");
+
+                if (getUploadId > 0) {
+                    exporturl = "{{ route('delete-uploads-files') }}";
+                    CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    application_id = $("input[name='application_id']").val();
+
+                    $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        dataType: 'json',
+                        url: exporturl,
+                        data: {
+                            postdata: {
+                                file_id: getUploadId,
+                                application_id: application_id,
+                            },
+                            _token: CSRF_TOKEN
+                        },
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                var createDivId = "#upload-image-" + data.file_id;
+                                $(createDivId).remove();
+                            } else {
+                                console.log("Del File Error Data: " + data);
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log("Del File Error: Something went wrong!");
+                        }
+                    });
+                }
+
+            });
 
             function allowConsultantsToCall(customer_ans) {
                 //calling ajax request for other category            
@@ -731,7 +814,7 @@
                         },
                         success: function(data) {
                             if (data.status == 'success') {
-                                console.log("Sucess Data: " + data);
+                                //console.log("Sucess Data: " + data);
                             } else {
                                 console.log("Error Data: " + data);
                             }

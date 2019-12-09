@@ -32,6 +32,8 @@ Route::post('loan-save-step5', 'LoanController@saveStep5')->name('loan-save-step
 Route::post('ajax-upload', 'LoanController@ajaxUploadFile')->name('ajax-upload');
 
 Route::get('thankyou', 'LoanController@thankyou')->name('thankyou');
+Route::post('verifyabn', 'LoanController@verifyABN')->name('verifyabn');
+Route::post('delete-uploads-files', 'LoanController@ajaxDeleteFile')->name('delete-uploads-files');
 
 /*
 #manage companies

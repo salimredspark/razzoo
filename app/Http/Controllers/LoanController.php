@@ -8,6 +8,7 @@ use App\LoanApplication;
 use App\LoanApplicationBusinessFiles;
 use Illuminate\Support\Facades\File;
 use Session;
+use SoapClient;
 
 class LoanController extends Controller
 {
@@ -43,7 +44,7 @@ class LoanController extends Controller
 
     public function save(Request $request)
     {
-        
+
         /*
         $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
         if ($saveExistAppData) {
@@ -100,7 +101,7 @@ class LoanController extends Controller
             }
         }
         */
-        
+
         Session::put('application_id', $request->application_id);
         //return redirect()->route('thankyou')->with('success', 'Loan Application Submitted');
         return redirect()->route('thankyou');
@@ -120,6 +121,7 @@ class LoanController extends Controller
             $saveExistAppData->customer_mobile =  $postdata['customer_mobile'];
             $saveExistAppData->customer_industry =  $postdata['customer_industry'];
             $saveExistAppData->ip_address = $this->getClientIPAddress();
+            $saveExistAppData->loan_status = 'Pending';
 
             $saveExistAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
             $saveExistAppData->save();
@@ -131,6 +133,7 @@ class LoanController extends Controller
             $saveApplication->customer_mobile =  $postdata['customer_mobile'];
             $saveApplication->customer_industry =  $postdata['customer_industry'];
             $saveApplication->ip_address =  $this->getClientIPAddress();
+            $saveExistAppData->loan_status = 'Pending';
 
             $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
             $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
@@ -261,7 +264,7 @@ class LoanController extends Controller
         $response = array();
         $postdata = $request->postdata;
         $applicationId = $request['application_id'];
-        
+
         if ($request->hasFile('supporting_business_plan')) {
             $file = $request->file('supporting_business_plan');
             $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
@@ -269,7 +272,7 @@ class LoanController extends Controller
             $rootPath = '/uploads/loan_application/' . $applicationId . "/";
             $uploadPath = public_path() . $rootPath;
 
-            if (!file_exists($rootPath.$name)) {
+            if (!file_exists($rootPath . $name)) {
                 File::makeDirectory($uploadPath, 0777, true, true);
             }
 
@@ -280,20 +283,40 @@ class LoanController extends Controller
             $saveFilesData->file_name = $name;
             $saveFilesData->file_url = $rootPath;
             $saveFilesData->save();
+
+            $uploadUrl = url('/') . $rootPath . $name;
         }
 
         $response = array(
             'status' => 'success',
             'application_id' => $applicationId,
-            'upload_path' => '<img src="' . $uploadPath . '" width="50" />',
+            'upload_path' => '<li id="upload-image-' . $saveFilesData->id . '"><img src="' . $uploadUrl . '" width="50" /> <span>X</span></li>',
         );
         return response()->json($response);
     }
 
-    public function thankyou(){
+    public function ajaxDeleteFile(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        $file_id = $postdata['file_id'];
+        $applicationId = $postdata['application_id'];
+
+        LoanApplicationBusinessFiles::find($file_id)->delete();
+
+        $response = array(
+            'status' => 'success',
+            'application_id' => $applicationId,
+            'file_id' => $file_id,
+        );
+        return response()->json($response);
+    }
+
+    public function thankyou()
+    {
 
         $application_id = Session::get('application_id');
-        return view('loan.thankyou', ['application_id'=>$application_id]);
+        return view('loan.thankyou', ['application_id' => $application_id]);
     }
 
     public function getClientIPAddress()
@@ -315,5 +338,72 @@ class LoanController extends Controller
         else
             $ipaddress = 'UNKNOWN';
         return $ipaddress;
+    }
+
+    public function verifyABN(Request $request)
+    {
+        require(base_path() . '\api\abnlib\nusoap.php');
+
+        $response = array();
+        $postdata = $request->postdata;
+
+        $applicationId = $postdata['application_id'];
+        $abn_number = $postdata['abn_number'];
+
+        $response['application_id'] = $applicationId;
+
+        $proxyhost = '';
+        $proxyport = '';
+        $proxyusername = '';
+        $proxypassword = '';
+        $authenticationGuid = '';
+
+        $client = new \SoapClient(
+            'http://abr.business.gov.au/abrxmlsearch/ABRXMLSearch.asmx?WSDL',
+            true,
+            $proxyhost,
+            $proxyport,
+            $proxyusername,
+            $proxypassword
+        );
+        $err = $client->getError();
+        if ($err) {
+            $response['error'] = 'Constructor error: ' . $err;
+        }
+
+        // Doc/lit parameters get wrapped
+        $param = array(
+            'searchString' => $abn_number,
+            'includeHistoricalDetails' => 'N',
+            'authenticationGuid' => $authenticationGuid
+        );
+        $result = $client->call('ABRSearchByABN', array('parameters' => $param), '', '', false, true);
+
+        // Check for a fault
+        if ($client->fault) {
+            $response['error'] = $result;
+        } else {
+            // Check for errors
+            $err = $client->getError();
+            if ($err) {
+                $response['error'] = $err;
+            } else {
+                $api_response = $result['ABRPayloadSearchResults']['response'];
+                if (isset($api_response['exception'])) {
+                    $response['error'] = $api_response['exception']['exceptionDescription'];
+                } else {
+                    $response['api_response'] = $api_response;
+                    $response['status'] = 'success';
+                }
+            }
+        }
+
+        /*$response = array(
+            'status' => 'success',
+            'application_id' => $applicationId,
+        );
+        */
+
+        return response()->json($response);
     }
 }
