@@ -33,11 +33,15 @@ Route::post('loan-save-step6', 'LoanController@saveStep6')->name('loan-save-step
 Route::post('loan-save-step7', 'LoanController@saveStep7')->name('loan-save-step7');
 
 Route::post('allow-consultants-call', 'LoanController@allowConsultantsToCall')->name('allow-consultants-call');
-Route::post('ajax-upload', 'LoanController@ajaxUploadFile')->name('ajax-upload');
+Route::post('ajax-upload-businessplan', 'LoanController@ajaxUploadBusinessFile')->name('ajax-upload-businessplan');
+Route::post('ajax-upload-bankfile', 'LoanController@ajaxUploadlBankFile')->name('ajax-upload-bankfile');
 
 Route::get('thankyou', 'LoanController@thankyou')->name('thankyou');
 Route::post('verifyabn', 'LoanController@verifyABN')->name('verifyabn');
 Route::post('delete-uploads-files', 'LoanController@ajaxDeleteFile')->name('delete-uploads-files');
+Route::post('delete-uploads-bank-files', 'LoanController@ajaxDeleteBankFile')->name('delete-uploads-bank-files');
+
+Route::post('subscribe', 'HomeController@ajaxSubscribe')->name('subscribe');
 
 //for facebook login
 Route::get('facebook', function () {

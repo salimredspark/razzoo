@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\LoanApplication;
 use App\LoanApplicationBusinessFiles;
+use App\LoanApplicationBankFiles;
 use Illuminate\Support\Facades\File;
 use Session;
 use SoapClient;
@@ -72,7 +73,7 @@ class LoanController extends Controller
             $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
             $saveExistAppData->customer_email =  $postdata['customer_email'];
             $saveExistAppData->customer_mobile =  $postdata['customer_mobile'];
-            $saveExistAppData->ip_address = $this->getClientIPAddress();
+            $saveExistAppData->ip_address =  User::getClientIPAddress();
             $saveExistAppData->loan_status = 'Pending';
 
             $saveExistAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
@@ -83,7 +84,7 @@ class LoanController extends Controller
             $saveApplication->customer_lastname =  $postdata['customer_lastname'];
             $saveApplication->customer_email =  $postdata['customer_email'];
             $saveApplication->customer_mobile =  $postdata['customer_mobile'];
-            $saveApplication->ip_address =  $this->getClientIPAddress();
+            $saveApplication->ip_address =   User::getClientIPAddress();
             $saveApplication->loan_status = 'Pending';
 
             $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
@@ -262,7 +263,7 @@ class LoanController extends Controller
         }
     }
 
-    public function ajaxUploadFile(Request $request)
+    public function ajaxUploadBusinessFile(Request $request)
     {
         $response = array();
         $postdata = $request->postdata;
@@ -278,8 +279,13 @@ class LoanController extends Controller
 
                 $rootPath = '/storage/loan_application/' . $applicationId . "/";
                 $uploadPath = public_path() . $rootPath;
-
                 if (!file_exists($rootPath . $name)) {
+                    File::makeDirectory($uploadPath, 0777, true, true);
+                }
+                
+                //create sub folder
+                $uploadPath = $uploadPath."business_plan/";                
+                if (!file_exists($uploadPath . $name)) {
                     File::makeDirectory($uploadPath, 0777, true, true);
                 }
 
@@ -304,6 +310,54 @@ class LoanController extends Controller
         return response()->json($response);
     }
 
+    public function ajaxUploadlBankFile(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        $applicationId = $request['application_id'];
+
+        $fileoutput = '';
+        $files = $request->file('supporting_bank_file');
+
+        if ($request->hasFile('supporting_bank_file')) {
+            foreach ($files as $file) {
+                $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+
+                $rootPath = '/storage/loan_application/' . $applicationId . "/";
+                $uploadPath = public_path() . $rootPath;
+
+                if (!file_exists($rootPath . $name)) {
+                    File::makeDirectory($uploadPath, 0777, true, true);
+                }
+
+                //create sub folder
+                $uploadPath = $uploadPath."bank_statement/";                
+                if (!file_exists($uploadPath . $name)) {
+                    File::makeDirectory($uploadPath, 0777, true, true);
+                }
+
+                $file->move($uploadPath, $name);
+
+                $saveFilesData = new LoanApplicationBankFiles($request->all());
+                $saveFilesData->application_id = $applicationId;
+                $saveFilesData->file_name = $name;
+                $saveFilesData->file_url = $rootPath;
+                $saveFilesData->save();
+
+                $uploadUrl = url('/') . $rootPath . $name;
+                $fileoutput .= '<li id="upload-bank-image-' . $saveFilesData->id . '"><img src="' . $uploadUrl . '" width="50" /> <span>X</span></li>';
+            }
+        }
+
+        $response = array(
+            'status' => 'success',
+            'application_id' => $applicationId,
+            'upload_path' => $fileoutput,
+        );
+        return response()->json($response);
+    }
+
+    //delete business file
     public function ajaxDeleteFile(Request $request)
     {
         $response = array();
@@ -321,37 +375,34 @@ class LoanController extends Controller
         return response()->json($response);
     }
 
+    //delete bank files
+    public function ajaxDeleteBankFile(Request $request)
+    {
+        $response = array();
+        $postdata = $request->postdata;
+        $file_id = $postdata['file_id'];
+        $applicationId = $postdata['application_id'];
+
+        LoanApplicationBankFiles::find($file_id)->delete();
+
+        $response = array(
+            'status' => 'success',
+            'application_id' => $applicationId,
+            'file_id' => $file_id,
+        );
+        return response()->json($response);
+    }
+
     public function thankyou()
     {
 
         $application_id = Session::get('application_id');
         return view('loan.thankyou', ['application_id' => $application_id]);
     }
-
-    public function getClientIPAddress()
-    {
-        //return \Request::getClientIp(true);
-        $ipaddress = '';
-        if (isset($_SERVER['HTTP_CLIENT_IP']))
-            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        else if (isset($_SERVER['HTTP_X_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        else if (isset($_SERVER['HTTP_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        else if (isset($_SERVER['REMOTE_ADDR']))
-            $ipaddress = $_SERVER['REMOTE_ADDR'];
-        else
-            $ipaddress = 'UNKNOWN';
-        return $ipaddress;
-    }
-
+    
     public function verifyABN(Request $request)
     {
-        require(base_path() . '\api\abnlib\nusoap.php');
+        require(base_path() . '/api/abnlib/nusoap.php');
 
         $response = array();
         $postdata = $request->postdata;

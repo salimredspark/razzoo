@@ -704,13 +704,32 @@ footer {
 }
 
 .radio-option-1 li label {
-
 	font-size:18px;
-
 }
-#uploaded_business_files ul{maring:0px; padding: 0px;}
-#uploaded_business_files ul li{float:left; list-style: none;border: solid 1px #eee;margin-right: 10px; position: relative;}
-#uploaded_business_files span {
+.cookie-consent {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background: #2968e6;
+	text-align: center;
+	padding: 10px 0;
+	z-index: 9;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: 400;
+}
+.cookie-consent button {
+	background: #ffffff;
+	border: 0;
+	border-radius: 50px;
+	font-size: 16px;
+	line-height: normal;
+	padding: 10px 25px;
+	margin: 0px 10px;
+}
+#uploaded_business_files ul, #uploaded_bank_files ul{maring:0px; padding: 0px;}
+#uploaded_business_files ul li, #uploaded_bank_files ul li{float:left; list-style: none;border: solid 1px #eee;margin-right: 10px; position: relative;}
+#uploaded_business_files span, #uploaded_bank_files span {
     position: absolute;
     top: 0;
     right: 0;
@@ -718,4 +737,4 @@ footer {
 	color: #555;
 	cursor: pointer;
 }
-#abn_number_valid{border:none;}
+#abn_number_valid{border:none;color:#fff;}

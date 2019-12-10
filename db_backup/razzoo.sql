@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2019 at 01:11 PM
+-- Generation Time: Dec 10, 2019 at 02:34 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -90,9 +90,15 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (59, 7, 'ip_address', 'text', 'IP Address', 1, 1, 1, 0, 0, 0, '{}', 18),
 (60, 7, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 0, 0, 0, '{}', 19),
 (61, 7, 'updated_at', 'timestamp', 'Updated At', 1, 1, 1, 0, 0, 0, '{}', 20),
-(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Loan\",\"table\":\"loan_application_business_files\",\"type\":\"belongsTo\",\"column\":\"id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"loan_application_business_files\",\"pivot\":\"0\",\"taggable\":\"0\"}', 21),
+(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Loan\",\"table\":\"loan_application_business_files\",\"type\":\"hasMany\",\"column\":\"id\",\"key\":\"file_name\",\"label\":\"application_id\",\"pivot_table\":\"loan_application_business_files\",\"pivot\":\"0\",\"taggable\":\"0\"}', 21),
 (63, 7, 'loan_status', 'text', 'Status', 1, 1, 1, 1, 1, 1, '{}', 19),
-(64, 7, 'facebook_id', 'text', 'Facebook Login', 0, 1, 1, 1, 1, 1, '{}', 20);
+(64, 7, 'facebook_id', 'text', 'Facebook Login', 0, 1, 1, 1, 1, 1, '{}', 20),
+(65, 7, 'customer_address1', 'text', 'Customer Address1', 0, 1, 1, 1, 1, 1, '{}', 6),
+(66, 7, 'customer_address2', 'text', 'Customer Address2', 0, 1, 1, 1, 1, 1, '{}', 7),
+(67, 7, 'customer_state', 'text', 'Customer State', 0, 1, 1, 1, 1, 1, '{}', 8),
+(68, 7, 'customer_city', 'text', 'Customer City', 0, 1, 1, 1, 1, 1, '{}', 9),
+(69, 7, 'customer_postalcode', 'text', 'Customer Postalcode', 0, 1, 1, 1, 1, 1, '{}', 10),
+(70, 7, 'customer_country', 'text', 'Customer Country', 0, 1, 1, 1, 1, 1, '{}', 11);
 
 -- --------------------------------------------------------
 
@@ -126,7 +132,7 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
-(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', NULL, 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-09 04:21:29');
+(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', NULL, 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-09 09:05:01');
 
 -- --------------------------------------------------------
 
@@ -185,11 +191,19 @@ CREATE TABLE `loan_application` (
 --
 
 INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_address1`, `customer_address2`, `customer_state`, `customer_city`, `customer_postalcode`, `customer_country`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `loan_status`, `facebook_id`, `created_at`, `updated_at`) VALUES
-(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', '1 Bass Pro Mills Dr, Concord, ON L4K 2M9, Canada', '1 Bass Pro Mills Dr', 'ON', 'Vaughan', 'L4K 2M9', 'CA', 'Healthcare', 'No', 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', '', '2019-12-09 12:09:06', '2019-12-09 06:39:06'),
+(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Atlanta airport, Atlanta, GA 30334, USA', NULL, 'GA', 'Atlanta', '30334', 'US', 'Healthcare', 'Yes', 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', '', '2019-12-10 11:38:42', '2019-12-10 06:08:42'),
 (1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', '', '', '', '', '', NULL, 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
 (1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', '', '', '', '', '', NULL, 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
 (1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', '', '', '', '', '', NULL, 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
-(1000000005, 'Suhas', 'Patel', 'suhas@redsparkinfo.co.in', '9298474737', '', '', '', '', '', NULL, 'Healthcare', NULL, '$5,000 - $10,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Spark', 'Gujarat', 'MYOB', '::1', '', '', '2019-12-04 07:08:48', '2019-12-04 01:38:48');
+(1000000005, 'Suhas', 'Patel', 'suhas@redsparkinfo.co.in', '9298474737', '', '', '', '', '', NULL, 'Healthcare', NULL, '$5,000 - $10,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Spark', 'Gujarat', 'MYOB', '::1', '', '', '2019-12-04 07:08:48', '2019-12-04 01:38:48'),
+(1000000006, 'Deval', 'Barot', 'dev@aa.com', '4234234234', '998 Fourth Ave, San Diego, CA 92101, USA', '998 Fourth Ave', 'CA', 'San Diego', '92101', 'US', 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-09 14:47:57', '2019-12-09 09:17:57'),
+(1000000007, 'dsad', 'sadasd', 'aaa@aaa.com', '423423432', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 01:30:39', '2019-12-10 01:30:39'),
+(1000000008, 'dsad', 'sadasd', 'aaa@aaa.com', '4234234323', 'Atlanta airport, Atlanta, GA 30334, USA', NULL, 'GA', 'Atlanta', '30334', 'US', 'Hospitality', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 07:01:01', '2019-12-10 01:31:01'),
+(1000000009, 'dsad', 'asdasd', 'asdasda', '111111111111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 01:32:16', '2019-12-10 01:32:16'),
+(1000000010, 'dsad', 'asdasd', 'asdasda@aaa.com', '111111111111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 07:02:21', '2019-12-10 01:32:21'),
+(1000000011, 'dsad', 'asdasd', 'asdasda@aaa.com', '1111111111111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 01:32:20', '2019-12-10 01:32:20'),
+(1000000012, 'dsad', 'asdasd', 'asdasda@aaa.com', '11111111111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 01:32:20', '2019-12-10 01:32:20'),
+(1000000013, 'dsad', 'asdasd', 'asdasda@aaa.com', '1111111111', 'Reguliersbreestraat 23, 1017 CL Amsterdam, Netherlands', '23 Reguliersbreestraat', 'NH', 'Amsterdam', '1017 CL', 'NL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 07:02:59', '2019-12-10 01:32:59');
 
 -- --------------------------------------------------------
 
@@ -201,8 +215,20 @@ CREATE TABLE `loan_application_bankstatements` (
   `id` int(11) NOT NULL,
   `application_id` int(11) NOT NULL,
   `file_name` varchar(256) NOT NULL,
-  `file_url` varchar(256) NOT NULL
+  `file_url` varchar(256) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `loan_application_bankstatements`
+--
+
+INSERT INTO `loan_application_bankstatements` (`id`, `application_id`, `file_name`, `file_url`, `updated_at`, `created_at`) VALUES
+(1, 1000000001, 'demo 3.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-10 02:07:04', '2019-12-10 02:07:04'),
+(2, 1000000001, 'demo 6.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-10 02:10:17', '2019-12-10 02:10:17'),
+(3, 1000000001, 'demo 4.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-10 03:10:28', '2019-12-10 03:10:28'),
+(5, 1000000001, 'demo 2.png.png', '/storage/loan_application/1000000001/', '2019-12-10 06:09:33', '2019-12-10 06:09:33');
 
 -- --------------------------------------------------------
 
@@ -255,7 +281,20 @@ INSERT INTO `loan_application_business_files` (`id`, `application_id`, `file_nam
 (34, 1000000001, 'image_1.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:34', '2019-12-09 06:33:34'),
 (35, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:37', '2019-12-09 06:33:37'),
 (37, 1000000001, 'index2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:50', '2019-12-09 06:33:50'),
-(38, 1000000001, 'index2.webp.webp', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:53', '2019-12-09 06:33:53');
+(38, 1000000001, 'index2.webp.webp', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:53', '2019-12-09 06:33:53'),
+(39, 1000000001, 'index1.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 07:25:24', '2019-12-09 07:25:24'),
+(40, 1000000001, 'index1.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 07:32:22', '2019-12-09 07:32:22'),
+(41, 1000000001, 'image_1.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 07:32:30', '2019-12-09 07:32:30'),
+(42, 1000000001, 'image_2.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 07:32:30', '2019-12-09 07:32:30'),
+(43, 1000000001, 'image_1.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 09:00:47', '2019-12-09 09:00:47'),
+(44, 1000000001, 'image_2.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 09:00:47', '2019-12-09 09:00:47'),
+(45, 1000000001, 'image_2.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 09:01:08', '2019-12-09 09:01:08'),
+(46, 1000000001, 'demo 5.png.png', '/storage/loan_application/1000000001/', '2019-12-09 09:19:15', '2019-12-09 09:19:15'),
+(47, 1000000001, 'demo 1.png.png', '/storage/loan_application/1000000001/', '2019-12-09 09:19:18', '2019-12-09 09:19:18'),
+(48, 1000000001, 'demo 4.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 09:19:20', '2019-12-09 09:19:20'),
+(49, 1000000001, 'demo 3.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-10 03:11:15', '2019-12-10 03:11:15'),
+(50, 1000000001, 'demo 2.png.png', '/storage/loan_application/1000000001/', '2019-12-10 03:11:17', '2019-12-10 03:11:17'),
+(51, 1000000001, 'demo 5.png.png', '/storage/loan_application/1000000001/', '2019-12-10 06:09:46', '2019-12-10 06:09:46');
 
 -- --------------------------------------------------------
 
@@ -308,7 +347,7 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.media.index', NULL),
 (3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 4, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.users.index', NULL),
 (4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 3, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.roles.index', NULL),
-(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-03 00:31:15', NULL, NULL),
+(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 6, '2019-12-01 19:59:12', '2019-12-10 01:53:30', NULL, ''),
 (6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.menus.index', NULL),
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.compass.index', NULL),
@@ -356,6 +395,29 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2018_03_14_000000_add_details_to_data_types_table', 1),
 (22, '2018_03_16_000000_make_settings_value_nullable', 1),
 (23, '2019_08_19_000000_create_failed_jobs_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `newsletter_subscriber`
+--
+
+CREATE TABLE `newsletter_subscriber` (
+  `id` int(11) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `firstname` varchar(256) DEFAULT NULL,
+  `lastname` varchar(256) DEFAULT NULL,
+  `ip_address` varchar(256) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `newsletter_subscriber`
+--
+
+INSERT INTO `newsletter_subscriber` (`id`, `email`, `firstname`, `lastname`, `ip_address`, `created_at`, `updated_at`) VALUES
+(1, 'salim@redsparkinfo.co.in', NULL, NULL, '::1', '2019-12-09 19:49:19', '2019-12-09 19:49:19');
 
 -- --------------------------------------------------------
 
@@ -585,7 +647,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `facebook_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 'Super Admin', 'salim@redsparkinfo.co.in', 'users/default.png', NULL, '$2y$10$SKrIacr302vUad8kEMQwbuva/nXyhnXtc9eNXR.hqHs2gKWzfDwYW', NULL, NULL, NULL, NULL),
+(1, 1, NULL, 'Super Admin', 'salim@redsparkinfo.co.in', 'users\\December2019\\PpH7YsztWYzMPhWa836v.jpg', NULL, '$2y$10$SKrIacr302vUad8kEMQwbuva/nXyhnXtc9eNXR.hqHs2gKWzfDwYW', NULL, '{\"locale\":\"en\"}', NULL, '2019-12-09 07:21:29'),
 (2, 2, NULL, 'Admin', 'admin@razzoo.com', 'users/default.png', NULL, '$2y$10$xFgnOoLgUsgnDFuNqUWqe.W0WUUa3wKrSD0knMwDk9084eEKM85fO', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -673,6 +735,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `newsletter_subscriber`
+--
+ALTER TABLE `newsletter_subscriber`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -738,7 +806,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `data_types`
@@ -756,19 +824,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `loan_application`
 --
 ALTER TABLE `loan_application`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000006;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000014;
 
 --
 -- AUTO_INCREMENT for table `loan_application_bankstatements`
 --
 ALTER TABLE `loan_application_bankstatements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `loan_application_business_files`
 --
 ALTER TABLE `loan_application_business_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `menus`
@@ -787,6 +855,12 @@ ALTER TABLE `menu_items`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `newsletter_subscriber`
+--
+ALTER TABLE `newsletter_subscriber`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `permissions`

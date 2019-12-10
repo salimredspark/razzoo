@@ -66,15 +66,15 @@
             {{ Session::get('success') }}
         </div>
         @elseif(Session::has('error'))
-        <div class="alert alert-error">
+        <div class="alert alert-error alert-danger">
             {{ Session::get('error') }}
         </div>
         @endif
         @yield('content')
-
-        @include('cookieConsent::index')
+        
     </div>
-
+    
+    @include('cookieConsent::index')
     <footer>
         &copy;{{date("Y")}}, Razzoo. All Rights Reserved.
     </footer>

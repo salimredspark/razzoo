@@ -129,6 +129,60 @@ https://www.mogo.ca/signup
 
 So please provide API document for development help.
 ---------------------------------------------------------------------------------------------------------------------------------------------
+Newsletter
+https://github.com/spatie/laravel-newsletter
+---------------------------------------------------------------------------------------------------------------------------------------------
 Publish Cookies
 https://github.com/spatie/laravel-cookie-consent
 ---------------------------------------------------------------------------------------------------------------------------------------------
+https://my.a2hosting.com/clientarea.php
+dhruv@redsparkinfo.com
+Redspark@1
+---------------------------------------------------------------------------------------------------------------------------------------------
+redspark.biz
+DB Name: rtrialco_razzoo
+DB user: rtrialco_razzoo
+DB Pass: 3BQ66DWI*KNI
+--------------------------------------------------------------------------------------------------------------------------------------------
+SSH
+User: redspar2
+Passphrase: magento_2
+cd /home/redspar2/public_html/razzoo
+--------------------------------------------------------------------------------------------------------------------------------------------
+Admin Login
+https://razzoo.redspark.biz/public/admin/login
+email: admin@razzoo.com
+password: red@spark
+---------------------------------------------------------------------------------------------------------------------------------------------
+Development Domain URL
+https://razzoo.redspark.biz/public
+--------------------------------------------------------------------------------------------------------------------------------------------
+https://secure.uat.mogoplus.com/maroubra/login
+dpatel 
+Red@spark1
+--------------------------------------------------------------------------------------------------------------------------------------------
+1) Upload Project to Server
+2) Set Home Page
+3) Facebook Login
+4) Bank Statemment -- MogoPlus API 
+5) 
+
+
+Search by ABN: SearchByABNv201408
+Search by ACN: SearchByASICv201408
+
+
+It cannot be created, unfortunately as it the primary account and also an A2 subdomain. Only one A2 subdomain is only available for a single cPanel account. So if you need an account like https://razzoo.a2hosted.com, you may need purchase a new hosting plan. 
+
+
+
+
+
+
+
+
+
+
+
+
+

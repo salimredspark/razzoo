@@ -172,7 +172,7 @@
                                             <label>Please enter your ABN/ACN number</label>
                                             <input type="text" class="form-control" name="abn_number" id="abn_number" placeholder="ABN(11 Digits) or ACN(9 Digits)">
                                             <span class="api_process"></span>
-                                            <input type="text" id="abn_number_valid" name="abn_number_valid" value="" readonly />
+                                            <input type="text" id="abn_number_valid" name="abn_number_valid" value="valid" readonly />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -267,7 +267,11 @@
                             <div class="tab">
                                 <div class="form-group">
                                     <div class="form-group files">
-                                        <input type="file" class="form-control" multiple name="group_file">
+                                        <input type="file" class="form-control" multiple name="supporting_bank_file[]" id="supporting_bank_file">
+                                    </div>
+                                    <div class="load_bank_process"></div>
+                                    <div id="uploaded_bank_files">
+                                        <ul></ul>
                                     </div>
                                 </div>
                             </div>
@@ -277,6 +281,7 @@
                                     <div class="form-group files files1">
                                         <input type="file" class="form-control" multiple name="supporting_business_plan[]" id="supporting_business_plan">
                                     </div>
+                                    <div class="load_biz_process"></div>
                                     <div id="uploaded_business_files">
                                         <ul></ul>
                                     </div>
@@ -500,9 +505,16 @@
                     customer_industry: {
                         required: true,
                         callback: function() {
-                            $(".cond-section").hide();
-
                             var radioValue = $("input[name='customer_industry']:checked").val();
+
+                            if (radioValue == undefined) {
+                                console.log("radioValue: " + radioValue)
+                                return false;
+                            }
+
+                            $(".cond-section").hide();
+                            //$(".tab.current").hide();
+
                             var createDiv = ".section-" + radioValue;
                             $(createDiv).show();
 
@@ -547,7 +559,7 @@
 
                         }
                     },
-                    abn_number_valid: "required",
+                    //abn_number_valid: "required",
                     abn_number: {
                         required: true,
                         minlength: 9,
@@ -578,17 +590,17 @@
                                     success: function(data) {
                                         if (data.status == 'success') {
                                             console.log("ABC True");
-                                            $(".api_process").html("");        
+                                            $(".api_process").html("");
                                             $("#abn_number_valid").val('valid');
                                         } else {
                                             $("#abn_number_valid").val('valid');
-                                            $(".api_process").html(data.error);                                            
+                                            $(".api_process").html(data.error);
                                             console.log("API Result: " + data.error);
                                         }
                                     },
                                     error: function(xhr) {
                                         console.log("ABC False");
-                                        $("button.next").hide();
+                                        //$("button.next").hide();
                                     }
                                 });
                             }
@@ -806,9 +818,9 @@
                         required: "ABN/ACN number is required",
                         digits: "Only numbers are allowed in this field"
                     },
-                    abn_number_valid: {
+                    /*abn_number_valid: {
                         required: "Valid ABN/ACN number is required",
-                    },
+                    },*/
                     dl_number: "DL number is required",
                     state_issue: "Please enter state of issue",
                     business_trading: "Please selecy trading time",
@@ -883,6 +895,11 @@
                 allowConsultantsToCall(clickedVal);
             })
 
+            $(".radGroup1").on('click', function(event) {
+                $("#customer_industry-error").remove();
+                $(".action-buttons").show();
+            })
+
             //upload business plan file
             $("#supporting_business_plan").on('change', function(event) {
                 //event.preventDefault();
@@ -891,7 +908,7 @@
                 var formData = new FormData(form);
 
                 //calling ajax request for upload files
-                exporturl = "{{ route('ajax-upload') }}";
+                exporturl = "{{ route('ajax-upload-businessplan') }}";
                 CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 application_id = $("input[name='application_id']").val();
 
@@ -899,6 +916,9 @@
                 formData.append("application_id", application_id);
 
                 if (application_id > 0) {
+
+                    $(".load_biz_process").html("Please wait...");
+
                     $.ajax({
                         type: "POST",
                         enctype: 'multipart/form-data',
@@ -911,15 +931,60 @@
                         success: function(result) {
                             $("#uploaded_business_files ul").append(result.upload_path);
                             //console.log("File: " + result.upload_path);
+
+                            $(".next").hide();
+                            $(".submit").show();
+                            $(".load_biz_process").html("");
                         },
                         error: function(data) {
+                            console.log("ajax upload: " + data.responseText);
+                            $(".load_biz_process").html("");
+                        }
+                    });
+                }
+            })
+
+            //upload bank statement file
+            $("#supporting_bank_file").on('change', function(event) {
+                //event.preventDefault();
+
+                var form = $('#stepsLoanProcess')[0];
+                var formData = new FormData(form);
+
+                //calling ajax request for upload files
+                exporturl = "{{ route('ajax-upload-bankfile') }}";
+                CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                application_id = $("input[name='application_id']").val();
+
+                formData.append("_token", CSRF_TOKEN);
+                formData.append("application_id", application_id);
+
+                if (application_id > 0) {
+
+                    $(".load_bank_process").html("Please wait...");
+
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: exporturl,
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 600000,
+                        success: function(result) {
+                            $("#uploaded_bank_files ul").append(result.upload_path);
+                            $(".load_bank_process").html("");
+                        },
+                        error: function(data) {
+                            $(".load_bank_process").html("");
                             console.log("ajax upload: " + data.responseText);
                         }
                     });
                 }
             })
 
-            //$("#uploaded_business_files span").on('click', function(event) {
+            //delete business file
             $(document).on("click", '#uploaded_business_files span', function(event) {
 
                 var cmf = confirm("Are you sure you want to delete?");
@@ -961,6 +1026,50 @@
                 }
 
             });
+
+            //delete bank file
+            $(document).on("click", '#uploaded_bank_files span', function(event) {
+
+                var cmf = confirm("Are you sure you want to delete?");
+
+                if (!cmf) return false;
+
+                var getUploadId = $(this).parent().attr("id");
+                getUploadId = getUploadId.replace("upload-bank-image-", "");
+
+                if (getUploadId > 0) {
+                    exporturl = "{{ route('delete-uploads-bank-files') }}";
+                    CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    application_id = $("input[name='application_id']").val();
+
+                    $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        dataType: 'json',
+                        url: exporturl,
+                        data: {
+                            postdata: {
+                                file_id: getUploadId,
+                                application_id: application_id,
+                            },
+                            _token: CSRF_TOKEN
+                        },
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                var createDivId = "#upload-bank-image-" + data.file_id;
+                                $(createDivId).remove();
+                            } else {
+                                console.log("Del File Error Data: " + data);
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log("Del File Error: Something went wrong!");
+                        }
+                    });
+                }
+
+            });
+
 
             //autocomplete adress
             $('#auto-complete-address').locationpicker({

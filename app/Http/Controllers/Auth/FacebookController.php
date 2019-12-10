@@ -68,7 +68,13 @@ class FacebookController extends Controller
             //return redirect()->route('loan-process');
             return redirect()->route('loan-process')->with('success', 'Facebook login sucess');
         } catch (Exception $e) {
-            return redirect('auth/facebook');
+            /*
+            $user = Socialite::driver('facebook')->stateless()->user();              
+            echo "<pre>";print_r($user);echo"</pre>";
+            die();
+            */
+
+            return redirect('loan-process')->with('error', $e->getMessage());
         }
     }
 }
