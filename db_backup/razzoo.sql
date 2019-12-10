@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2019 at 02:34 PM
+-- Generation Time: Dec 10, 2019 at 02:57 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -98,7 +98,14 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (67, 7, 'customer_state', 'text', 'Customer State', 0, 1, 1, 1, 1, 1, '{}', 8),
 (68, 7, 'customer_city', 'text', 'Customer City', 0, 1, 1, 1, 1, 1, '{}', 9),
 (69, 7, 'customer_postalcode', 'text', 'Customer Postalcode', 0, 1, 1, 1, 1, 1, '{}', 10),
-(70, 7, 'customer_country', 'text', 'Customer Country', 0, 1, 1, 1, 1, 1, '{}', 11);
+(70, 7, 'customer_country', 'text', 'Customer Country', 0, 1, 1, 1, 1, 1, '{}', 11),
+(71, 8, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(72, 8, 'email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 2),
+(73, 8, 'firstname', 'text', 'Firstname', 0, 1, 1, 1, 1, 1, '{}', 3),
+(74, 8, 'lastname', 'text', 'Lastname', 0, 1, 1, 1, 1, 1, '{}', 4),
+(75, 8, 'ip_address', 'text', 'Ip Address', 0, 1, 1, 1, 1, 1, '{}', 5),
+(76, 8, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 6),
+(77, 8, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 7);
 
 -- --------------------------------------------------------
 
@@ -132,7 +139,8 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
-(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', NULL, 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-09 09:05:01');
+(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-10 08:22:03'),
+(8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-10 08:21:55');
 
 -- --------------------------------------------------------
 
@@ -344,16 +352,17 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-12-01 19:59:11', '2019-12-01 19:59:11', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.media.index', NULL),
-(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 4, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.users.index', NULL),
-(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 3, '2019-12-01 19:59:12', '2019-12-04 08:50:20', 'voyager.roles.index', NULL),
-(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 6, '2019-12-01 19:59:12', '2019-12-10 01:53:30', NULL, ''),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-10 08:16:15', 'voyager.media.index', NULL),
+(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 5, '2019-12-01 19:59:12', '2019-12-10 08:16:15', 'voyager.users.index', NULL),
+(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 4, '2019-12-01 19:59:12', '2019-12-10 08:16:15', 'voyager.roles.index', NULL),
+(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 7, '2019-12-01 19:59:12', '2019-12-10 08:16:15', NULL, ''),
 (6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.menus.index', NULL),
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.settings.index', NULL),
-(14, 1, 'Loan Application', '', '_self', 'voyager-list', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-06 07:01:00', 'voyager.loan.index', 'null');
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 8, '2019-12-01 19:59:12', '2019-12-10 08:16:16', 'voyager.settings.index', NULL),
+(14, 1, 'Loan Application', '', '_self', 'voyager-list', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-06 07:01:00', 'voyager.loan.index', 'null'),
+(16, 1, 'Newsletter', '', '_self', 'voyager-list', '#000000', NULL, 3, '2019-12-10 08:16:08', '2019-12-10 08:16:35', 'voyager.newsletter.index', 'null');
 
 -- --------------------------------------------------------
 
@@ -481,7 +490,12 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (29, 'read_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17'),
 (30, 'edit_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17'),
 (31, 'add_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17'),
-(32, 'delete_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17');
+(32, 'delete_loan_application', 'loan_application', '2019-12-04 08:46:17', '2019-12-04 08:46:17'),
+(33, 'browse_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53'),
+(34, 'read_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53'),
+(35, 'edit_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53'),
+(36, 'add_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53'),
+(37, 'delete_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53');
 
 -- --------------------------------------------------------
 
@@ -547,7 +561,17 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (31, 1),
 (31, 2),
 (32, 1),
-(32, 2);
+(32, 2),
+(33, 1),
+(33, 2),
+(34, 1),
+(34, 2),
+(35, 1),
+(35, 2),
+(36, 1),
+(36, 2),
+(37, 1),
+(37, 2);
 
 -- --------------------------------------------------------
 
@@ -806,13 +830,13 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -848,7 +872,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -866,7 +890,7 @@ ALTER TABLE `newsletter_subscriber`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `roles`

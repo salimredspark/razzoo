@@ -80,7 +80,7 @@
     <div class="header">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6"><a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('landing/images/logos/logo.png') }}" class="img-fluid"></a> </div>
+                <div class="col-6"><a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('landing/images/logos/logo.png') }}" class="img-fluid"></a> </div>
                 <div class="col-6 "><a class="btn btn-outline-secondary pull-right  investor_btn" href="{{ url('loan-started') }}">Investor Relations</a> </div>
             </div>
         </div>
