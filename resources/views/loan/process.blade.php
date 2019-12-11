@@ -172,7 +172,7 @@
                                             <label>Please enter your ABN/ACN number</label>
                                             <input type="text" class="form-control" name="abn_number" id="abn_number" placeholder="ABN(11 Digits) or ACN(9 Digits)">
                                             <span class="api_process"></span>
-                                            <input type="text" id="abn_number_valid" name="abn_number_valid" value="valid" readonly />
+                                            <input type="text" id="abn_number_valid" name="abn_number_valid" value="" readonly />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -376,7 +376,7 @@
     </div>
 </section>
 
-<script src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places,drawing"></script>
+<script src="https://maps.google.com/maps/api/js?key={{ setting('site.GOOGLE_API_KEY') }}&libraries=places,drawing"></script>
 <script type="text/javascript" src="{{ asset('js/locationpicker.jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/multi-form.js?v2') }}"></script>
@@ -559,14 +559,17 @@
 
                         }
                     },
-                    //abn_number_valid: "required",
+                    abn_number_valid: "required",
                     abn_number: {
                         required: true,
                         minlength: 9,
                         maxlength: 11,
                         digits: true,
                         callback: function() {
-                            //$("#abn_number_valid").val('');
+                            var isValidAB = $("#abn_number_valid").val();
+                            
+                            if(isValidAB == '') $("#abn_number_valid").val('');
+
                             exporturl = "{{ route('verifyabn') }}";
                             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                             application_id = $("input[name='application_id']").val();
@@ -593,7 +596,7 @@
                                             $(".api_process").html("");
                                             $("#abn_number_valid").val('valid');
                                         } else {
-                                            $("#abn_number_valid").val('valid');
+                                            $("#abn_number_valid").val();
                                             $(".api_process").html(data.error);
                                             console.log("API Result: " + data.error);
                                         }
@@ -818,9 +821,9 @@
                         required: "ABN/ACN number is required",
                         digits: "Only numbers are allowed in this field"
                     },
-                    /*abn_number_valid: {
+                    abn_number_valid: {
                         required: "Valid ABN/ACN number is required",
-                    },*/
+                    },
                     dl_number: "DL number is required",
                     state_issue: "Please enter state of issue",
                     business_trading: "Please selecy trading time",

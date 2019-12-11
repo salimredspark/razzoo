@@ -93,7 +93,7 @@
                         to help you grow</h1>
                     <div class="input-group input-group-lg my-4">
                         <div class="input-group input-group-lg my-4">
-                            <input type="text" class="form-control "  name="email" id="email" placeholder="Enter email address">
+                            <input type="text" class="form-control " name="email" id="email" placeholder="Enter email address">
                             <div class="input-group-append">
                                 <button class="btn btn-secondary px-4 subscribe" type="button"> Apply </button>
                             </div>
@@ -422,7 +422,13 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-sm-6"> <img src="{{ asset('landing/images/assets/map.png') }}" width="555" height="461" class="img-fluid mx-auto d-block"> </div>
+                <div class="col-sm-6">
+                    <div style="width: 100%">
+                        <iframe width="100%" height="461" src="https://maps.google.com/maps?width=100%&height=461&hl=en&q=Suite%201203%2C%20530%20Lt%20Collins%20St%20Melbourne%20VIC%203000%20+(razzoo)&ie=UTF8&t=&z=15&iwloc=B&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                            <a href="https://www.mapsdirections.info/en/journey-planner.htm">find directions</a>
+                        </iframe>
+                    </div>
+                </div>
                 <div class="col-sm-6">
                     <form>
                         <div class="form-group input-group-lg">
@@ -454,7 +460,7 @@
         <div class=" container">
             <div class="row">
                 <div class="col-sm-4">
-                    <p> ©2019, Razzoo. All Rights Reserved. </p>
+                    <p> &copy;{{date("Y")}}, Razzoo. All Rights Reserved. </p>
                 </div>
                 <div class="col-sm-8">
                     <div class="row">
@@ -468,9 +474,9 @@
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <ul class=" list-unstyled icon_list m-0">
-                                <li> <a href="#"> <i class="fa fa-facebook" aria-hidden="true"></i> </a></li>
-                                <li> <a href="#"> <i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li> <a href="#"> <i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li> <a href="{{ setting('site.FACEBOOK_URL') }}" target="_blank"> <i class="fa fa-facebook" aria-hidden="true"></i> </a></li>
+                                <li> <a href="{{ setting('site.TWITTER_URL') }}" target="_blank"> <i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                <li> <a href="{{ setting('site.LINKEDIN_URL') }}" target="_blank"> <i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
                     </div>

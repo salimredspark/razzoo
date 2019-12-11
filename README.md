@@ -19,5 +19,6 @@ Your go to place for Business Loans
  - Facebook Login | Ref: https://www.itsolutionstuff.com/post/laravel-56-login-with-facebook-with-socialiteexample.html
  - Newsletter | Ref: https://github.com/spatie/laravel-newsletter
  - Publish Cookies Policy | Ref: https://github.com/spatie/laravel-cookie-consent
+ - Google Map | Ref: https://www.mapsdirections.info/en/custom-google-maps
  - API MogoPluse | Ref: http://mogoplus.com
  - API ABN/ACN Verify | Ref: https://abr.business.gov.au
