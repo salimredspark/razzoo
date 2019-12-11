@@ -98,7 +98,7 @@
                                 <button class="btn btn-secondary px-4 subscribe" type="button"> Apply </button>
                             </div>
                         </div>
-                        <div class="show-message"></div>
+                        <div class="show-message text-danger"></div>
                     </div>
                 </div>
             </div>
@@ -429,29 +429,43 @@
                         </iframe>
                     </div>
                 </div>
+
                 <div class="col-sm-6">
-                    <form>
-                        <div class="form-group input-group-lg">
-                            <input type="text" name="name" class="form-control " id="" placeholder="Name">
+                    {!! Form::open(['route'=>'contactus.store']) !!}
+                    <div class="form-group input-group-lg {{ $errors->has('name') ? 'has-error' : '' }}">
+                        {!! Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>'Your Name']) !!}
+                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                    </div>
+                    <div class="form-group input-group-lg {{ $errors->has('email') ? 'has-error' : '' }}">
+                        {!! Form::text('email', old('email'), ['class'=>'form-control', 'placeholder'=>'Email Address']) !!}
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                    </div>
+                    <div class="form-group input-group-lg {{ $errors->has('message') ? 'has-error' : '' }}">
+                        {!! Form::textarea('message', old('message'), ['class'=>'form-control', 'rows'=>'4', 'placeholder'=>'Your Message']) !!}
+                        <span class="text-danger">{{ $errors->first('message') }}</span>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="contact_agree_terms" id="contact_agree_terms">
+                            I have read and agree to Ciel's<a href="#"> Privacy Policy</a> and <a href="#">Terms Conditions </a></label>
+                    </div>
+
+                    <div class="row pt-4">
+                        <div class="col-6">
+                            {!! NoCaptcha::renderJs() !!}
+                            {!! NoCaptcha::display() !!}
+
+                            @if ($errors->has('g-recaptcha-response'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                            </span>
+                            @endif
                         </div>
-                        <div class="form-group  input-group-lg">
-                            <input type="text" name="name" class="form-control " id="" placeholder="Email Address">
+                        <div class="col-6">
+                            <button class="btn btn-secondary btn-lg pull-right px-5 my-2"> Submit</button>
                         </div>
-                        <div class="form-group  input-group-lg">
-                            <textarea name="name" rows="4" class="form-control " id="" placeholder="Your Message"></textarea>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="remember">
-                                I have read and agree to Ciel's<a href="#"> Privacy Policy</a> and <a href="#">Terms Conditions </a></label>
-                        </div>
-                        <div class="row pt-4">
-                            <div class="col-6"> <img src="{{ asset('landing/images/assets/captcha.jpg') }}" width="271" height="72" class="img-fluid"> </div>
-                            <div class="col-6">
-                                <button class="btn btn-secondary btn-lg pull-right px-5 my-2"> Submit</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -464,13 +478,8 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="row">
-                        <div class="col-sm-12 col-lg-6">
-                            <ul class=" list-unstyled footer_list m-0">
-                                <li><a href="#">About</a></li>
-                                <li><a href="#"> Services </a></li>
-                                <li><a href="#"> Approval </a></li>
-                                <li><a href="#"> Contact</a></li>
-                            </ul>
+                        <div class="col-sm-12 col-lg-6 footer-menu">
+                            {{ menu('footer-menu') }}                            
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <ul class=" list-unstyled icon_list m-0">

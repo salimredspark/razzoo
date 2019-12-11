@@ -18,56 +18,24 @@ Date: 04/12/2019
 4) Vasudev -- 02:40pm to 3:30pm -- issue with DataTable 
 3) HuntGreen Discussion and work -- 05:30pm to 6:30pm
 ------------------------------------------------------------------------------
-
-1) New Cron Server Monitoring
-Salim: Updated to AWS
-
-2) Set cron script for all store and remove compare Price and QTY
-Salim: Done. This updated cron will run 8:30PM Melbourne time.
-
-3) Check all 3 server running cron
- - Latest New Cron Server (54.153.183.89) 
-   30 23 * * * /usr/bin/php -f /var/www/html/auto_cron_sync_product.php 
- - Production Server (13.210.205.7) 
-   1 * * * * date >> /var/www/html/var/log/cron.log;/usr/bin/php -f /var/www/html/cron.php >> /var/www/html/var/log/cron.log;
-   * 2 * * *   /usr/bin/php -f /var/www/html/reindexme.php
- - Development Server (13.210.47.148) 
-   30 2 * * * Sun /home/ec2-user/certbot-auto --debug renew
-Salim: Done
- 
-4) Disable M2E on development and new cron server
-Salim: Done
-
-5) can you change the timing of the sync script on HG to 8:30PM Melbourne time? 
-Salim: 19:30 server time (24hr time format). Done
-
-6) Check on Cron server and disable indexing extension
-Salim: I have disable Matrix_Sync and Mirasvit_AsyncIndex.xml extesnion on new cron server
-
-
-
-Melbourne time --- 12:00am --- Server time: 13:00
-Melbourne time --- 1:00am --- Server time: 14:00
-Melbourne time --- 2:00am --- Server time: 15:00
-Melbourne time --- 3:00am --- Server time: 16:00
-Melbourne time --- 4:00am --- Server time: 17:00
-Melbourne time --- 5:00am --- Server time: 18:00
-Melbourne time --- 6:00am --- Server time: 19:00
-Melbourne time --- 7:00am --- Server time: 20:00
-Melbourne time --- 8:00am --- Server time: 21:00
-Melbourne time --- 9:00am --- Server time: 22:00
-Melbourne time --- 10:00am --- Server time: 23:00
-Melbourne time --- 11:00am --- Server time: 24:00
-Melbourne time --- 12:00pm --- Server time: 1:00
-Melbourne time --- 13:00pm --- Server time: 2:00
-Melbourne time --- 14:00pm --- Server time: 3:00
-
-Melbourne time --- 15:00pm --- Server time: 4:00
-Melbourne time --- 16:00pm --- Server time: 5:00
-Melbourne time --- 17:00pm --- Server time: 6:00
-Melbourne time --- 18:00pm --- Server time: 7:00
-Melbourne time --- 19:00pm --- Server time: 8:00
-
-Melbourne time --- 20:00pm --- Server time: 9:00
- 
-Melbourne time --- 21:00pm --- Server time: 3:00
+Date: 05/12/2019 --- I am on leave
+------------------------------------------------------------------------------
+Date: 06/12/2019
+1) Razzoo -- Start working at 10:00am
+2) HuntGreen -- start working from 11:00am to 12:00am
+------------------------------------------------------------------------------
+Date: 07/12/2019 -- Saturday -- From home
+1) Vasudev -- Start working at 12:00pm to 01:30pm
+------------------------------------------------------------------------------
+Date: 08/12/2019 -- Sunday -- From home
+1) optionagparts.com.au -- Start working at 12:30pm to 04:00pm
+------------------------------------------------------------------------------
+Date: 09/12/2019
+1) Razzoo -- Start working at 10:00pm to 08:00pm
+------------------------------------------------------------------------------
+Date: 10/12/2019
+1) Razzoo -- Start working at 10:00pm to 07:30pm
+------------------------------------------------------------------------------
+Date: 11/12/2019
+1) Razzoo -- Start working at 10:00pm to till now
+------------------------------------------------------------------------------

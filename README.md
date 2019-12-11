@@ -20,5 +20,6 @@ Your go to place for Business Loans
  - Newsletter | Ref: https://github.com/spatie/laravel-newsletter
  - Publish Cookies Policy | Ref: https://github.com/spatie/laravel-cookie-consent
  - Google Map | Ref: https://www.mapsdirections.info/en/custom-google-maps
+ - Captcha | Ref: https://github.com/anhskohbo/no-captcha
  - API MogoPluse | Ref: http://mogoplus.com
  - API ABN/ACN Verify | Ref: https://abr.business.gov.au

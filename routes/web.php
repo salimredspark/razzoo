@@ -43,6 +43,15 @@ Route::post('delete-uploads-bank-files', 'LoanController@ajaxDeleteBankFile')->n
 
 Route::post('subscribe', 'HomeController@ajaxSubscribe')->name('subscribe');
 
+//Route::post('submit-contactus', 'ContactusController@submitContactusForm')->name('submit-contactus');
+//Route::get('thank-you-for-contactus', 'ContactusController@thankyou')->name('thank-you-for-contactus');
+
+//Route::get('contact-us', 'ContactUsController@contactUS');
+Route::post('contact-us', ['as'=>'contactus.store','uses'=>'ContactUsController@contactUSPost']);
+
+//cms pages
+Route::get('{slug}', ['uses'=>'PagesController@index']);
+
 //for facebook login
 Route::get('facebook', function () {
     return view('facebook');

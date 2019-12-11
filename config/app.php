@@ -55,7 +55,7 @@ return [
     'url' => env('APP_URL', 'http://localhost/projects/razzoo/'),
 
     'asset_url' => env('ASSET_URL', null),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -186,6 +186,16 @@ return [
         */
         Laravel\Socialite\SocialiteServiceProvider::class,
 
+        /*
+        * for Captcha
+        */
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        
+        /*
+        * for html form
+        */
+        Collective\Html\HtmlServiceProvider::class,
+
     ],
 
     /*
@@ -239,6 +249,12 @@ return [
 
         //for facebook login
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        //for Captcha login
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        
+        // for html form
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 
