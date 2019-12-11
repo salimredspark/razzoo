@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2019 at 01:53 PM
+-- Generation Time: Dec 11, 2019 at 02:33 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -33,10 +33,20 @@ CREATE TABLE `contactus` (
   `contact_name` varchar(256) NOT NULL,
   `contact_email` varchar(256) NOT NULL,
   `contact_message` text NOT NULL,
-  `ip_address` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `ip_address` varchar(150) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `contactus`
+--
+
+INSERT INTO `contactus` (`id`, `contact_name`, `contact_email`, `contact_message`, `ip_address`, `created_at`, `updated_at`) VALUES
+(1, 'Salim', 'salim@redsparkinfo.com', 'this is test message', '::1', '2019-12-10 19:36:29', '2019-12-10 19:36:29'),
+(2, 'Salim', 'salim@redsparkinfo.com', 'this is test message', '::1', '2019-12-10 19:37:51', '2019-12-10 19:37:51'),
+(3, 'Salim', 'salim@redsparkinfo.com', 'this is test message', '::1', '2019-12-10 19:39:03', '2019-12-10 19:39:03'),
+(4, 'Sandip', 'sandip@gmailc.om', 'this is test from sandip', '::1', '2019-12-10 19:42:06', '2019-12-10 19:42:06');
 
 -- --------------------------------------------------------
 
@@ -445,8 +455,10 @@ CREATE TABLE `pages` (
 INSERT INTO `pages` (`id`, `title`, `content`, `slug`, `updated_at`, `created_at`) VALUES
 (1, 'About Us', 'This is Content', 'about-us', '2019-12-11 08:55:31', '2019-12-11 08:55:31'),
 (2, 'Services', 'Services Content Here', 'services', '2019-12-11 08:56:25', '2019-12-11 08:56:25'),
-(3, 'Contact Us', '[contact-form]', 'contact-us', '2019-12-11 09:43:18', '2019-12-11 09:43:18'),
-(4, 'Approval', 'Approval Page Content Here', 'approval', '2019-12-11 09:43:49', '2019-12-11 09:43:49');
+(3, 'Contact Us', '<section class=\"contact_wrap py-5\">\r\n    <div class=\"container\">\r\n        <div class=\"row  text-center\">\r\n            <div class=\"col-sm-12\">\r\n                <h6>Address : Suite 1203, 530 Lt Collins St Melbourne VIC 3000 <br>\r\n                    Phone: +81 000 2002, Email: office@razzoo.com, Web: www.razzoo.com</h6>\r\n            </div>\r\n        </div>\r\n        <div class=\"row mt-5\">\r\n            <div class=\"col-sm-6\">\r\n                <div style=\"width: 100%\">\r\n                    <iframe width=\"100%\" height=\"461\" src=\"https://maps.google.com/maps?width=100%&height=461&hl=en&q=Suite%201203%2C%20530%20Lt%20Collins%20St%20Melbourne%20VIC%203000%20+(razzoo)&ie=UTF8&t=&z=15&iwloc=B&output=embed\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\">\r\n                        <a href=\"https://www.mapsdirections.info/en/journey-planner.htm\">find directions</a>\r\n                    </iframe>\r\n                </div>\r\n            </div>\r\n<div class=\"col-sm-6\">[contact-form]</div>\r\n        </div>\r\n    </div>\r\n</section>', 'contact-us', '2019-12-11 08:01:29', '2019-12-11 09:43:18'),
+(4, 'Approval', 'Approval Page Content Here', 'approval', '2019-12-11 09:43:49', '2019-12-11 09:43:49'),
+(5, 'Privacy Policy', '**Content Here**', 'privacy-policy', '2019-12-11 07:48:27', '2019-12-11 07:48:27'),
+(6, 'Terms Conditions', '**Terms Conditions Content Here**', 'terms', '2019-12-11 07:48:56', '2019-12-11 07:48:56');
 
 -- --------------------------------------------------------
 
@@ -896,7 +908,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `contactus`
 --
 ALTER TABLE `contactus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `data_rows`
@@ -962,7 +974,7 @@ ALTER TABLE `newsletter_subscriber`
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `permissions`

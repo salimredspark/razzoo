@@ -29,7 +29,7 @@ class ContactUsController  extends Controller
             'contact_email' => 'required|email',
             'contact_message' => 'required',
             'contact_agree_terms' => 'required',
-            // 'g-recaptcha-response' => 'required|captcha'
+            'g-recaptcha-response' => 'required|captcha'
         ]);
 
 
