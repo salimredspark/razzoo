@@ -291,13 +291,14 @@ class LoanController extends Controller
 
                 $file->move($uploadPath, $name);
 
+                $rootPath .= 'business_plan/'.$name;
                 $saveFilesData = new LoanApplicationBusinessFiles($request->all());
                 $saveFilesData->application_id = $applicationId;
                 $saveFilesData->file_name = $name;
                 $saveFilesData->file_url = $rootPath;
                 $saveFilesData->save();
 
-                $uploadUrl = url('/') . $rootPath . $name;
+                $uploadUrl = url('/') . $rootPath;
                 $fileoutput .= '<li id="upload-image-' . $saveFilesData->id . '"><img src="' . $uploadUrl . '" width="50" /> <span>X</span></li>';
             }
         }
@@ -338,13 +339,14 @@ class LoanController extends Controller
 
                 $file->move($uploadPath, $name);
 
+                $rootPath .= 'bank_statement/'.$name;
                 $saveFilesData = new LoanApplicationBankFiles($request->all());
                 $saveFilesData->application_id = $applicationId;
                 $saveFilesData->file_name = $name;
                 $saveFilesData->file_url = $rootPath;
                 $saveFilesData->save();
 
-                $uploadUrl = url('/') . $rootPath . $name;
+                $uploadUrl = url('/') . $rootPath;
                 $fileoutput .= '<li id="upload-bank-image-' . $saveFilesData->id . '"><img src="' . $uploadUrl . '" width="50" /> <span>X</span></li>';
             }
         }

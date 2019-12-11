@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2019 at 02:57 PM
+-- Generation Time: Dec 11, 2019 at 01:15 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -21,6 +21,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `razzoo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contactus`
+--
+
+CREATE TABLE `contactus` (
+  `id` int(11) NOT NULL,
+  `contact_name` varchar(256) NOT NULL,
+  `contact_email` varchar(256) NOT NULL,
+  `contact_message` text NOT NULL,
+  `ip_address` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -74,38 +90,52 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (43, 7, 'customer_firstname', 'text', 'Firstname', 1, 1, 1, 1, 1, 1, '{}', 2),
 (44, 7, 'customer_lastname', 'text', 'Lastname', 1, 1, 1, 1, 1, 1, '{}', 3),
 (45, 7, 'customer_email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 4),
-(46, 7, 'customer_mobile', 'text', 'Mobile', 0, 1, 1, 1, 1, 1, '{}', 5),
-(47, 7, 'customer_industry', 'text', 'Industry', 0, 1, 1, 1, 1, 1, '{}', 6),
-(48, 7, 'allow_consultants_call', 'text', 'Allow Consultants Call', 0, 1, 1, 1, 1, 1, '{}', 7),
-(49, 7, 'loan_amout', 'text', 'Loan Amout', 0, 1, 1, 1, 1, 1, '{}', 8),
-(50, 7, 'loan_purpose', 'text', 'Loan Purpose', 0, 1, 1, 1, 1, 1, '{}', 9),
-(51, 7, 'abn_number', 'text', 'ABN Number', 0, 1, 1, 1, 1, 1, '{}', 10),
-(52, 7, 'dl_number', 'text', 'DL Number', 0, 1, 1, 1, 1, 1, '{}', 11),
-(53, 7, 'state_issue', 'text', 'State Issue', 0, 1, 1, 1, 1, 1, '{}', 12),
-(54, 7, 'business_trading', 'text', 'Business Trading', 0, 1, 1, 1, 1, 1, '{}', 13),
-(55, 7, 'business_monthly_turnover', 'text', 'Monthly Turnover', 0, 1, 1, 1, 1, 1, '{}', 14),
-(56, 7, 'business_name', 'text', 'Business Name', 0, 1, 1, 1, 1, 1, '{}', 15),
-(57, 7, 'business_state', 'text', 'Business State', 0, 1, 1, 1, 1, 1, '{}', 16),
-(58, 7, 'accounting_software', 'text', 'Accounting Software', 0, 1, 1, 1, 1, 1, '{}', 17),
-(59, 7, 'ip_address', 'text', 'IP Address', 1, 1, 1, 0, 0, 0, '{}', 18),
-(60, 7, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 0, 0, 0, '{}', 19),
-(61, 7, 'updated_at', 'timestamp', 'Updated At', 1, 1, 1, 0, 0, 0, '{}', 20),
-(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Loan\",\"table\":\"loan_application_business_files\",\"type\":\"hasMany\",\"column\":\"id\",\"key\":\"file_name\",\"label\":\"application_id\",\"pivot_table\":\"loan_application_business_files\",\"pivot\":\"0\",\"taggable\":\"0\"}', 21),
-(63, 7, 'loan_status', 'text', 'Status', 1, 1, 1, 1, 1, 1, '{}', 19),
-(64, 7, 'facebook_id', 'text', 'Facebook Login', 0, 1, 1, 1, 1, 1, '{}', 20),
-(65, 7, 'customer_address1', 'text', 'Customer Address1', 0, 1, 1, 1, 1, 1, '{}', 6),
-(66, 7, 'customer_address2', 'text', 'Customer Address2', 0, 1, 1, 1, 1, 1, '{}', 7),
-(67, 7, 'customer_state', 'text', 'Customer State', 0, 1, 1, 1, 1, 1, '{}', 8),
-(68, 7, 'customer_city', 'text', 'Customer City', 0, 1, 1, 1, 1, 1, '{}', 9),
-(69, 7, 'customer_postalcode', 'text', 'Customer Postalcode', 0, 1, 1, 1, 1, 1, '{}', 10),
-(70, 7, 'customer_country', 'text', 'Customer Country', 0, 1, 1, 1, 1, 1, '{}', 11),
+(46, 7, 'customer_mobile', 'number', 'Mobile', 0, 1, 1, 1, 1, 1, '{}', 5),
+(47, 7, 'customer_industry', 'text', 'Industry', 0, 1, 1, 1, 1, 1, '{}', 8),
+(48, 7, 'allow_consultants_call', 'text', 'Allow Consultants Call', 0, 1, 1, 1, 1, 1, '{}', 9),
+(49, 7, 'loan_amout', 'text', 'Loan Amout', 0, 1, 1, 1, 1, 1, '{}', 11),
+(50, 7, 'loan_purpose', 'text', 'Loan Purpose', 0, 1, 1, 1, 1, 1, '{}', 13),
+(51, 7, 'abn_number', 'number', 'ABN Number', 0, 1, 1, 1, 1, 1, '{}', 15),
+(52, 7, 'dl_number', 'text', 'DL Number', 0, 1, 1, 1, 1, 1, '{}', 17),
+(53, 7, 'state_issue', 'text', 'State Issue', 0, 1, 1, 1, 1, 1, '{}', 18),
+(54, 7, 'business_trading', 'text', 'Business Trading', 0, 1, 1, 1, 1, 1, '{}', 19),
+(55, 7, 'business_monthly_turnover', 'text', 'Monthly Turnover', 0, 1, 1, 1, 1, 1, '{}', 20),
+(56, 7, 'business_name', 'text', 'Business Name', 0, 1, 1, 1, 1, 1, '{}', 21),
+(57, 7, 'business_state', 'text', 'Business State', 0, 1, 1, 1, 1, 1, '{}', 22),
+(58, 7, 'accounting_software', 'text', 'Accounting Software', 0, 1, 1, 1, 1, 1, '{}', 23),
+(59, 7, 'ip_address', 'text', 'IP Address', 1, 1, 1, 0, 0, 0, '{}', 24),
+(60, 7, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 0, 0, 0, '{}', 26),
+(61, 7, 'updated_at', 'timestamp', 'Updated At', 1, 1, 1, 0, 0, 0, '{}', 28),
+(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBusinessFiles\",\"table\":\"loan_application_business_files\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"loan_application\",\"pivot\":\"0\",\"taggable\":\"0\"}', 29),
+(63, 7, 'loan_status', 'text', 'Status', 1, 1, 1, 1, 1, 1, '{}', 25),
+(64, 7, 'facebook_id', 'text', 'Facebook Login', 0, 1, 1, 1, 1, 1, '{}', 27),
+(65, 7, 'customer_address1', 'text_area', 'Customer Address1', 0, 1, 1, 1, 1, 1, '{}', 6),
+(66, 7, 'customer_address2', 'text_area', 'Customer Address2', 0, 1, 1, 1, 1, 1, '{}', 7),
+(67, 7, 'customer_state', 'text', 'Customer State', 0, 1, 1, 1, 1, 1, '{}', 10),
+(68, 7, 'customer_city', 'text', 'Customer City', 0, 1, 1, 1, 1, 1, '{}', 12),
+(69, 7, 'customer_postalcode', 'text', 'Customer Postalcode', 0, 1, 1, 1, 1, 1, '{}', 14),
+(70, 7, 'customer_country', 'text', 'Customer Country', 0, 1, 1, 1, 1, 1, '{}', 16),
 (71, 8, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (72, 8, 'email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 2),
 (73, 8, 'firstname', 'text', 'Firstname', 0, 1, 1, 1, 1, 1, '{}', 3),
 (74, 8, 'lastname', 'text', 'Lastname', 0, 1, 1, 1, 1, 1, '{}', 4),
 (75, 8, 'ip_address', 'text', 'Ip Address', 0, 1, 1, 1, 1, 1, '{}', 5),
 (76, 8, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 6),
-(77, 8, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 7);
+(77, 8, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 7),
+(78, 10, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(79, 10, 'contact_name', 'text', 'Contact Name', 1, 1, 1, 1, 1, 1, '{}', 2),
+(80, 10, 'contact_email', 'text', 'Contact Email', 1, 1, 1, 1, 1, 1, '{}', 3),
+(81, 10, 'contact_message', 'text', 'Contact Message', 1, 1, 1, 1, 1, 1, '{}', 4),
+(82, 10, 'ip_address', 'text', 'Ip Address', 1, 1, 1, 1, 1, 1, '{}', 5),
+(83, 10, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 6),
+(84, 10, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 7),
+(85, 11, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(86, 11, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '{}', 2),
+(87, 11, 'content', 'markdown_editor', 'Content', 1, 1, 1, 1, 1, 1, '{}', 4),
+(88, 11, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{}', 3),
+(89, 11, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 5),
+(90, 11, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 6),
+(91, 7, 'loan_application_hasmany_loan_application_bankstatement_relationship', 'relationship', 'Bank Statements', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBankstatements\",\"table\":\"loan_application_bankstatements\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"contactus\",\"pivot\":\"0\",\"taggable\":\"0\"}', 30);
 
 -- --------------------------------------------------------
 
@@ -139,8 +169,10 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
-(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-10 08:22:03'),
-(8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-10 08:21:55');
+(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-11 06:26:40'),
+(8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-10 08:21:55'),
+(10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2019-12-11 01:33:05', '2019-12-11 01:33:05'),
+(11, 'pages', 'pages', 'Pages', 'Pages', 'voyager-list', 'TCG\\Voyager\\Models\\Pages', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerPagesController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 03:21:51', '2019-12-11 04:51:30');
 
 -- --------------------------------------------------------
 
@@ -199,7 +231,7 @@ CREATE TABLE `loan_application` (
 --
 
 INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_address1`, `customer_address2`, `customer_state`, `customer_city`, `customer_postalcode`, `customer_country`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `loan_status`, `facebook_id`, `created_at`, `updated_at`) VALUES
-(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Atlanta airport, Atlanta, GA 30334, USA', NULL, 'GA', 'Atlanta', '30334', 'US', 'Healthcare', 'Yes', 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', '', '2019-12-10 11:38:42', '2019-12-10 06:08:42'),
+(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Plaça de l\'Ajuntament, 11013, 46002 València, Valencia, Spain', '11013 Plaça de l\'Ajuntament', 'Comunidad Valenciana', 'València', '46002', 'ES', 'Healthcare', 'Yes', 'Less than $5,000', 'Marketing', '51824753556', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', '', '2019-12-11 10:53:13', '2019-12-11 05:23:13'),
 (1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', '', '', '', '', '', NULL, 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
 (1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', '', '', '', '', '', NULL, 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
 (1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', '', '', '', '', '', NULL, 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
@@ -233,10 +265,8 @@ CREATE TABLE `loan_application_bankstatements` (
 --
 
 INSERT INTO `loan_application_bankstatements` (`id`, `application_id`, `file_name`, `file_url`, `updated_at`, `created_at`) VALUES
-(1, 1000000001, 'demo 3.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-10 02:07:04', '2019-12-10 02:07:04'),
-(2, 1000000001, 'demo 6.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-10 02:10:17', '2019-12-10 02:10:17'),
-(3, 1000000001, 'demo 4.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-10 03:10:28', '2019-12-10 03:10:28'),
-(5, 1000000001, 'demo 2.png.png', '/storage/loan_application/1000000001/', '2019-12-10 06:09:33', '2019-12-10 06:09:33');
+(8, 1000000001, '2019_11_07_13_46_21_C.jpg', '/storage/loan_application/1000000001/bank_statement/', '2019-12-11 06:14:01', '2019-12-11 06:14:01'),
+(9, 1000000001, 'demo 3.jpg', '/storage/loan_application/1000000001/bank_statement/demo 3.jpg', '2019-12-11 06:38:01', '2019-12-11 06:38:01');
 
 -- --------------------------------------------------------
 
@@ -258,51 +288,8 @@ CREATE TABLE `loan_application_business_files` (
 --
 
 INSERT INTO `loan_application_business_files` (`id`, `application_id`, `file_name`, `file_url`, `updated_at`, `created_at`) VALUES
-(2, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 05:24:53', '2019-12-04 05:24:53'),
-(3, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 07:41:04', '2019-12-04 07:41:04'),
-(4, 1000000001, 'logo.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:19:29', '2019-12-04 08:19:29'),
-(5, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:21:54', '2019-12-04 08:21:54'),
-(6, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-04 08:40:22', '2019-12-04 08:40:22'),
-(7, 1000000001, 'icon-education.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 00:27:26', '2019-12-09 00:27:26'),
-(8, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 00:51:41', '2019-12-09 00:51:41'),
-(9, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:04:22', '2019-12-09 01:04:22'),
-(10, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:06:23', '2019-12-09 01:06:23'),
-(11, 1000000001, 'icon-education.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:09:15', '2019-12-09 01:09:15'),
-(12, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:10:22', '2019-12-09 01:10:22'),
-(13, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:11:00', '2019-12-09 01:11:00'),
-(14, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:11:03', '2019-12-09 01:11:03'),
-(15, 1000000001, 'logo.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:15:01', '2019-12-09 01:15:01'),
-(16, 1000000001, 'phone-icon.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:15:04', '2019-12-09 01:15:04'),
-(17, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:16:56', '2019-12-09 01:16:56'),
-(18, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:16:59', '2019-12-09 01:16:59'),
-(19, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:22:40', '2019-12-09 01:22:40'),
-(20, 1000000001, 'icon-tick.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:22:43', '2019-12-09 01:22:43'),
-(21, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:25:06', '2019-12-09 01:25:06'),
-(22, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:25:33', '2019-12-09 01:25:33'),
-(23, 1000000001, 'icon-hospitality.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:27:47', '2019-12-09 01:27:47'),
-(24, 1000000001, 'icon-healthcare.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:33:58', '2019-12-09 01:33:58'),
-(27, 1000000001, 'phone-icon.png.png', '/uploads/loan_application/1000000001/', '2019-12-09 01:39:17', '2019-12-09 01:39:17'),
-(28, 1000000001, '2019_11_07_13_46_21_C.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:39:29', '2019-12-09 01:39:29'),
-(30, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:39:39', '2019-12-09 01:39:39'),
-(32, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:40:51', '2019-12-09 01:40:51'),
-(33, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 01:51:50', '2019-12-09 01:51:50'),
-(34, 1000000001, 'image_1.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:34', '2019-12-09 06:33:34'),
-(35, 1000000001, 'image_2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:37', '2019-12-09 06:33:37'),
-(37, 1000000001, 'index2.jpg.jpg', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:50', '2019-12-09 06:33:50'),
-(38, 1000000001, 'index2.webp.webp', '/uploads/loan_application/1000000001/', '2019-12-09 06:33:53', '2019-12-09 06:33:53'),
-(39, 1000000001, 'index1.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 07:25:24', '2019-12-09 07:25:24'),
-(40, 1000000001, 'index1.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 07:32:22', '2019-12-09 07:32:22'),
-(41, 1000000001, 'image_1.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 07:32:30', '2019-12-09 07:32:30'),
-(42, 1000000001, 'image_2.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 07:32:30', '2019-12-09 07:32:30'),
-(43, 1000000001, 'image_1.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 09:00:47', '2019-12-09 09:00:47'),
-(44, 1000000001, 'image_2.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 09:00:47', '2019-12-09 09:00:47'),
-(45, 1000000001, 'image_2.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 09:01:08', '2019-12-09 09:01:08'),
-(46, 1000000001, 'demo 5.png.png', '/storage/loan_application/1000000001/', '2019-12-09 09:19:15', '2019-12-09 09:19:15'),
-(47, 1000000001, 'demo 1.png.png', '/storage/loan_application/1000000001/', '2019-12-09 09:19:18', '2019-12-09 09:19:18'),
-(48, 1000000001, 'demo 4.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-09 09:19:20', '2019-12-09 09:19:20'),
-(49, 1000000001, 'demo 3.jpg.jpg', '/storage/loan_application/1000000001/', '2019-12-10 03:11:15', '2019-12-10 03:11:15'),
-(50, 1000000001, 'demo 2.png.png', '/storage/loan_application/1000000001/', '2019-12-10 03:11:17', '2019-12-10 03:11:17'),
-(51, 1000000001, 'demo 5.png.png', '/storage/loan_application/1000000001/', '2019-12-10 06:09:46', '2019-12-10 06:09:46');
+(52, 1000000001, 'demo 1.png', '/storage/loan_application/1000000001/business_plan/demo 1.png', '2019-12-11 06:38:04', '2019-12-11 06:38:04'),
+(53, 1000000001, 'demo 4.jpg', '/storage/loan_application/1000000001/business_plan/demo 4.jpg', '2019-12-11 06:38:31', '2019-12-11 06:38:31');
 
 -- --------------------------------------------------------
 
@@ -322,7 +309,8 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '2019-12-02 01:29:11', '2019-12-02 23:46:03');
+(1, 'admin', '2019-12-02 01:29:11', '2019-12-02 23:46:03'),
+(2, 'footer-menu', '2019-12-11 03:26:45', '2019-12-11 03:29:30');
 
 -- --------------------------------------------------------
 
@@ -352,17 +340,23 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-12-01 19:59:11', '2019-12-01 19:59:11', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-10 08:16:15', 'voyager.media.index', NULL),
-(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 5, '2019-12-01 19:59:12', '2019-12-10 08:16:15', 'voyager.users.index', NULL),
-(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 4, '2019-12-01 19:59:12', '2019-12-10 08:16:15', 'voyager.roles.index', NULL),
-(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 7, '2019-12-01 19:59:12', '2019-12-10 08:16:15', NULL, ''),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 8, '2019-12-01 19:59:12', '2019-12-11 03:17:20', 'voyager.media.index', NULL),
+(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-11 05:58:43', 'voyager.users.index', NULL),
+(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-11 05:58:43', 'voyager.roles.index', NULL),
+(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 9, '2019-12-01 19:59:12', '2019-12-11 03:17:20', NULL, ''),
 (6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.menus.index', NULL),
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 8, '2019-12-01 19:59:12', '2019-12-10 08:16:16', 'voyager.settings.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 10, '2019-12-01 19:59:12', '2019-12-11 03:17:20', 'voyager.settings.index', NULL),
 (14, 1, 'Loan Application', '', '_self', 'voyager-list', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-06 07:01:00', 'voyager.loan.index', 'null'),
-(16, 1, 'Newsletter', '', '_self', 'voyager-list', '#000000', NULL, 3, '2019-12-10 08:16:08', '2019-12-10 08:16:35', 'voyager.newsletter.index', 'null');
+(16, 1, 'Newsletter', '', '_self', 'voyager-list', '#000000', NULL, 4, '2019-12-10 08:16:08', '2019-12-11 01:34:21', 'voyager.newsletter.index', 'null'),
+(17, 1, 'Contact Us', '', '_self', 'voyager-list', NULL, NULL, 3, '2019-12-11 01:33:05', '2019-12-11 01:34:21', 'voyager.contactus.index', NULL),
+(19, 1, 'Pages', '', '_self', 'voyager-list', NULL, NULL, 5, '2019-12-11 03:21:52', '2019-12-11 03:24:55', 'voyager.pages.index', NULL),
+(20, 2, 'About', 'about-us', '_self', NULL, '#000000', NULL, 1, '2019-12-11 03:27:11', '2019-12-11 04:09:44', NULL, ''),
+(21, 2, 'Services', 'services', '_self', NULL, '#000000', NULL, 2, '2019-12-11 03:27:26', '2019-12-11 04:04:11', NULL, ''),
+(22, 2, 'Approval', 'approval', '_self', NULL, '#000000', NULL, 3, '2019-12-11 04:05:07', '2019-12-11 04:12:22', NULL, ''),
+(23, 2, 'Contact Us', 'contact-us', '_self', NULL, '#000000', NULL, 4, '2019-12-11 04:05:20', '2019-12-11 04:12:29', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -426,7 +420,33 @@ CREATE TABLE `newsletter_subscriber` (
 --
 
 INSERT INTO `newsletter_subscriber` (`id`, `email`, `firstname`, `lastname`, `ip_address`, `created_at`, `updated_at`) VALUES
-(1, 'salim@redsparkinfo.co.in', NULL, NULL, '::1', '2019-12-09 19:49:19', '2019-12-09 19:49:19');
+(1, 'salim@redsparkinfo.co.in', NULL, NULL, '::1', '2019-12-09 19:49:19', '2019-12-09 19:49:19'),
+(2, 'sadfsafds', NULL, NULL, '::1', '2019-12-11 02:28:19', '2019-12-11 02:28:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pages`
+--
+
+CREATE TABLE `pages` (
+  `id` int(11) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `content` text NOT NULL,
+  `slug` varchar(256) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`id`, `title`, `content`, `slug`, `updated_at`, `created_at`) VALUES
+(1, 'About Us', 'This is Content', 'about-us', '2019-12-11 08:55:31', '2019-12-11 08:55:31'),
+(2, 'Services', 'Services Content Here', 'services', '2019-12-11 08:56:25', '2019-12-11 08:56:25'),
+(3, 'Contact Us', '[contact-form]', 'contact-us', '2019-12-11 09:43:18', '2019-12-11 09:43:18'),
+(4, 'Approval', 'Approval Page Content Here', 'approval', '2019-12-11 09:43:49', '2019-12-11 09:43:49');
 
 -- --------------------------------------------------------
 
@@ -495,7 +515,17 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (34, 'read_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53'),
 (35, 'edit_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53'),
 (36, 'add_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53'),
-(37, 'delete_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53');
+(37, 'delete_newsletter_subscriber', 'newsletter_subscriber', '2019-12-10 08:14:53', '2019-12-10 08:14:53'),
+(38, 'browse_contactus', 'contactus', '2019-12-11 01:33:05', '2019-12-11 01:33:05'),
+(39, 'read_contactus', 'contactus', '2019-12-11 01:33:05', '2019-12-11 01:33:05'),
+(40, 'edit_contactus', 'contactus', '2019-12-11 01:33:05', '2019-12-11 01:33:05'),
+(41, 'add_contactus', 'contactus', '2019-12-11 01:33:05', '2019-12-11 01:33:05'),
+(42, 'delete_contactus', 'contactus', '2019-12-11 01:33:05', '2019-12-11 01:33:05'),
+(43, 'browse_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51'),
+(44, 'read_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51'),
+(45, 'edit_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51'),
+(46, 'add_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51'),
+(47, 'delete_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51');
 
 -- --------------------------------------------------------
 
@@ -571,7 +601,27 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (36, 1),
 (36, 2),
 (37, 1),
-(37, 2);
+(37, 2),
+(38, 1),
+(38, 2),
+(39, 1),
+(39, 2),
+(40, 1),
+(40, 2),
+(41, 1),
+(41, 2),
+(42, 1),
+(42, 2),
+(43, 1),
+(43, 2),
+(44, 1),
+(44, 2),
+(45, 1),
+(45, 2),
+(46, 1),
+(46, 2),
+(47, 1),
+(47, 2);
 
 -- --------------------------------------------------------
 
@@ -626,7 +676,11 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 (7, 'admin.description', 'Admin Description', 'Welcome to Razzoo.', '', 'text', 2, 'Admin'),
 (8, 'admin.loader', 'Admin Loader', NULL, '', 'image', 3, 'Admin'),
 (9, 'admin.icon_image', 'Admin Icon Image', 'settings\\December2019\\6R5C9Pnq2MuyVVzYVoXK.png', '', 'image', 4, 'Admin'),
-(10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', '121332432432323232432', '', 'text', 1, 'Admin');
+(10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', '121332432432323232432', '', 'text', 1, 'Admin'),
+(12, 'site.GOOGLE_API_KEY', 'Google API Key', 'AIzaSyDjJTAWtjK-xAQSCZc7xfE_NykXYuHgQdQ', NULL, 'text', 6, 'Site'),
+(16, 'site.FACEBOOK_URL', 'Facebook URL', 'http://www.facebook.com', NULL, 'text', 7, 'Site'),
+(17, 'site.TWITTER_URL', 'Twitter URL', 'https://twitter.com', NULL, 'text', 8, 'Site'),
+(18, 'site.LINKEDIN_URL', 'Linkedin URL', 'http://www.linkedin.com', NULL, 'text', 9, 'Site');
 
 -- --------------------------------------------------------
 
@@ -698,6 +752,12 @@ INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 --
 
 --
+-- Indexes for table `contactus`
+--
+ALTER TABLE `contactus`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `data_rows`
 --
 ALTER TABLE `data_rows`
@@ -765,6 +825,12 @@ ALTER TABLE `newsletter_subscriber`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pages`
+--
+ALTER TABLE `pages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -827,16 +893,22 @@ ALTER TABLE `user_roles`
 --
 
 --
+-- AUTO_INCREMENT for table `contactus`
+--
+ALTER TABLE `contactus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -854,25 +926,25 @@ ALTER TABLE `loan_application`
 -- AUTO_INCREMENT for table `loan_application_bankstatements`
 --
 ALTER TABLE `loan_application_bankstatements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `loan_application_business_files`
 --
 ALTER TABLE `loan_application_business_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -884,13 +956,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `newsletter_subscriber`
 --
 ALTER TABLE `newsletter_subscriber`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pages`
+--
+ALTER TABLE `pages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -902,7 +980,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `translations`
