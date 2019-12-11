@@ -10,7 +10,7 @@ Your go to place for Business Loans
 
 ## Site Ref: https://www.razzoo.com
 
-## Vasudev Website Requirements
+## Razzoo Website Requirements
 
  - PHP Version 7.2.10 | Ref: https://www.php.net
  - Laravel Version 5.8.35 | Ref: https://laravel.com/docs/5.8 
