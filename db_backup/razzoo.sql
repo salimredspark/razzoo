@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2019 at 01:15 PM
+-- Generation Time: Dec 11, 2019 at 01:53 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -125,7 +125,7 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (78, 10, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (79, 10, 'contact_name', 'text', 'Contact Name', 1, 1, 1, 1, 1, 1, '{}', 2),
 (80, 10, 'contact_email', 'text', 'Contact Email', 1, 1, 1, 1, 1, 1, '{}', 3),
-(81, 10, 'contact_message', 'text', 'Contact Message', 1, 1, 1, 1, 1, 1, '{}', 4),
+(81, 10, 'contact_message', 'markdown_editor', 'Contact Message', 1, 1, 1, 1, 1, 1, '{}', 4),
 (82, 10, 'ip_address', 'text', 'Ip Address', 1, 1, 1, 1, 1, 1, '{}', 5),
 (83, 10, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 6),
 (84, 10, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 7),
@@ -171,7 +171,7 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
 (7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-11 06:26:40'),
 (8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-10 08:21:55'),
-(10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2019-12-11 01:33:05', '2019-12-11 01:33:05'),
+(10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 01:33:05', '2019-12-11 07:07:10'),
 (11, 'pages', 'pages', 'Pages', 'Pages', 'voyager-list', 'TCG\\Voyager\\Models\\Pages', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerPagesController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 03:21:51', '2019-12-11 04:51:30');
 
 -- --------------------------------------------------------
@@ -343,16 +343,16 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 8, '2019-12-01 19:59:12', '2019-12-11 03:17:20', 'voyager.media.index', NULL),
 (3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-11 05:58:43', 'voyager.users.index', NULL),
 (4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-11 05:58:43', 'voyager.roles.index', NULL),
-(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 9, '2019-12-01 19:59:12', '2019-12-11 03:17:20', NULL, ''),
+(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 10, '2019-12-01 19:59:12', '2019-12-11 06:53:10', NULL, ''),
 (6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.menus.index', NULL),
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 10, '2019-12-01 19:59:12', '2019-12-11 03:17:20', 'voyager.settings.index', NULL),
-(14, 1, 'Loan Application', '', '_self', 'voyager-list', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-06 07:01:00', 'voyager.loan.index', 'null'),
-(16, 1, 'Newsletter', '', '_self', 'voyager-list', '#000000', NULL, 4, '2019-12-10 08:16:08', '2019-12-11 01:34:21', 'voyager.newsletter.index', 'null'),
-(17, 1, 'Contact Us', '', '_self', 'voyager-list', NULL, NULL, 3, '2019-12-11 01:33:05', '2019-12-11 01:34:21', 'voyager.contactus.index', NULL),
-(19, 1, 'Pages', '', '_self', 'voyager-list', NULL, NULL, 5, '2019-12-11 03:21:52', '2019-12-11 03:24:55', 'voyager.pages.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 9, '2019-12-01 19:59:12', '2019-12-11 06:53:10', 'voyager.settings.index', NULL),
+(14, 1, 'Loan Application', '', '_self', 'voyager-documentation', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-11 07:16:48', 'voyager.loan.index', 'null'),
+(16, 1, 'Newsletter', '', '_self', 'voyager-news', '#000000', NULL, 4, '2019-12-10 08:16:08', '2019-12-11 07:15:28', 'voyager.newsletter.index', 'null'),
+(17, 1, 'Contact Us', '', '_self', 'voyager-people', '#000000', NULL, 3, '2019-12-11 01:33:05', '2019-12-11 07:15:44', 'voyager.contactus.index', 'null'),
+(19, 1, 'Pages', '', '_self', 'voyager-file-text', '#000000', NULL, 5, '2019-12-11 03:21:52', '2019-12-11 07:17:23', 'voyager.pages.index', 'null'),
 (20, 2, 'About', 'about-us', '_self', NULL, '#000000', NULL, 1, '2019-12-11 03:27:11', '2019-12-11 04:09:44', NULL, ''),
 (21, 2, 'Services', 'services', '_self', NULL, '#000000', NULL, 2, '2019-12-11 03:27:26', '2019-12-11 04:04:11', NULL, ''),
 (22, 2, 'Approval', 'approval', '_self', NULL, '#000000', NULL, 3, '2019-12-11 04:05:07', '2019-12-11 04:12:22', NULL, ''),
