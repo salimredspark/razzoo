@@ -313,7 +313,6 @@
                         <input type="text" class="form-control" placeholder="Enter your email address" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append ml-2">
                             <button class="btn btn-secondary btn-lg text-uppercase px-4 Subscribebtn">Submit</button>
-
                         </div>
                     </div>
                 </div>
