@@ -6,13 +6,6 @@ composer global require "laravel/installer=~1.1"
 
 Default Installed Path: C:\Users\Redspark\AppData\Roaming\Composer\vendor\bin  in windows
 ---------------------------------------------------------------------------------------------------
-Download extension=php_mongodb.dll and configure in php.ini
-https://pecl.php.net/package/mongodb/1.6.0/windows
----------------------------------------------------------------------------------------------------
-Install mongo-php-library
-https://github.com/mongodb/mongo-php-library
-composer require mongodb/mongodb
----------------------------------------------------------------------------------------------------
 Laravel Installer
 composer global require laravel/installer
 laravel new razzoo [project folder name --it will create auto]
