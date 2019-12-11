@@ -275,7 +275,7 @@ class LoanController extends Controller
         if ($request->hasFile('supporting_business_plan')) {
             foreach ($files as $file) {
                 //$file = $request->file('supporting_business_plan');
-                $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+                $name = $file->getClientOriginalName();// . '.' . $file->getClientOriginalExtension();
 
                 $rootPath = '/storage/loan_application/' . $applicationId . "/";
                 $uploadPath = public_path() . $rootPath;
@@ -321,7 +321,7 @@ class LoanController extends Controller
 
         if ($request->hasFile('supporting_bank_file')) {
             foreach ($files as $file) {
-                $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+                $name = $file->getClientOriginalName(); // . '.' . $file->getClientOriginalExtension();
 
                 $rootPath = '/storage/loan_application/' . $applicationId . "/";
                 $uploadPath = public_path() . $rootPath;

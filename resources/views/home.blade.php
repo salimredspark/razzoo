@@ -479,7 +479,13 @@
                 <div class="col-sm-8">
                     <div class="row">
                         <div class="col-sm-12 col-lg-6 footer-menu">
-                            {{ menu('footer-menu') }}                            
+                            {{ menu('footer-menu') }}
+                            <ul class="footer_list list-unstyled  m-0">
+                                <li><a href="#">About</a></li>
+                                <li><a href="#"> Services </a></li>
+                                <li><a href="#"> Approval </a></li>
+                                <li><a href="#"> Contact</a></li>
+                            </ul>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                             <ul class=" list-unstyled icon_list m-0">
