@@ -23,53 +23,46 @@ class ContactUsController  extends Controller
 
     public function contactUSPost(Request $request)
     {
+
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'message' => 'required',
+            'contact_name' => 'required',
+            'contact_email' => 'required|email',
+            'contact_message' => 'required',
             'contact_agree_terms' => 'required',
-            'g-recaptcha-response' => 'required|captcha'
+            // 'g-recaptcha-response' => 'required|captcha'
         ]);
 
-        ContactUS::create($request->all());
 
+        $saveApplication = new ContactUs($request->all());
 
-        Mail::send(
-            'email',
-            array(
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'user_message' => $request->get('message')
-            ),
-            function ($message) {
-                $message->from('saquib.gt@gmail.com');
-                $message->to('saquib.rizwan@cloudways.com', 'Admin')->subject('Cloudways Feedback');
-            }
-        );
-
-        return back()->with('success', 'Thanks for contacting us!');
-
-        //return redirect()->route('thank-you-for-contactus')->with('success', 'Form Submitted');
-    }
-
-    public function submitContactusForm(Request $request)
-    {
-        $saveApplication = new Contactus($request);
-
-        $contact_agree_terms =  $request['contact_agree_terms'];
-
-        $saveApplication->contact_name =  $request['contact_name'];
-        $saveApplication->contact_email =  $request['contact_email'];
-        $saveApplication->contact_message =  $request['contact_message'];
+        $saveApplication->contact_name =  $request->get('contact_name');
+        $saveApplication->contact_email =  $request->get('contact_email');
+        $saveApplication->contact_message =  $request->get('contact_message');
         $saveApplication->ip_address =   User::getClientIPAddress();
 
         $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
         $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
         $saveApplication->save();
 
-        Session::set('contact_name', $request['contact_name']);
+        Session::put('contact_name', $request->get('contact_name'));
 
-        return redirect()->route('thank-you-for-contactus')->with('success', 'Form Submitted');
+
+       /* Mail::send(
+            'email',
+            array(
+                'name' => $request->get('contact_name'),
+                'email' => $request->get('contact_email'),
+                'user_message' => $request->get('contact_message')
+            ),
+            function ($message) {
+                $message->from('contact@razzoo.com');
+                $message->to('salim@redsparkinfo.co.in', 'Razzoo')->subject('Contact Us');
+            }
+        );
+        */
+
+        //return back()->with('success', 'Thanks for contacting us!');
+        return redirect()->route('thank-you-for-contactus'); //->with('success', 'Form Submitted');
     }
 
     public function thankyou()
