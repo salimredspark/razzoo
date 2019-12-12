@@ -410,6 +410,7 @@
                             lname = $("input[name='customer_lastname']").val();
                             email = $("input[name='customer_email']").val();
                             mobile = $("input[name='customer_mobile']").val();
+                            application_id = $("input[name='application_id']").val();
 
                             $.ajax({
                                 type: 'POST',
@@ -422,6 +423,7 @@
                                         customer_lastname: lname,
                                         customer_email: email,
                                         customer_mobile: mobile,
+                                        application_id: application_id,
                                     },
                                     _token: CSRF_TOKEN
                                 },
@@ -567,8 +569,8 @@
                         digits: true,
                         callback: function() {
                             var isValidAB = $("#abn_number_valid").val();
-                            
-                            if(isValidAB == '') $("#abn_number_valid").val('');
+
+                            if (isValidAB == '') $("#abn_number_valid").val('');
 
                             exporturl = "{{ route('verifyabn') }}";
                             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

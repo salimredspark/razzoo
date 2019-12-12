@@ -65,8 +65,14 @@ class LoanController extends Controller
     {
         $response = array();
         $postdata = $request->postdata;
+        $application_id = $postdata['application_id'];
 
-        $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
+        if ($application_id > 0) {
+            $saveExistAppData = LoanApplication::find($application_id); //where([['id', '=', $application_id]])->first();
+        } else {
+            $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
+        }
+
         if ($saveExistAppData) {
             $applicationId = $saveExistAppData->id;
             $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
@@ -275,23 +281,23 @@ class LoanController extends Controller
         if ($request->hasFile('supporting_business_plan')) {
             foreach ($files as $file) {
                 //$file = $request->file('supporting_business_plan');
-                $name = $file->getClientOriginalName();// . '.' . $file->getClientOriginalExtension();
+                $name = $file->getClientOriginalName(); // . '.' . $file->getClientOriginalExtension();
 
                 $rootPath = '/storage/loan_application/' . $applicationId . "/";
                 $uploadPath = public_path() . $rootPath;
                 if (!file_exists($rootPath . $name)) {
                     File::makeDirectory($uploadPath, 0777, true, true);
                 }
-                
+
                 //create sub folder
-                $uploadPath = $uploadPath."business_plan/";                
+                $uploadPath = $uploadPath . "business_plan/";
                 if (!file_exists($uploadPath . $name)) {
                     File::makeDirectory($uploadPath, 0777, true, true);
                 }
 
                 $file->move($uploadPath, $name);
 
-                $rootPath .= 'business_plan/'.$name;
+                $rootPath .= 'business_plan/' . $name;
                 $saveFilesData = new LoanApplicationBusinessFiles($request->all());
                 $saveFilesData->application_id = $applicationId;
                 $saveFilesData->file_name = $name;
@@ -332,14 +338,14 @@ class LoanController extends Controller
                 }
 
                 //create sub folder
-                $uploadPath = $uploadPath."bank_statement/";                
+                $uploadPath = $uploadPath . "bank_statement/";
                 if (!file_exists($uploadPath . $name)) {
                     File::makeDirectory($uploadPath, 0777, true, true);
                 }
 
                 $file->move($uploadPath, $name);
 
-                $rootPath .= 'bank_statement/'.$name;
+                $rootPath .= 'bank_statement/' . $name;
                 $saveFilesData = new LoanApplicationBankFiles($request->all());
                 $saveFilesData->application_id = $applicationId;
                 $saveFilesData->file_name = $name;
@@ -401,7 +407,7 @@ class LoanController extends Controller
         $application_id = Session::get('application_id');
         return view('loan.thankyou', ['application_id' => $application_id]);
     }
-    
+
     public function verifyABN(Request $request)
     {
         require(base_path() . '/api/abnlib/nusoap.php');
