@@ -305,7 +305,7 @@ class LoanController extends Controller
         if ($request->hasFile('supporting_business_plan')) {
 
             //first delete all uploaded files
-            LoanApplicationBusinessFiles::where([['application_id', '=', $applicationId]])->delete();
+            //LoanApplicationBusinessFiles::where([['application_id', '=', $applicationId]])->delete();
 
             foreach ($files as $file) {
                 //$file = $request->file('supporting_business_plan');
@@ -357,7 +357,7 @@ class LoanController extends Controller
         if ($request->hasFile('supporting_bank_file')) {
 
             //first delete all uploaded files
-            LoanApplicationBankFiles::where([['application_id', '=', $applicationId]])->delete();
+            //LoanApplicationBankFiles::where([['application_id', '=', $applicationId]])->delete();
 
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName(); // . '.' . $file->getClientOriginalExtension();
