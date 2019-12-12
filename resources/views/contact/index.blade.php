@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.landing_app')
 
 @section('content')
 <section class="content-section py-5">
