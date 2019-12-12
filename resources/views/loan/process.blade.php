@@ -435,6 +435,7 @@
                                         }
                                     } else {
                                         console.log("Step 1 Error Data: " + data);
+                                        location.reload();
                                     }
                                 },
                                 error: function(xhr) {
@@ -495,6 +496,8 @@
                                         }
                                     } else {
                                         console.log("Step 2 Error Data: " + data);
+                                        location.reload();
+
                                     }
                                 },
                                 error: function(xhr) {
@@ -552,6 +555,7 @@
                                         }
                                     } else {
                                         console.log("Step 3 Error Data: " + data);
+                                        location.reload();
                                     }
                                 },
                                 error: function(xhr) {
@@ -650,11 +654,14 @@
                                     _token: CSRF_TOKEN
                                 },
                                 success: function(data) {
-                                    if (data.status == 'success') {} else {
+                                    if (data.status == 'success') {
                                         console.log("Step 4 Error Data: " + data);
                                         if (data.application_id) {
                                             $("#application_id").val(data.application_id);
                                         }
+                                    } else {
+                                        console.log("Step 4 Error Data: " + data);
+                                        location.reload();
                                     }
                                 },
                                 error: function(xhr) {

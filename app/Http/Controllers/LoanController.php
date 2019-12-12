@@ -13,21 +13,11 @@ use SoapClient;
 
 class LoanController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //$this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         return view('loan.index');
@@ -117,16 +107,21 @@ class LoanController extends Controller
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->customer_address1 = $postdata['customer_address1'];
-            $saveExistAppData->customer_address2 = $postdata['customer_address2'];
-            $saveExistAppData->customer_state = $postdata['customer_state'];
-            $saveExistAppData->customer_city = $postdata['customer_city'];
-            $saveExistAppData->customer_postalcode = $postdata['customer_postalcode'];
-            $saveExistAppData->customer_country = $postdata['customer_country'];
-            $saveExistAppData->save();
+            if ($saveExistAppData) {
+                $saveExistAppData->customer_address1 = $postdata['customer_address1'];
+                $saveExistAppData->customer_address2 = $postdata['customer_address2'];
+                $saveExistAppData->customer_state = $postdata['customer_state'];
+                $saveExistAppData->customer_city = $postdata['customer_city'];
+                $saveExistAppData->customer_postalcode = $postdata['customer_postalcode'];
+                $saveExistAppData->customer_country = $postdata['customer_country'];
+                $saveExistAppData->save();
+                $status = 'success';
+            } else {
+                $status = 'notexist';
+            }
 
             $response = array(
-                'status' => 'success',
+                'status' => $status,
                 'application_id' => $applicationId,
             );
             return response()->json($response);
@@ -144,11 +139,16 @@ class LoanController extends Controller
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->customer_industry = $postdata['customer_industry'];
-            $saveExistAppData->save();
+            if ($saveExistAppData) {
+                $saveExistAppData->customer_industry = $postdata['customer_industry'];
+                $saveExistAppData->save();
+                $status = 'success';
+            } else {
+                $status = 'notexist';
+            }
 
             $response = array(
-                'status' => 'success',
+                'status' => $status,
                 'application_id' => $applicationId,
             );
             return response()->json($response);
@@ -166,15 +166,20 @@ class LoanController extends Controller
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->loan_amout = $postdata['loan_amout'];
-            $saveExistAppData->loan_purpose = $postdata['loan_purpose'];
-            $saveExistAppData->abn_number = $postdata['abn_number'];
-            $saveExistAppData->dl_number = $postdata['dl_number'];
-            $saveExistAppData->state_issue = $postdata['state_issue'];
-            $saveExistAppData->save();
+            if ($saveExistAppData) {
+                $saveExistAppData->loan_amout = $postdata['loan_amout'];
+                $saveExistAppData->loan_purpose = $postdata['loan_purpose'];
+                $saveExistAppData->abn_number = $postdata['abn_number'];
+                $saveExistAppData->dl_number = $postdata['dl_number'];
+                $saveExistAppData->state_issue = $postdata['state_issue'];
+                $saveExistAppData->save();
+                $status = 'success';
+            } else {
+                $status = 'notexist';
+            }
 
             $response = array(
-                'status' => 'success',
+                'status' => $status,
                 'application_id' => $applicationId,
             );
             return response()->json($response);
@@ -192,11 +197,16 @@ class LoanController extends Controller
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->business_trading = $postdata['business_trading'];
-            $saveExistAppData->save();
+            if ($saveExistAppData) {
+                $saveExistAppData->business_trading = $postdata['business_trading'];
+                $saveExistAppData->save();
+                $status = 'success';
+            } else {
+                $status = 'notexist';
+            }
 
             $response = array(
-                'status' => 'success',
+                'status' => $status,
                 'application_id' => $applicationId,
             );
             return response()->json($response);
@@ -214,13 +224,17 @@ class LoanController extends Controller
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->business_monthly_turnover = $postdata['business_monthly_turnover'];
-            $saveExistAppData->business_name = $postdata['business_name'];
-            $saveExistAppData->business_state = $postdata['business_state'];
-            $saveExistAppData->save();
-
+            if ($saveExistAppData) {
+                $saveExistAppData->business_monthly_turnover = $postdata['business_monthly_turnover'];
+                $saveExistAppData->business_name = $postdata['business_name'];
+                $saveExistAppData->business_state = $postdata['business_state'];
+                $saveExistAppData->save();
+                $status = 'success';
+            } else {
+                $status = 'notexist';
+            }
             $response = array(
-                'status' => 'success',
+                'status' => $status,
                 'application_id' => $applicationId,
             );
             return response()->json($response);
@@ -238,11 +252,16 @@ class LoanController extends Controller
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->accounting_software = $postdata['accounting_software'];
-            $saveExistAppData->save();
+            if ($saveExistAppData) {
+                $saveExistAppData->accounting_software = $postdata['accounting_software'];
+                $saveExistAppData->save();
+                $status = 'success';
+            } else {
+                $status = 'notexist';
+            }
 
             $response = array(
-                'status' => 'success',
+                'status' => $status,
                 'application_id' => $applicationId,
             );
             return response()->json($response);
@@ -258,11 +277,16 @@ class LoanController extends Controller
             $applicationId = $postdata['application_id'];
 
             $saveExistAppData = LoanApplication::find($applicationId);
-            $saveExistAppData->allow_consultants_call = $postdata['customer_ans'];
-            $saveExistAppData->save();
+            if ($saveExistAppData) {
+                $saveExistAppData->allow_consultants_call = $postdata['customer_ans'];
+                $saveExistAppData->save();
+                $status = 'success';
+            } else {
+                $status = 'notexist';
+            }
 
             $response = array(
-                'status' => 'success',
+                'status' => $status,
                 'application_id' => $applicationId,
             );
             return response()->json($response);
@@ -279,6 +303,10 @@ class LoanController extends Controller
         $files = $request->file('supporting_business_plan');
 
         if ($request->hasFile('supporting_business_plan')) {
+
+            //first delete all uploaded files
+            LoanApplicationBusinessFiles::where([['application_id', '=', $applicationId]])->delete();
+
             foreach ($files as $file) {
                 //$file = $request->file('supporting_business_plan');
                 $name = $file->getClientOriginalName(); // . '.' . $file->getClientOriginalExtension();
@@ -327,6 +355,10 @@ class LoanController extends Controller
         $files = $request->file('supporting_bank_file');
 
         if ($request->hasFile('supporting_bank_file')) {
+
+            //first delete all uploaded files
+            LoanApplicationBankFiles::where([['application_id', '=', $applicationId]])->delete();
+
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName(); // . '.' . $file->getClientOriginalExtension();
 
