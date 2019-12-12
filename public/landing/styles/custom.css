@@ -372,3 +372,25 @@ a.works_link {
 	background: #ffffff;
 	color: #1d1d1d;
 }
+
+.cookie-consent {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background: #2968e6;
+	text-align: center;
+	padding: 10px 0;
+	z-index: 9;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: 400;
+}
+.cookie-consent button {
+	background: #ffffff;
+	border: 0;
+	border-radius: 50px;
+	font-size: 16px;
+	line-height: normal;
+	padding: 10px 25px;
+	margin: 0px 10px;
+}

@@ -149,6 +149,9 @@ Admin Login
 https://razzoo.redspark.biz/public/admin/login
 email: admin@razzoo.com
 password: red@spark
+
+email: salim@redsparkinfo.co.in
+password: red@spark
 ---------------------------------------------------------------------------------------------------------------------------------------------
 Development Domain URL
 https://razzoo.redspark.biz/public
@@ -179,6 +182,9 @@ stdClass Object (
 [key] => id 
 [label] => file_name [pivot_table] => loan_application [pivot] => 0 [taggable] => 0 ) 1 
 
+12:30am -- 12:30pm
+
+08:00
 
 
 

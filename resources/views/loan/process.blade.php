@@ -565,7 +565,7 @@
 
                         }
                     },
-                    abn_number_valid: "required",
+                    /*abn_number_valid: "required",*/
                     abn_number: {
                         required: true,
                         minlength: 9,
@@ -830,9 +830,9 @@
                         required: "ABN/ACN number is required",
                         digits: "Only numbers are allowed in this field"
                     },
-                    abn_number_valid: {
+                    /*abn_number_valid: {
                         required: "Valid ABN/ACN number is required",
-                    },
+                    },*/
                     dl_number: "DL number is required",
                     state_issue: "Please enter state of issue",
                     business_trading: "Please selecy trading time",
