@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2019 at 07:38 AM
+-- Generation Time: Dec 12, 2019 at 10:17 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -75,17 +75,17 @@ CREATE TABLE `data_rows` (
 --
 
 INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, `required`, `browse`, `read`, `edit`, `add`, `delete`, `details`, `order`) VALUES
-(1, 1, 'id', 'number', 'ID', 1, 0, 0, 0, 0, 0, NULL, 1),
-(2, 1, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, NULL, 2),
-(3, 1, 'email', 'text', 'Email', 1, 1, 1, 1, 1, 1, NULL, 3),
-(4, 1, 'password', 'password', 'Password', 1, 0, 0, 1, 1, 0, NULL, 4),
-(5, 1, 'remember_token', 'text', 'Remember Token', 0, 0, 0, 0, 0, 0, NULL, 5),
-(6, 1, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 0, 0, 0, NULL, 6),
-(7, 1, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 7),
-(8, 1, 'avatar', 'image', 'Avatar', 0, 1, 1, 1, 1, 1, NULL, 8),
-(9, 1, 'user_belongsto_role_relationship', 'relationship', 'Role', 0, 1, 1, 1, 1, 0, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsTo\",\"column\":\"role_id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"roles\",\"pivot\":0}', 10),
-(10, 1, 'user_belongstomany_role_relationship', 'relationship', 'Roles', 0, 1, 1, 1, 1, 0, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsToMany\",\"column\":\"id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"user_roles\",\"pivot\":\"1\",\"taggable\":\"0\"}', 11),
-(11, 1, 'settings', 'hidden', 'Settings', 0, 0, 0, 0, 0, 0, NULL, 12),
+(1, 1, 'id', 'number', 'ID', 1, 0, 0, 0, 0, 0, '{}', 1),
+(2, 1, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{}', 3),
+(3, 1, 'email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 5),
+(4, 1, 'password', 'password', 'Password', 1, 0, 0, 1, 1, 0, '{}', 6),
+(5, 1, 'remember_token', 'text', 'Remember Token', 0, 0, 0, 0, 0, 0, '{}', 7),
+(6, 1, 'created_at', 'timestamp', 'Created At', 0, 0, 1, 0, 0, 0, '{}', 8),
+(7, 1, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 10),
+(8, 1, 'avatar', 'image', 'Avatar', 0, 1, 1, 1, 1, 1, '{}', 2),
+(9, 1, 'user_belongsto_role_relationship', 'relationship', 'Role', 0, 1, 1, 1, 1, 0, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsTo\",\"column\":\"role_id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"roles\",\"pivot\":\"0\",\"taggable\":\"0\"}', 12),
+(10, 1, 'user_belongstomany_role_relationship', 'relationship', 'Roles', 0, 0, 1, 1, 1, 0, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsToMany\",\"column\":\"id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"user_roles\",\"pivot\":\"1\",\"taggable\":\"0\"}', 13),
+(11, 1, 'settings', 'hidden', 'Settings', 0, 0, 0, 0, 0, 0, '{}', 14),
 (12, 2, 'id', 'number', 'ID', 1, 0, 0, 0, 0, 0, NULL, 1),
 (13, 2, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, NULL, 2),
 (14, 2, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, NULL, 3),
@@ -95,36 +95,36 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (18, 3, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, NULL, 3),
 (19, 3, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 4),
 (20, 3, 'display_name', 'text', 'Display Name', 1, 1, 1, 1, 1, 1, NULL, 5),
-(21, 1, 'role_id', 'text', 'Role', 1, 1, 1, 1, 1, 1, NULL, 9),
-(42, 7, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
-(43, 7, 'customer_firstname', 'text', 'Firstname', 1, 1, 1, 1, 1, 1, '{}', 2),
-(44, 7, 'customer_lastname', 'text', 'Lastname', 1, 1, 1, 1, 1, 1, '{}', 3),
-(45, 7, 'customer_email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 4),
-(46, 7, 'customer_mobile', 'number', 'Mobile', 0, 1, 1, 1, 1, 1, '{}', 5),
-(47, 7, 'customer_industry', 'text', 'Industry', 0, 1, 1, 1, 1, 1, '{}', 8),
-(48, 7, 'allow_consultants_call', 'text', 'Allow Consultants Call', 0, 1, 1, 1, 1, 1, '{}', 9),
-(49, 7, 'loan_amout', 'text', 'Loan Amout', 0, 1, 1, 1, 1, 1, '{}', 11),
-(50, 7, 'loan_purpose', 'text', 'Loan Purpose', 0, 1, 1, 1, 1, 1, '{}', 13),
-(51, 7, 'abn_number', 'number', 'ABN Number', 0, 1, 1, 1, 1, 1, '{}', 15),
-(52, 7, 'dl_number', 'text', 'DL Number', 0, 1, 1, 1, 1, 1, '{}', 17),
-(53, 7, 'state_issue', 'text', 'State Issue', 0, 1, 1, 1, 1, 1, '{}', 18),
-(54, 7, 'business_trading', 'text', 'Business Trading', 0, 1, 1, 1, 1, 1, '{}', 19),
-(55, 7, 'business_monthly_turnover', 'text', 'Monthly Turnover', 0, 1, 1, 1, 1, 1, '{}', 20),
-(56, 7, 'business_name', 'text', 'Business Name', 0, 1, 1, 1, 1, 1, '{}', 21),
-(57, 7, 'business_state', 'text', 'Business State', 0, 1, 1, 1, 1, 1, '{}', 22),
-(58, 7, 'accounting_software', 'text', 'Accounting Software', 0, 1, 1, 1, 1, 1, '{}', 23),
-(59, 7, 'ip_address', 'text', 'IP Address', 1, 1, 1, 0, 0, 0, '{}', 24),
-(60, 7, 'created_at', 'timestamp', 'Created At', 1, 1, 1, 0, 0, 0, '{}', 26),
-(61, 7, 'updated_at', 'timestamp', 'Updated At', 1, 1, 1, 0, 0, 0, '{}', 28),
-(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBusinessFiles\",\"table\":\"loan_application_business_files\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"loan_application\",\"pivot\":\"0\",\"taggable\":\"0\"}', 29),
-(63, 7, 'loan_status', 'text', 'Status', 1, 1, 1, 1, 1, 1, '{}', 25),
-(64, 7, 'facebook_id', 'text', 'Facebook Login', 0, 1, 1, 1, 1, 1, '{}', 27),
-(65, 7, 'customer_address1', 'text_area', 'Customer Address1', 0, 1, 1, 1, 1, 1, '{}', 6),
-(66, 7, 'customer_address2', 'text_area', 'Customer Address2', 0, 1, 1, 1, 1, 1, '{}', 7),
-(67, 7, 'customer_state', 'text', 'Customer State', 0, 1, 1, 1, 1, 1, '{}', 10),
-(68, 7, 'customer_city', 'text', 'Customer City', 0, 1, 1, 1, 1, 1, '{}', 12),
-(69, 7, 'customer_postalcode', 'text', 'Customer Postalcode', 0, 1, 1, 1, 1, 1, '{}', 14),
-(70, 7, 'customer_country', 'text', 'Customer Country', 0, 1, 1, 1, 1, 1, '{}', 16),
+(21, 1, 'role_id', 'text', 'Role', 0, 1, 1, 1, 1, 1, '{}', 11),
+(42, 7, 'id', 'text', 'Id', 1, 1, 1, 0, 0, 0, '{}', 1),
+(43, 7, 'customer_firstname', 'text', 'Firstname', 1, 1, 1, 1, 1, 1, '{}', 3),
+(44, 7, 'customer_lastname', 'text', 'Lastname', 1, 1, 1, 1, 1, 1, '{}', 4),
+(45, 7, 'customer_email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 5),
+(46, 7, 'customer_mobile', 'number', 'Mobile', 0, 1, 1, 1, 1, 1, '{}', 6),
+(47, 7, 'customer_industry', 'text', 'Industry', 0, 0, 1, 1, 1, 1, '{}', 9),
+(48, 7, 'allow_consultants_call', 'text', 'Allow Consultants Call', 0, 0, 1, 1, 1, 1, '{}', 10),
+(49, 7, 'loan_amout', 'text', 'Loan Amout', 0, 1, 1, 1, 1, 1, '{}', 12),
+(50, 7, 'loan_purpose', 'text', 'Loan Purpose', 0, 0, 1, 1, 1, 1, '{}', 14),
+(51, 7, 'abn_number', 'number', 'ABN Number', 0, 0, 1, 1, 1, 1, '{}', 16),
+(52, 7, 'dl_number', 'text', 'DL Number', 0, 0, 1, 1, 1, 1, '{}', 18),
+(53, 7, 'state_issue', 'text', 'State Issue', 0, 0, 1, 1, 1, 1, '{}', 19),
+(54, 7, 'business_trading', 'text', 'Business Trading', 0, 0, 1, 1, 1, 1, '{}', 20),
+(55, 7, 'business_monthly_turnover', 'text', 'Monthly Turnover', 0, 1, 1, 1, 1, 1, '{}', 21),
+(56, 7, 'business_name', 'text', 'Business Name', 0, 1, 1, 1, 1, 1, '{}', 22),
+(57, 7, 'business_state', 'text', 'Business State', 0, 0, 1, 1, 1, 1, '{}', 23),
+(58, 7, 'accounting_software', 'text', 'Accounting Software', 0, 0, 1, 1, 1, 1, '{}', 24),
+(59, 7, 'ip_address', 'text', 'IP Address', 1, 0, 1, 0, 0, 0, '{}', 25),
+(60, 7, 'created_at', 'timestamp', 'Created At', 1, 0, 1, 0, 0, 0, '{}', 26),
+(61, 7, 'updated_at', 'timestamp', 'Updated At', 1, 0, 1, 0, 0, 0, '{}', 28),
+(62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 0, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBusinessFiles\",\"table\":\"loan_application_business_files\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"loan_application\",\"pivot\":\"0\",\"taggable\":\"0\"}', 29),
+(63, 7, 'loan_status', 'text', 'Status', 1, 1, 1, 1, 1, 1, '{}', 2),
+(64, 7, 'facebook_id', 'text', 'Facebook Login', 0, 0, 1, 1, 1, 1, '{}', 27),
+(65, 7, 'customer_address1', 'text_area', 'Customer Address1', 0, 0, 1, 1, 1, 1, '{}', 7),
+(66, 7, 'customer_address2', 'text_area', 'Customer Address2', 0, 0, 1, 1, 1, 1, '{}', 8),
+(67, 7, 'customer_state', 'text', 'Customer State', 0, 0, 1, 1, 1, 1, '{}', 11),
+(68, 7, 'customer_city', 'text', 'Customer City', 0, 0, 1, 1, 1, 1, '{}', 13),
+(69, 7, 'customer_postalcode', 'text', 'Customer Postalcode', 0, 0, 1, 1, 1, 1, '{}', 15),
+(70, 7, 'customer_country', 'text', 'Customer Country', 0, 0, 1, 1, 1, 1, '{}', 17),
 (71, 8, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (72, 8, 'email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 2),
 (73, 8, 'firstname', 'text', 'Firstname', 0, 1, 1, 1, 1, 1, '{}', 3),
@@ -135,27 +135,29 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (78, 10, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (79, 10, 'contact_name', 'text', 'Contact Name', 1, 1, 1, 1, 1, 1, '{}', 2),
 (80, 10, 'contact_email', 'text', 'Contact Email', 1, 1, 1, 1, 1, 1, '{}', 3),
-(81, 10, 'contact_message', 'markdown_editor', 'Contact Message', 1, 1, 1, 1, 1, 1, '{}', 4),
+(81, 10, 'contact_message', 'markdown_editor', 'Contact Message', 1, 0, 1, 1, 1, 1, '{}', 4),
 (82, 10, 'ip_address', 'text', 'Ip Address', 1, 1, 1, 1, 1, 1, '{}', 5),
-(83, 10, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 6),
-(84, 10, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 7),
+(83, 10, 'created_at', 'timestamp', 'Created At', 1, 1, 0, 0, 0, 0, '{}', 6),
+(84, 10, 'updated_at', 'timestamp', 'Updated At', 1, 1, 0, 0, 0, 0, '{}', 7),
 (85, 11, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (86, 11, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '{}', 2),
-(87, 11, 'content', 'markdown_editor', 'Content', 1, 1, 1, 1, 1, 1, '{}', 4),
+(87, 11, 'content', 'markdown_editor', 'Content', 1, 0, 1, 1, 1, 1, '{}', 4),
 (88, 11, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{}', 3),
-(89, 11, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 5),
-(90, 11, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 6),
-(91, 7, 'loan_application_hasmany_loan_application_bankstatement_relationship', 'relationship', 'Bank Statements', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBankstatements\",\"table\":\"loan_application_bankstatements\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"contactus\",\"pivot\":\"0\",\"taggable\":\"0\"}', 30),
+(89, 11, 'updated_at', 'timestamp', 'Updated At', 1, 1, 0, 0, 0, 0, '{}', 5),
+(90, 11, 'created_at', 'timestamp', 'Created At', 1, 1, 0, 0, 0, 0, '{}', 6),
+(91, 7, 'loan_application_hasmany_loan_application_bankstatement_relationship', 'relationship', 'Bank Statements', 0, 0, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBankstatements\",\"table\":\"loan_application_bankstatements\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"contactus\",\"pivot\":\"0\",\"taggable\":\"0\"}', 30),
 (92, 12, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
-(93, 12, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{}', 2),
-(94, 12, 'department', 'text', 'Department', 1, 1, 1, 1, 1, 1, '{}', 3),
-(95, 12, 'profile', 'markdown_editor', 'Profile', 1, 1, 1, 1, 1, 1, '{}', 4),
-(96, 12, 'photo', 'image', 'Photo', 1, 1, 1, 1, 1, 1, '{}', 5),
-(97, 12, 'facebook_url', 'text', 'Facebook Url', 1, 1, 1, 1, 1, 1, '{}', 6),
-(98, 12, 'twitter_url', 'text', 'Twitter Url', 1, 1, 1, 1, 1, 1, '{}', 7),
-(99, 12, 'linkedin_url', 'text', 'Linkedin Url', 1, 1, 1, 1, 1, 1, '{}', 8),
-(100, 12, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 9),
-(101, 12, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 10);
+(93, 12, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{}', 3),
+(94, 12, 'department', 'text', 'Department', 1, 1, 1, 1, 1, 1, '{}', 4),
+(95, 12, 'profile', 'markdown_editor', 'Profile', 1, 0, 1, 1, 1, 1, '{}', 5),
+(96, 12, 'photo', 'image', 'Photo', 1, 1, 1, 1, 1, 1, '{}', 2),
+(97, 12, 'facebook_url', 'text', 'Facebook Url', 1, 0, 1, 1, 1, 1, '{}', 6),
+(98, 12, 'twitter_url', 'text', 'Twitter Url', 1, 0, 1, 1, 1, 1, '{}', 7),
+(99, 12, 'linkedin_url', 'text', 'Linkedin Url', 1, 0, 1, 1, 1, 1, '{}', 8),
+(100, 12, 'updated_at', 'timestamp', 'Updated At', 1, 1, 0, 0, 0, 0, '{}', 9),
+(101, 12, 'created_at', 'timestamp', 'Created At', 1, 1, 0, 0, 0, 0, '{}', 10),
+(102, 1, 'facebook_id', 'text', 'Facebook Id', 0, 0, 1, 1, 1, 1, '{}', 4),
+(103, 1, 'email_verified_at', 'timestamp', 'Email Verified At', 0, 0, 1, 1, 1, 1, '{}', 9);
 
 -- --------------------------------------------------------
 
@@ -186,14 +188,14 @@ CREATE TABLE `data_types` (
 --
 
 INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `details`, `created_at`, `updated_at`) VALUES
-(1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
+(1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-02 01:29:02', '2019-12-12 03:40:04'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
-(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-11 06:26:40'),
+(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-12 03:32:40'),
 (8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-10 08:21:55'),
-(10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 01:33:05', '2019-12-11 07:07:10'),
-(11, 'pages', 'pages', 'Pages', 'Pages', 'voyager-list', 'TCG\\Voyager\\Models\\Pages', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerPagesController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 03:21:51', '2019-12-11 04:51:30'),
-(12, 'staff', 'staff', 'Staff', 'Staff', NULL, 'TCG\\Voyager\\Models\\Staff', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerStaffController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2019-12-12 00:45:23', '2019-12-12 00:45:23');
+(10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 01:33:05', '2019-12-12 03:36:43'),
+(11, 'pages', 'pages', 'Pages', 'Pages', 'voyager-list', 'TCG\\Voyager\\Models\\Pages', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerPagesController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 03:21:51', '2019-12-12 03:38:14'),
+(12, 'staff', 'staff', 'Staff', 'Staff', NULL, 'TCG\\Voyager\\Models\\Staff', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerStaffController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-12 00:45:23', '2019-12-12 03:37:35');
 
 -- --------------------------------------------------------
 
@@ -747,8 +749,8 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `name`, `department`, `profile`, `photo`, `facebook_url`, `twitter_url`, `linkedin_url`, `updated_at`, `created_at`) VALUES
-(1, 'Elisa Austen', 'Head of Innovation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.', 'staff\\December2019\\6bNNeoI2G031E5qQX6kP.jpg', 'https://www.facebook.com', 'https://www.twitter.com', 'https://www.linkedin.com', '2019-12-12 06:20:59', '2019-12-12 06:20:59'),
-(2, 'Elisa Austen 2', 'Head of Innovation 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.', 'staff\\December2019\\w7TZd31qXYx6mleQIkmT.jpg', 'https://www.facebook.com', 'https://www.twitter.com', 'https://www.linkedin.com', '2019-12-12 06:21:29', '2019-12-12 06:21:29');
+(1, 'Elisa Austen', 'Head of Innovation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.', 'staff\\December2019\\6bNNeoI2G031E5qQX6kP.png', 'https://www.facebook.com', 'https://www.twitter.com', 'https://www.linkedin.com', '2019-12-12 06:20:59', '2019-12-12 06:20:59'),
+(2, 'Elisa Austen 2', 'Head of Innovation 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.', 'staff\\December2019\\w7TZd31qXYx6mleQIkmT.png', 'https://www.facebook.com', 'https://www.twitter.com', 'https://www.linkedin.com', '2019-12-12 06:21:29', '2019-12-12 06:21:29');
 
 -- --------------------------------------------------------
 
@@ -976,7 +978,7 @@ ALTER TABLE `contactus`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `data_types`

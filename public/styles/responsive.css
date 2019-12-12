@@ -1,10 +1,86 @@
-@media only screen and (max-width:767px) {
-
-}
-@media only screen and (min-width: 768px) and (max-width: 990px) {
-
-
-}
-@media only screen and (min-width: 991px) and (max-width: 1024px) {
-
+@media only screen and (max-width:767px) {
+.find-business .btn {
+	font-size: 1.5rem;
+	padding: 0.5rem 2rem;
+	border-radius: 5px;
+}
+.tagline h1 {
+	font-size: 2.2rem;
+}
+.navbar-brand {
+	display: block;
+	margin: 0 auto;
+}
+.navbar-brand img {
+    width:80%;
+}
+.header-right {
+	margin:10px auto;
+}
+.btn-group-lg > .btn, .btn-lg {
+	padding: .3rem 1rem;
+}
+.wizard-steps {
+	padding: 20px;
+}
+.wizard-steps h3 {
+	margin-bottom: 1rem;
+	font-size: 1.6rem;
+}
+.eligibility {
+	padding: 0;
+}
+ul.eligibility li {
+	margin-bottom: 15px;
+	font-size: 16px;
+	line-height: 36px;
+	background: url(../images/icon-list.png) no-repeat left 5px;
+}
+label {
+	font-size:18px;
+}
+.form-control {
+	height: 46px;
+}
+.action-buttons button {
+	font-size: 16px;
+	padding: 10px 0px;
+	width: 120px;
+	margin: 0px 5px;
+}
+.task-type {
+	width: 120px;
+	margin: 0px 10px;
+}
+.task-type input[type="radio"].task-radio + label.task-label, 
+.task-type input[type="radio"].task-radio + label.task-label.clr {
+	height: 120px;
+}
+.task-type label img {
+	width: 120px;
+}
+.task-type input[type="radio"].task-radio + label.task-label span, .task-type input[type="radio"].task-radio + label.task-label.clr span {
+	line-height: 120px;
+}
+.pt-5, .py-5 {
+	padding-top: 2rem !important;
+}
+.files input {
+	padding: 50% 0px;
+}
+.files:before {
+	width: 70%;
+	font-size: 20px;
+}
+
+
+
+
+}
+@media only screen and (min-width: 768px) and (max-width: 990px) {
+
+
+}
+@media only screen and (min-width: 991px) and (max-width: 1024px) {
+
 }
