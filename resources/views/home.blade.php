@@ -372,6 +372,7 @@
             </div>
         </div>
     </section>
+    @if(count($staff) > 0)
     <section class="experienced_wrap py-5">
         <div class="container">
             <div class="row  text-center">
@@ -380,39 +381,27 @@
                 </div>
             </div>
             <div class="row mt-4">
+                @foreach($staff as $s)
                 <div class="col-sm-6">
                     <div class="experiencebox">
-                        <div class="autherimg"><img src="{{ asset('landing/images/icons/auther.png') }}" width="155" height="164" class="img-fluid img-thumbnail"></div>
+                        <div class="autherimg"><img src="{{ url('/') }}{{ Storage::url($s->photo) }}" width="155" height="164" class="img-fluid img-thumbnail"></div>
                         <span>
-                            <h4>Elisa Austen </h4>
-                            <h6>Head of Innovation </h6>
+                            <h4>{{$s->name}}</h4>
+                            <h6>{{$s->department}}</h6>
                             <ul class=" list-unstyled experiencebox_list">
-                                <li> <a href="#" class="fb"> <i class="fa fa-facebook" aria-hidden="true"></i> </a></li>
-                                <li> <a href="#" class="tweet"> <i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li> <a href="#" class="in"> <i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li> <a href="{{$s->facebook_url}}" class="fb"> <i class="fa fa-facebook" aria-hidden="true"></i> </a></li>
+                                <li> <a href="{{$s->twitter_url}}" class="tweet"> <i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                <li> <a href="{{$s->linkedin_url}}" class="in"> <i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                             </ul>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.</p>
+                            <p>{{$s->profile}}</p>
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="experiencebox">
-                        <div class="autherimg"><img src="{{ asset('landing/images/icons/auther.png') }}" width="155" height="164" class="img-fluid img-thumbnail"></div>
-                        <span>
-                            <h4>Elisa Austen </h4>
-                            <h6>Head of Innovation </h6>
-                            <ul class=" list-unstyled experiencebox_list">
-                                <li> <a href="#" class="fb"> <i class="fa fa-facebook" aria-hidden="true"></i> </a></li>
-                                <li> <a href="#" class="tweet"> <i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li> <a href="#" class="in"> <i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                            </ul>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.</p>
-                        </span>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
+    @endif
     <section class="contact_wrap py-5">
         <div class="container">
             <div class="row  text-center">

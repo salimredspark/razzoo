@@ -11,8 +11,8 @@
 |
 */
 #homepage url
-Route::get('/', function () {
-    return view('home');
+Route::get('/', 'HomeController@index', function () {
+    //return view('home');
 });
 
 #admin panel url
