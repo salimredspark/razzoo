@@ -8,10 +8,5 @@ use TCG\Voyager\Facades\Voyager;
 
 class VoyagerLoanController extends VoyagerBaseController
 {
-    public function update(Request $request, $id)
-    {
-        $slug = $this->getSlug($request);
-        die("dsdsds");
-
-    }
+        
 }

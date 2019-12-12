@@ -12,16 +12,5 @@ class Loan extends Model
     protected $guarded = [];
 
     public $timestamps = false;
-
-    public function files()
-    {
-        return $this->belongsTo(Voyager::modelClass('LoanApplicationBusinessFiles'))
-            ->published()
-            ->orderBy('created_at', 'DESC');
-    }
-
-    public function parentId()
-    {
-        return $this->belongsTo(self::class);
-    }
+   
 }

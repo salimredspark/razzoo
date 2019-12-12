@@ -12,19 +12,7 @@ class LoanApplicationBankstatements extends Model
     protected $guarded = [];
 
     protected $fillable = ['application_id', 'file_name', 'file_url'];
-
-    public function files()
-    {
-        return $this->hasMany(Voyager::modelClass('Loan'))
-            ->published()
-            ->orderBy('created_at', 'DESC');
-    }
-
-    public function parentId()
-    {
-        return $this->belongsTo(self::class);
-    }
-
+    
     public static function fileUrl($id)
     {
         if ($id) {
