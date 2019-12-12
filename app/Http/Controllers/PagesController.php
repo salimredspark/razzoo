@@ -28,17 +28,18 @@ class PagesController extends Controller
 
         if (!$page) return redirect()->route('not-found');
 
-        $pageContent = str_replace('[contact-form]', $this->contactUsPage($page), $page->content);
+        $pageContent = str_replace('[contact-form]', $this->contactUsPage($page, $request), $page->content);
 
         $pageArr['title'] = $page->title;
         $pageArr['content'] = $pageContent;
         $pageArr['slug'] = $page->slug;
-
+                
         return view('pages.page', ['page' => $pageArr]);
     }
 
-    public function contactUsPage($page)
-    {
-        return view('contact.form', ['page' => $page]);
+    public function contactUsPage($page, $request)
+    {        
+        if(!$request) $request = '';
+        return view('contact.form', ['page' => $page, 'request'=>$request]);
     }
 }

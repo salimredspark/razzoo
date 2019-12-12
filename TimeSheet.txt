@@ -37,7 +37,11 @@ Date: 10/12/2019
 1) Razzoo -- Start working at 10:00pm to 07:30pm
 ------------------------------------------------------------------------------
 Date: 11/12/2019
-1) Razzoo -- Start working at 10:00pm to till now
+1) Razzoo -- Start working at 10:00pm to 7:15pm
+------------------------------------------------------------------------------
+Date: 12/12/2019
+1) optionagparts.com.au -- Start working at 10:00pm to till now
+2) Razzoo
 ------------------------------------------------------------------------------
 
-
+auto_cron_product_sync.php

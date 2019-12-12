@@ -16,9 +16,10 @@ class ContactUsController  extends Controller
         //$this->middleware('auth');
     }
 
-    public function contactUS()
+    public function index(Request $request)
     {
-        return view('contact.index');
+        $email = $request->email;
+        return view('contact.index', ['email'=>$email]);
     }
 
     public function contactUSPost(Request $request)

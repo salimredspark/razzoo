@@ -4,7 +4,7 @@
     <span class="text-danger">{{ $errors->first('contact_name') }}</span>
 </div>
 <div class="form-group input-group-lg {{ $errors->has('contact_email') ? 'has-error' : '' }}">
-    {!! Form::text('contact_email', old('contact_email'), ['class'=>'form-control', 'placeholder'=>'Email Address']) !!}
+    {!! Form::text('contact_email', $request->email ?? '', ['class'=>'form-control', 'placeholder'=>'Email Address']) !!}
     <span class="text-danger">{{ $errors->first('contact_email') }}</span>
 </div>
 <div class="form-group input-group-lg {{ $errors->has('contact_message') ? 'has-error' : '' }}">

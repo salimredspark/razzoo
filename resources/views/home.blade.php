@@ -309,12 +309,14 @@
                     <h3 class="pt-2"> CONTACT US NOW IF YOU HAVE ANY QUESTION <span>Get in Touch with us so Easy.</span></h3>
                 </div>
                 <div class="col-sm-6">
-                    <div class="input-group input_group">
-                        <input type="text" class="form-control" placeholder="Enter your email address" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append ml-2">
-                            <button class="btn btn-secondary btn-lg text-uppercase px-4 Subscribebtn">Submit</button>
+                    <form action="{{ 'contact-us' }}" method="get" name="frm_cnt">
+                        <div class="input-group input_group">
+                            <input type="text" class="form-control" name="email" placeholder="Enter your email address" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append ml-2">
+                                <button class="btn btn-secondary btn-lg text-uppercase px-4 Subscribebtn">Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
             </div>

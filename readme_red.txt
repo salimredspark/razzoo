@@ -122,6 +122,9 @@ https://www.mogo.ca/signup
 
 So please provide API document for development help.
 ---------------------------------------------------------------------------------------------------------------------------------------------
+Set Home Page
+Rename the server.php in the your Laravel root folder to index.php and copy the .htaccess file from /public directory to your Laravel root folder.
+---------------------------------------------------------------------------------------------------------------------------------------------
 Newsletter
 https://github.com/spatie/laravel-newsletter
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -168,14 +171,13 @@ Test No: 51824753556
 
 It cannot be created, unfortunately as it the primary account and also an A2 subdomain. Only one A2 subdomain is only available for a single cPanel account. So if you need an account like https://razzoo.a2hosted.com, you may need purchase a new hosting plan. 
 
-
-
-
-
-
-
-
-
+stdClass Object ( 
+[model] => TCG\Voyager\Models\LoanApplicationBusinessFiles 
+[table] => loan_application_business_files 
+[type] => hasMany 
+[column] => application_id 
+[key] => id 
+[label] => file_name [pivot_table] => loan_application [pivot] => 0 [taggable] => 0 ) 1 
 
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2019 at 02:33 PM
+-- Generation Time: Dec 12, 2019 at 07:22 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -145,7 +145,17 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (88, 11, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{}', 3),
 (89, 11, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 5),
 (90, 11, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 6),
-(91, 7, 'loan_application_hasmany_loan_application_bankstatement_relationship', 'relationship', 'Bank Statements', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBankstatements\",\"table\":\"loan_application_bankstatements\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"contactus\",\"pivot\":\"0\",\"taggable\":\"0\"}', 30);
+(91, 7, 'loan_application_hasmany_loan_application_bankstatement_relationship', 'relationship', 'Bank Statements', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBankstatements\",\"table\":\"loan_application_bankstatements\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"contactus\",\"pivot\":\"0\",\"taggable\":\"0\"}', 30),
+(92, 12, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(93, 12, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{}', 2),
+(94, 12, 'department', 'text', 'Department', 1, 1, 1, 1, 1, 1, '{}', 3),
+(95, 12, 'profile', 'markdown_editor', 'Profile', 1, 1, 1, 1, 1, 1, '{}', 4),
+(96, 12, 'photo', 'image', 'Photo', 1, 1, 1, 1, 1, 1, '{}', 5),
+(97, 12, 'facebook_url', 'text', 'Facebook Url', 1, 1, 1, 1, 1, 1, '{}', 6),
+(98, 12, 'twitter_url', 'text', 'Twitter Url', 1, 1, 1, 1, 1, 1, '{}', 7),
+(99, 12, 'linkedin_url', 'text', 'Linkedin Url', 1, 1, 1, 1, 1, 1, '{}', 8),
+(100, 12, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, '{}', 9),
+(101, 12, 'created_at', 'timestamp', 'Created At', 1, 0, 0, 0, 0, 0, '{}', 10);
 
 -- --------------------------------------------------------
 
@@ -182,7 +192,8 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-11 06:26:40'),
 (8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-10 08:21:55'),
 (10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 01:33:05', '2019-12-11 07:07:10'),
-(11, 'pages', 'pages', 'Pages', 'Pages', 'voyager-list', 'TCG\\Voyager\\Models\\Pages', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerPagesController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 03:21:51', '2019-12-11 04:51:30');
+(11, 'pages', 'pages', 'Pages', 'Pages', 'voyager-list', 'TCG\\Voyager\\Models\\Pages', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerPagesController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 03:21:51', '2019-12-11 04:51:30'),
+(12, 'staff', 'staff', 'Staff', 'Staff', NULL, 'TCG\\Voyager\\Models\\Staff', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerStaffController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2019-12-12 00:45:23', '2019-12-12 00:45:23');
 
 -- --------------------------------------------------------
 
@@ -350,23 +361,24 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-12-01 19:59:11', '2019-12-01 19:59:11', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 8, '2019-12-01 19:59:12', '2019-12-11 03:17:20', 'voyager.media.index', NULL),
-(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-11 05:58:43', 'voyager.users.index', NULL),
-(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-11 05:58:43', 'voyager.roles.index', NULL),
-(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 10, '2019-12-01 19:59:12', '2019-12-11 06:53:10', NULL, ''),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 9, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.media.index', NULL),
+(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.users.index', NULL),
+(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 8, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.roles.index', NULL),
+(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 11, '2019-12-01 19:59:12', '2019-12-12 00:45:42', NULL, ''),
 (6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.menus.index', NULL),
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 9, '2019-12-01 19:59:12', '2019-12-11 06:53:10', 'voyager.settings.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 10, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.settings.index', NULL),
 (14, 1, 'Loan Application', '', '_self', 'voyager-documentation', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-11 07:16:48', 'voyager.loan.index', 'null'),
-(16, 1, 'Newsletter', '', '_self', 'voyager-news', '#000000', NULL, 4, '2019-12-10 08:16:08', '2019-12-11 07:15:28', 'voyager.newsletter.index', 'null'),
-(17, 1, 'Contact Us', '', '_self', 'voyager-people', '#000000', NULL, 3, '2019-12-11 01:33:05', '2019-12-11 07:15:44', 'voyager.contactus.index', 'null'),
-(19, 1, 'Pages', '', '_self', 'voyager-file-text', '#000000', NULL, 5, '2019-12-11 03:21:52', '2019-12-11 07:17:23', 'voyager.pages.index', 'null'),
+(16, 1, 'Newsletter', '', '_self', 'voyager-news', '#000000', NULL, 5, '2019-12-10 08:16:08', '2019-12-12 00:45:49', 'voyager.newsletter.index', 'null'),
+(17, 1, 'Contact Us', '', '_self', 'voyager-telephone', '#000000', NULL, 4, '2019-12-11 01:33:05', '2019-12-12 00:47:14', 'voyager.contactus.index', 'null'),
+(19, 1, 'Pages', '', '_self', 'voyager-file-text', '#000000', NULL, 6, '2019-12-11 03:21:52', '2019-12-12 00:45:49', 'voyager.pages.index', 'null'),
 (20, 2, 'About', 'about-us', '_self', NULL, '#000000', NULL, 1, '2019-12-11 03:27:11', '2019-12-11 04:09:44', NULL, ''),
 (21, 2, 'Services', 'services', '_self', NULL, '#000000', NULL, 2, '2019-12-11 03:27:26', '2019-12-11 04:04:11', NULL, ''),
 (22, 2, 'Approval', 'approval', '_self', NULL, '#000000', NULL, 3, '2019-12-11 04:05:07', '2019-12-11 04:12:22', NULL, ''),
-(23, 2, 'Contact Us', 'contact-us', '_self', NULL, '#000000', NULL, 4, '2019-12-11 04:05:20', '2019-12-11 04:12:29', NULL, '');
+(23, 2, 'Contact Us', 'contact-us', '_self', NULL, '#000000', NULL, 4, '2019-12-11 04:05:20', '2019-12-11 04:12:29', NULL, ''),
+(24, 1, 'Staff', '', '_self', 'voyager-people', '#000000', NULL, 3, '2019-12-12 00:45:23', '2019-12-12 00:46:20', 'voyager.staff.index', 'null');
 
 -- --------------------------------------------------------
 
@@ -537,7 +549,12 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (44, 'read_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51'),
 (45, 'edit_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51'),
 (46, 'add_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51'),
-(47, 'delete_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51');
+(47, 'delete_pages', 'pages', '2019-12-11 03:21:51', '2019-12-11 03:21:51'),
+(48, 'browse_staff', 'staff', '2019-12-12 00:45:23', '2019-12-12 00:45:23'),
+(49, 'read_staff', 'staff', '2019-12-12 00:45:23', '2019-12-12 00:45:23'),
+(50, 'edit_staff', 'staff', '2019-12-12 00:45:23', '2019-12-12 00:45:23'),
+(51, 'add_staff', 'staff', '2019-12-12 00:45:23', '2019-12-12 00:45:23'),
+(52, 'delete_staff', 'staff', '2019-12-12 00:45:23', '2019-12-12 00:45:23');
 
 -- --------------------------------------------------------
 
@@ -633,7 +650,17 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (46, 1),
 (46, 2),
 (47, 1),
-(47, 2);
+(47, 2),
+(48, 1),
+(48, 2),
+(49, 1),
+(49, 2),
+(50, 1),
+(50, 2),
+(51, 1),
+(51, 2),
+(52, 1),
+(52, 2);
 
 -- --------------------------------------------------------
 
@@ -693,6 +720,33 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 (16, 'site.FACEBOOK_URL', 'Facebook URL', 'http://www.facebook.com', NULL, 'text', 7, 'Site'),
 (17, 'site.TWITTER_URL', 'Twitter URL', 'https://twitter.com', NULL, 'text', 8, 'Site'),
 (18, 'site.LINKEDIN_URL', 'Linkedin URL', 'http://www.linkedin.com', NULL, 'text', 9, 'Site');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff`
+--
+
+CREATE TABLE `staff` (
+  `id` int(11) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `department` varchar(256) NOT NULL,
+  `profile` text NOT NULL,
+  `photo` varchar(256) NOT NULL,
+  `facebook_url` varchar(256) NOT NULL,
+  `twitter_url` varchar(256) NOT NULL,
+  `linkedin_url` varchar(256) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`id`, `name`, `department`, `profile`, `photo`, `facebook_url`, `twitter_url`, `linkedin_url`, `updated_at`, `created_at`) VALUES
+(1, 'Elisa Austen', 'Head of Innovation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.', 'staff\\December2019\\6bNNeoI2G031E5qQX6kP.jpg', 'https://www.facebook.com', 'https://www.twitter.com', 'https://www.linkedin.com', '2019-12-12 06:20:59', '2019-12-12 06:20:59'),
+(2, 'Elisa Austen 2', 'Head of Innovation 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.', 'staff\\December2019\\w7TZd31qXYx6mleQIkmT.jpg', 'https://www.facebook.com', 'https://www.twitter.com', 'https://www.linkedin.com', '2019-12-12 06:21:29', '2019-12-12 06:21:29');
 
 -- --------------------------------------------------------
 
@@ -878,6 +932,12 @@ ALTER TABLE `settings`
   ADD UNIQUE KEY `settings_key_unique` (`key`);
 
 --
+-- Indexes for table `staff`
+--
+ALTER TABLE `staff`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `translations`
 --
 ALTER TABLE `translations`
@@ -914,13 +974,13 @@ ALTER TABLE `contactus`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -956,7 +1016,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -980,7 +1040,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -993,6 +1053,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `translations`
