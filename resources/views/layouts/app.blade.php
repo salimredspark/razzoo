@@ -53,7 +53,7 @@
                     <div class="header-right ml-auto">
                         <div class="callus">
                             <span class="call-icon"><img src="{{ url('images/phone-icon.png') }}" class="img-fluid" alt=""></span>
-                            1300 000 000
+                            {!! setting('site.store_phone') !!}
                         </div>
                         <a href="{{ url('/loan-started') }}" class="btn btn-lg btn-primary">Get Started</a>
                     </div>

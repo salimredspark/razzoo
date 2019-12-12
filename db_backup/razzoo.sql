@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2019 at 07:22 AM
+-- Generation Time: Dec 12, 2019 at 07:38 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -372,7 +372,7 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 10, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.settings.index', NULL),
 (14, 1, 'Loan Application', '', '_self', 'voyager-documentation', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-11 07:16:48', 'voyager.loan.index', 'null'),
 (16, 1, 'Newsletter', '', '_self', 'voyager-news', '#000000', NULL, 5, '2019-12-10 08:16:08', '2019-12-12 00:45:49', 'voyager.newsletter.index', 'null'),
-(17, 1, 'Contact Us', '', '_self', 'voyager-telephone', '#000000', NULL, 4, '2019-12-11 01:33:05', '2019-12-12 00:47:14', 'voyager.contactus.index', 'null'),
+(17, 1, 'Contact List', '', '_self', 'voyager-telephone', '#000000', NULL, 4, '2019-12-11 01:33:05', '2019-12-12 01:05:27', 'voyager.contactus.index', 'null'),
 (19, 1, 'Pages', '', '_self', 'voyager-file-text', '#000000', NULL, 6, '2019-12-11 03:21:52', '2019-12-12 00:45:49', 'voyager.pages.index', 'null'),
 (20, 2, 'About', 'about-us', '_self', NULL, '#000000', NULL, 1, '2019-12-11 03:27:11', '2019-12-11 04:09:44', NULL, ''),
 (21, 2, 'Services', 'services', '_self', NULL, '#000000', NULL, 2, '2019-12-11 03:27:26', '2019-12-11 04:04:11', NULL, ''),
@@ -719,7 +719,9 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 (12, 'site.GOOGLE_API_KEY', 'Google API Key', 'AIzaSyDjJTAWtjK-xAQSCZc7xfE_NykXYuHgQdQ', NULL, 'text', 6, 'Site'),
 (16, 'site.FACEBOOK_URL', 'Facebook URL', 'http://www.facebook.com', NULL, 'text', 7, 'Site'),
 (17, 'site.TWITTER_URL', 'Twitter URL', 'https://twitter.com', NULL, 'text', 8, 'Site'),
-(18, 'site.LINKEDIN_URL', 'Linkedin URL', 'http://www.linkedin.com', NULL, 'text', 9, 'Site');
+(18, 'site.LINKEDIN_URL', 'Linkedin URL', 'http://www.linkedin.com', NULL, 'text', 9, 'Site'),
+(20, 'site.store_address', 'Store Address', 'Address : Suite 1203, 530 Lt Collins St Melbourne VIC 3000 <br>\r\nPhone: +81 000 2002, Email: office@razzoo.com, Web: www.razzoo.com', NULL, 'text_area', 10, 'Site'),
+(21, 'site.store_phone', 'Store Contact Number', '1300 000 000', NULL, 'text', 11, 'Site');
 
 -- --------------------------------------------------------
 
@@ -1052,7 +1054,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `staff`

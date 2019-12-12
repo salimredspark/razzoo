@@ -13,6 +13,7 @@ use TCG\Voyager\Models\User;
 use TCG\Voyager\Models\Contactus;
 use TCG\Voyager\Models\Newsletter;
 use TCG\Voyager\Models\Pages;
+use TCG\Voyager\Models\Staff;
 use Intervention\Image\Facades\Image;
 use TCG\Voyager\Facades\Voyager;
 
@@ -26,6 +27,7 @@ class VoyagerController extends Controller
             'contacts' => Contactus::count(),
             'newsletter' => Newsletter::count(),
             'pages' => Pages::count(),
+            'staff' => Staff::count(),
         ];
         return Voyager::view('voyager::index', ['counts'=>$counts]);
     }

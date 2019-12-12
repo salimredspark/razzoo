@@ -418,8 +418,7 @@
             <div class="row  text-center">
                 <div class="col-sm-12">
                     <h2>Contact Info</h2>
-                    <h6>Address : Suite 1203, 530 Lt Collins St Melbourne VIC 3000 <br>
-                        Phone: +81 000 2002, Email: office@razzoo.com, Web: www.razzoo.com</h6>
+                    <h6>{!! setting('site.store_address') !!}</h6>
                 </div>
             </div>
             <div class="row mt-5">
