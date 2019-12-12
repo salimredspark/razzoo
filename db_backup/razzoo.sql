@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2019 at 10:17 AM
+-- Generation Time: Dec 12, 2019 at 02:14 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -96,7 +96,7 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (19, 3, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 4),
 (20, 3, 'display_name', 'text', 'Display Name', 1, 1, 1, 1, 1, 1, NULL, 5),
 (21, 1, 'role_id', 'text', 'Role', 0, 1, 1, 1, 1, 1, '{}', 11),
-(42, 7, 'id', 'text', 'Id', 1, 1, 1, 0, 0, 0, '{}', 1),
+(42, 7, 'id', 'number', 'Id', 1, 1, 1, 0, 0, 0, '{}', 1),
 (43, 7, 'customer_firstname', 'text', 'Firstname', 1, 1, 1, 1, 1, 1, '{}', 3),
 (44, 7, 'customer_lastname', 'text', 'Lastname', 1, 1, 1, 1, 1, 1, '{}', 4),
 (45, 7, 'customer_email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 5),
@@ -145,7 +145,7 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (88, 11, 'slug', 'text', 'Slug', 1, 1, 1, 1, 1, 1, '{}', 3),
 (89, 11, 'updated_at', 'timestamp', 'Updated At', 1, 1, 0, 0, 0, 0, '{}', 5),
 (90, 11, 'created_at', 'timestamp', 'Created At', 1, 1, 0, 0, 0, 0, '{}', 6),
-(91, 7, 'loan_application_hasmany_loan_application_bankstatement_relationship', 'relationship', 'Bank Statements', 0, 0, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBankstatements\",\"table\":\"loan_application_bankstatements\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"contactus\",\"pivot\":\"0\",\"taggable\":\"0\"}', 30),
+(91, 7, 'loan_application_hasmany_loan_application_bankstatement_relationship', 'relationship', 'Bank Statements', 0, 0, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBankstatements\",\"table\":\"loan_application_bankstatements\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"id\",\"pivot_table\":\"contactus\",\"pivot\":\"0\",\"taggable\":\"0\"}', 30),
 (92, 12, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (93, 12, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{}', 3),
 (94, 12, 'department', 'text', 'Department', 1, 1, 1, 1, 1, 1, '{}', 4),
@@ -191,9 +191,9 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-02 01:29:02', '2019-12-12 03:40:04'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
-(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"created_at\",\"order_display_column\":\"id\",\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-12 03:32:40'),
-(8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-10 08:21:55'),
-(10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 01:33:05', '2019-12-12 03:36:43'),
+(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"id\",\"order_display_column\":\"id\",\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-12 06:20:53'),
+(8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":\"id\",\"order_display_column\":\"id\",\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-12 07:39:48'),
+(10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":\"id\",\"order_display_column\":\"id\",\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 01:33:05', '2019-12-12 07:39:19'),
 (11, 'pages', 'pages', 'Pages', 'Pages', 'voyager-list', 'TCG\\Voyager\\Models\\Pages', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerPagesController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 03:21:51', '2019-12-12 03:38:14'),
 (12, 'staff', 'staff', 'Staff', 'Staff', NULL, 'TCG\\Voyager\\Models\\Staff', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerStaffController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-12 00:45:23', '2019-12-12 03:37:35');
 
@@ -260,13 +260,10 @@ INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`,
 (1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', '', '', '', '', '', NULL, 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
 (1000000005, 'Suhas', 'Patel', 'suhas@redsparkinfo.co.in', '9298474737', '', '', '', '', '', NULL, 'Healthcare', NULL, '$5,000 - $10,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Spark', 'Gujarat', 'MYOB', '::1', '', '', '2019-12-04 07:08:48', '2019-12-04 01:38:48'),
 (1000000006, 'Deval', 'Barot', 'dev@aa.com', '4234234234', '998 Fourth Ave, San Diego, CA 92101, USA', '998 Fourth Ave', 'CA', 'San Diego', '92101', 'US', 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-09 14:47:57', '2019-12-09 09:17:57'),
-(1000000007, 'dsad', 'sadasd', 'aaa@aaa.com', '423423432', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 01:30:39', '2019-12-10 01:30:39'),
-(1000000008, 'dsad', 'sadasd', 'aaa@aaa.com', '4234234323', 'Atlanta airport, Atlanta, GA 30334, USA', NULL, 'GA', 'Atlanta', '30334', 'US', 'Hospitality', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 07:01:01', '2019-12-10 01:31:01'),
-(1000000009, 'dsad', 'asdasd', 'asdasda', '111111111111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 01:32:16', '2019-12-10 01:32:16'),
-(1000000010, 'dsad', 'asdasd', 'asdasda@aaa.com', '111111111111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 07:02:21', '2019-12-10 01:32:21'),
-(1000000011, 'dsad', 'asdasd', 'asdasda@aaa.com', '1111111111111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 01:32:20', '2019-12-10 01:32:20'),
-(1000000012, 'dsad', 'asdasd', 'asdasda@aaa.com', '11111111111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 01:32:20', '2019-12-10 01:32:20'),
-(1000000013, 'dsad', 'asdasd', 'asdasda@aaa.com', '1111111111', 'Reguliersbreestraat 23, 1017 CL Amsterdam, Netherlands', '23 Reguliersbreestraat', 'NH', 'Amsterdam', '1017 CL', 'NL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-10 07:02:59', '2019-12-10 01:32:59');
+(1000000021, 'Rajendra', 'Patel', 'raju@redsparkinfo.com', '8827288828', '8, Shanti Nagar Soc., Sharad Nagar, Tarsali, Vadodara, Gujarat 390009, India', NULL, 'GJ', 'Vadodara', '390009', 'IN', 'Healthcare', NULL, '$20,000 - $40,000', 'Business Expansion', '51824753556', '998838838', 'this is state if issues', 'Less than 12 months', '65000', 'New Shop', 'Gujarat', 'MYOB', '::1', 'Pending', NULL, '2019-12-12 11:49:38', '2019-12-12 06:19:38'),
+(1000000022, 'Shahrukh', 'Khan', 'shah@gmail.com', '0929938843', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-12 12:02:33', '2019-12-12 06:32:33'),
+(1000000025, 'Salman', 'Khan', 'salman@gmail.com', '8883777475', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', 'Pending', NULL, '2019-12-12 11:54:43', '2019-12-12 06:24:43'),
+(1000000026, 'Sajid', 'Nadiyadwala', 'sajid@gmail.com', '2299228822', 'Sarkhej, Narolgam, Ellisbridge, Ahmedabad, Gujarat 380006, India', NULL, 'GJ', 'Ahmedabad', '380006', 'IN', 'Healthcare', NULL, 'Less than $5,000', 'Marketing', '51824753556', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', NULL, '2019-12-12 12:24:04', '2019-12-12 06:54:04');
 
 -- --------------------------------------------------------
 
@@ -289,7 +286,12 @@ CREATE TABLE `loan_application_bankstatements` (
 
 INSERT INTO `loan_application_bankstatements` (`id`, `application_id`, `file_name`, `file_url`, `updated_at`, `created_at`) VALUES
 (8, 1000000001, '2019_11_07_13_46_21_C.jpg', '/storage/loan_application/1000000001/bank_statement/', '2019-12-11 06:14:01', '2019-12-11 06:14:01'),
-(9, 1000000001, 'demo 3.jpg', '/storage/loan_application/1000000001/bank_statement/demo 3.jpg', '2019-12-11 06:38:01', '2019-12-11 06:38:01');
+(9, 1000000001, 'demo 3.jpg', '/storage/loan_application/1000000001/bank_statement/demo 3.jpg', '2019-12-11 06:38:01', '2019-12-11 06:38:01'),
+(10, 1000000021, 'blog-maltese.jpg', '/storage/loan_application/1000000021/bank_statement/blog-maltese.jpg', '2019-12-12 06:19:44', '2019-12-12 06:19:44'),
+(11, 1000000021, 'Chrysanthemum.jpg', '/storage/loan_application/1000000021/bank_statement/Chrysanthemum.jpg', '2019-12-12 06:19:47', '2019-12-12 06:19:47'),
+(12, 1000000021, 'Desert.jpg', '/storage/loan_application/1000000021/bank_statement/Desert.jpg', '2019-12-12 06:19:49', '2019-12-12 06:19:49'),
+(13, 1000000021, 'Hydrangeas.jpg', '/storage/loan_application/1000000021/bank_statement/Hydrangeas.jpg', '2019-12-12 06:19:51', '2019-12-12 06:19:51'),
+(16, 1000000026, 'Desert.jpg', '/storage/loan_application/1000000026/bank_statement/Desert.jpg', '2019-12-12 06:54:11', '2019-12-12 06:54:11');
 
 -- --------------------------------------------------------
 
@@ -312,7 +314,12 @@ CREATE TABLE `loan_application_business_files` (
 
 INSERT INTO `loan_application_business_files` (`id`, `application_id`, `file_name`, `file_url`, `updated_at`, `created_at`) VALUES
 (52, 1000000001, 'demo 1.png', '/storage/loan_application/1000000001/business_plan/demo 1.png', '2019-12-11 06:38:04', '2019-12-11 06:38:04'),
-(53, 1000000001, 'demo 4.jpg', '/storage/loan_application/1000000001/business_plan/demo 4.jpg', '2019-12-11 06:38:31', '2019-12-11 06:38:31');
+(53, 1000000001, 'demo 4.jpg', '/storage/loan_application/1000000001/business_plan/demo 4.jpg', '2019-12-11 06:38:31', '2019-12-11 06:38:31'),
+(54, 1000000021, 'Koala.jpg', '/storage/loan_application/1000000021/business_plan/Koala.jpg', '2019-12-12 06:19:54', '2019-12-12 06:19:54'),
+(55, 1000000021, 'Lighthouse.jpg', '/storage/loan_application/1000000021/business_plan/Lighthouse.jpg', '2019-12-12 06:19:56', '2019-12-12 06:19:56'),
+(56, 1000000021, 'Penguins.jpg', '/storage/loan_application/1000000021/business_plan/Penguins.jpg', '2019-12-12 06:19:58', '2019-12-12 06:19:58'),
+(57, 1000000021, 'Tulips.jpg', '/storage/loan_application/1000000021/business_plan/Tulips.jpg', '2019-12-12 06:20:00', '2019-12-12 06:20:00'),
+(60, 1000000026, 'Tulips.jpg', '/storage/loan_application/1000000026/business_plan/Tulips.jpg', '2019-12-12 06:54:19', '2019-12-12 06:54:19');
 
 -- --------------------------------------------------------
 
@@ -445,7 +452,13 @@ CREATE TABLE `newsletter_subscriber` (
 
 INSERT INTO `newsletter_subscriber` (`id`, `email`, `firstname`, `lastname`, `ip_address`, `created_at`, `updated_at`) VALUES
 (1, 'salim@redsparkinfo.co.in', NULL, NULL, '::1', '2019-12-09 19:49:19', '2019-12-09 19:49:19'),
-(2, 'sadfsafds', NULL, NULL, '::1', '2019-12-11 02:28:19', '2019-12-11 02:28:19');
+(2, 'sadfsafds', NULL, NULL, '::1', '2019-12-11 02:28:19', '2019-12-11 02:28:19'),
+(3, 'fsdf', NULL, NULL, '::1', '2019-12-12 04:25:11', '2019-12-12 04:25:11'),
+(4, 'aa1@aa.com', NULL, NULL, '::1', '2019-12-12 05:21:43', '2019-12-12 05:21:43'),
+(5, 'aa11@aa.com', NULL, NULL, '::1', '2019-12-12 05:24:24', '2019-12-12 05:24:24'),
+(6, 'aa121@aa.com', NULL, NULL, '::1', '2019-12-12 05:25:31', '2019-12-12 05:25:31'),
+(7, 'aa1221@aa.com', NULL, NULL, '::1', '2019-12-12 05:26:39', '2019-12-12 05:26:39'),
+(8, 'aa12211@aa.com', NULL, NULL, '::1', '2019-12-12 05:27:22', '2019-12-12 05:27:22');
 
 -- --------------------------------------------------------
 
@@ -469,7 +482,7 @@ CREATE TABLE `pages` (
 INSERT INTO `pages` (`id`, `title`, `content`, `slug`, `updated_at`, `created_at`) VALUES
 (1, 'About Us', 'This is Content', 'about-us', '2019-12-11 08:55:31', '2019-12-11 08:55:31'),
 (2, 'Services', 'Services Content Here', 'services', '2019-12-11 08:56:25', '2019-12-11 08:56:25'),
-(3, 'Contact Us', '<section class=\"contact_wrap py-5\">\r\n    <div class=\"container\">\r\n        <div class=\"row  text-center\">\r\n            <div class=\"col-sm-12\">\r\n                <h6>Address : Suite 1203, 530 Lt Collins St Melbourne VIC 3000 <br>\r\n                    Phone: +81 000 2002, Email: office@razzoo.com, Web: www.razzoo.com</h6>\r\n            </div>\r\n        </div>\r\n        <div class=\"row mt-5\">\r\n            <div class=\"col-sm-6\">\r\n                <div style=\"width: 100%\">\r\n                    <iframe width=\"100%\" height=\"461\" src=\"https://maps.google.com/maps?width=100%&height=461&hl=en&q=Suite%201203%2C%20530%20Lt%20Collins%20St%20Melbourne%20VIC%203000%20+(razzoo)&ie=UTF8&t=&z=15&iwloc=B&output=embed\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\">\r\n                        <a href=\"https://www.mapsdirections.info/en/journey-planner.htm\">find directions</a>\r\n                    </iframe>\r\n                </div>\r\n            </div>\r\n<div class=\"col-sm-6\">[contact-form]</div>\r\n        </div>\r\n    </div>\r\n</section>', 'contact-us', '2019-12-11 08:01:29', '2019-12-11 09:43:18'),
+(3, 'Contact Us', '<section class=\"contact_wrap py-5\">\r\n    <div class=\"container\">\r\n        <div class=\"row  text-center\">\r\n            <div class=\"col-sm-12\">\r\n                <h6>Address : Suite 1203, 530 Lt Collins St Melbourne VIC 3000 <br>\r\n                    Phone: +81 000 2002, Email: office@razzoo.com, Web: www.razzoo.com</h6>\r\n            </div>\r\n        </div>\r\n        <div class=\"row mt-5\">            \r\n            <center><div class=\"col-sm-10\">[contact-form]</div></center>\r\n        </div>\r\n        <div class=\"row mt-5\">\r\n            <div class=\"col-sm-12\">\r\n                <div style=\"width: 100%\">\r\n                    <iframe width=\"100%\" height=\"461\" src=\"https://maps.google.com/maps?width=100%&height=461&hl=en&q=Suite%201203%2C%20530%20Lt%20Collins%20St%20Melbourne%20VIC%203000%20+(razzoo)&ie=UTF8&t=&z=15&iwloc=B&output=embed\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\">\r\n                        <a href=\"https://www.mapsdirections.info/en/journey-planner.htm\">find directions</a>\r\n                    </iframe>\r\n                </div>\r\n            </div>            \r\n        </div>\r\n    </div>\r\n</section>', 'contact-us', '2019-12-12 05:35:36', '2019-12-11 09:43:18'),
 (4, 'Approval', 'Approval Page Content Here', 'approval', '2019-12-11 09:43:49', '2019-12-11 09:43:49'),
 (5, 'Privacy Policy', '**Content Here**', 'privacy-policy', '2019-12-11 07:48:27', '2019-12-11 07:48:27'),
 (6, 'Terms Conditions', '**Terms Conditions Content Here**', 'terms', '2019-12-11 07:48:56', '2019-12-11 07:48:56');
@@ -996,19 +1009,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `loan_application`
 --
 ALTER TABLE `loan_application`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000014;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000027;
 
 --
 -- AUTO_INCREMENT for table `loan_application_bankstatements`
 --
 ALTER TABLE `loan_application_bankstatements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `loan_application_business_files`
 --
 ALTER TABLE `loan_application_business_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `menus`
@@ -1032,7 +1045,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `newsletter_subscriber`
 --
 ALTER TABLE `newsletter_subscriber`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pages`
