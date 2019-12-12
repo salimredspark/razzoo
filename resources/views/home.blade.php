@@ -34,7 +34,6 @@
 
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,300i,400,400i,500,500i,700,700i,900&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href="{{ asset('landing/styles/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing/styles/custom.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('landing/styles/layout.css') }}">
@@ -98,7 +97,7 @@
                                 <button class="btn btn-secondary px-4 subscribe" type="button"> Apply </button>
                             </div>
                         </div>
-                        <div class="show-message text-danger"></div>
+                        <div class="show-message alert alert-danger" style="display: none"></div>
                     </div>
                 </div>
             </div>
@@ -449,8 +448,6 @@
         </div>
     </footer>
 
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -485,12 +482,20 @@
                 }
             });
 
+            function validateEmail($email) {
+                var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+                return emailReg.test($email);
+            }
+
             //delete bank file
             $(document).on("click", 'button.subscribe', function(event) {
 
-                var email = $("#email").val();
+                $(".show-message").removeClass("alert-success").addClass("alert-danger");
 
-                if (email) {
+                var email = $("#email").val();
+                if (!validateEmail(email)) {
+                    $(".show-message").html("Please enter valid email address").show();
+                } else {
                     exporturl = "{{ route('subscribe') }}";
                     CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
@@ -506,12 +511,14 @@
                             _token: CSRF_TOKEN
                         },
                         success: function(data) {
+                            $(".show-message").show();
                             if (data.status == 'success') {
-                                $(".show-message").html("Subscribed");
+                                $(".show-message").removeClass("alert-danger").addClass("alert-success");
+                                $(".show-message").html("You are sucessfully subscribed");
                             } else if (data.status == 'exist') {
-                                $(".show-message").html("Already Subscribed");
+                                $(".show-message").html("Your email adddress already ubscribed");
                             } else {
-                                console.log("Subscribe: " + data);
+                                $(".show-message").html("Please enter valid email address");
                             }
                         },
                         error: function(xhr) {

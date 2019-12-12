@@ -9,12 +9,12 @@ use App\User;
 use App\Staff;
 
 class HomeController extends Controller
-{    
+{
     public function __construct()
     {
-       // $this->middleware('auth');
+        // $this->middleware('auth');
     }
-    
+
     public function index()
     {
         $staff = Staff::all();
@@ -46,10 +46,12 @@ class HomeController extends Controller
                 $saveSubscriber->created_at =  strtotime(date('Y-m-d h:i:s'));
                 $saveSubscriber->updated_at =  strtotime(date('Y-m-d h:i:s'));
                 $saveSubscriber->save();
-                $r = 'sucess';
+                $r = 'success';
             } else {
                 $r = 'exist';
             }
+        } else {
+            $r = 'invalid';
         }
 
         $response = array(

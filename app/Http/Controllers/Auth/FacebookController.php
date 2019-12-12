@@ -32,8 +32,7 @@ class FacebookController extends Controller
             $createdUser = $userModel->addNew($create);
             Auth::loginUsingId($createdUser->id);
             */
-
-            //$saveExistAppData = LoanApplication::where([['customer_email', '=', $create['email']], ['customer_mobile', '=', $create['customer_mobile']]])->first();
+            
             $saveExistAppData = LoanApplication::where([['customer_email', '=', $create['email']]])->first();
             if ($saveExistAppData) {
                 $applicationId = $saveExistAppData->id;
@@ -67,13 +66,7 @@ class FacebookController extends Controller
 
             //return redirect()->route('loan-process');
             return redirect()->route('loan-process')->with('success', 'Facebook login sucess');
-        } catch (Exception $e) {
-            /*
-            $user = Socialite::driver('facebook')->stateless()->user();              
-            echo "<pre>";print_r($user);echo"</pre>";
-            die();
-            */
-
+        } catch (Exception $e) {          
             return redirect('loan-process')->with('error', $e->getMessage());
         }
     }
