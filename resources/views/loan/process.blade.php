@@ -267,11 +267,19 @@
                             </div>
 
                             <div class="tab">
+                            <h3 class="text-center">Bank Statements</h3>
                                 <div class="form-group">
+                                    <!--<div class="form-group files">
+                                        <input type="file" class="form-control" multiple name="supporting_bank_file[]" id="supporting_bank_file">
+                                    </div>
+                                    <div class="load_bank_process"></div>
+                                    <div id="uploaded_bank_files">
+                                        <ul></ul>
+                                    </div>-->
 
                                     <label>Enter Access ID?</label>
                                     <input type="text" class="form-control" placeholder="Bank Access ID" name="bank_access_id" id="bank_access_id">
-                                    <label id="bank_access_id-error" class="error" for="bank_access_id"></label>        
+                                    <label id="bank_access_id-error" class="error" for="bank_access_id"></label>
                                 </div>
                             </div>
 
