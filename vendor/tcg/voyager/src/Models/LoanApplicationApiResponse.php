@@ -19,28 +19,35 @@ class LoanApplicationApiResponse extends Model
     public static function fileUrl($id)
     {
         if ($id) {
-            $obj = LoanApplicationApiResponse::find($id);
+            $obj = LoanApplicationApiResponse::where([['application_id', '=', $id], ['api_name', '=', 'secure.uat.mogoplus.com']])->first();
+
             if ($obj) {
+                $public = public_path();
+                $rootPath = '/storage/loan_application/' . $obj->application_id . "/";
+                $dirPath =  $public . $rootPath;
+                $uploadDir = 'bank_statement/';
                 $pdfname = 'bank_statement.pdf';
 
-                $rootPath = '/storage/loan_application/' . $obj->application_id . "/";
-                $dirPath = public_path() . $rootPath;
-                if (!file_exists($dirPath . $pdfname)) {
-                    File::makeDirectory($dirPath, 0777, true, true);
-                }
+                $filepath = $dirPath . $uploadDir . $pdfname;
+               // if (!file_exists($filepath)) {
 
-                //create sub folder
-                $rootPath_sub = $dirPath . "bank_statement/";
-                if (!file_exists($rootPath_sub . $pdfname)) {
-                    File::makeDirectory($rootPath_sub, 0777, true, true);
-                }
+                    //create application_id folder
+                    if (!file_exists($dirPath . $pdfname)) {
+                        File::makeDirectory($dirPath, 0777, true, true);
+                    }
 
-                $api_response = json_decode($obj->api_response, true);
-                
-                $pdf = PDF::loadView('voyager::bankpdf', ['data' => $api_response]);
-                $pdf->save($rootPath_sub . $pdfname);                
+                    //create sub folder
+                    $rootPath_sub = $dirPath . $uploadDir;
+                    if (!file_exists($rootPath_sub . $pdfname)) {
+                        File::makeDirectory($rootPath_sub, 0777, true, true);
+                    }
 
-                $uploadUrl = url('/') . $rootPath . 'bank_statement/' . $pdfname;
+                    $_data = unserialize($obj->api_response);
+                    $pdf = PDF::loadView('voyager::bankpdf', ['transactions' => $_data[0]->transactions , 'data' => $_data[0]]);
+                    $pdf->save($rootPath_sub . $pdfname);
+              //  }
+
+                $uploadUrl = url('/') . $rootPath . $uploadDir . $pdfname.'?rand='.microtime();
                 return $uploadUrl;
             }
         }
