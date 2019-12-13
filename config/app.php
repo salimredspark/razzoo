@@ -196,6 +196,11 @@ return [
         */
         Collective\Html\HtmlServiceProvider::class,
 
+        /*
+        * for PDF 
+        */
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*
@@ -255,6 +260,9 @@ return [
         // for html form
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        // for pdf
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 
