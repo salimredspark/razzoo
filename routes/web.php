@@ -37,10 +37,14 @@ Route::post('ajax-upload-businessplan', 'LoanController@ajaxUploadBusinessFile')
 Route::post('ajax-upload-bankfile', 'LoanController@ajaxUploadlBankFile')->name('ajax-upload-bankfile');
 
 Route::get('thankyou', 'LoanController@thankyou')->name('thankyou');
-Route::post('verifyabn', 'LoanController@verifyABN')->name('verifyabn');
 Route::post('delete-uploads-files', 'LoanController@ajaxDeleteFile')->name('delete-uploads-files');
 Route::post('delete-uploads-bank-files', 'LoanController@ajaxDeleteBankFile')->name('delete-uploads-bank-files');
 
+//calling APIs
+Route::post('api-verifyABN', 'ApiController@verifyABN')->name('api-verifyABN');
+Route::post('api-getBankStatment', 'ApiController@getBankStatement')->name('api-getBankStatment');
+
+//Newsletter Subscriber
 Route::post('subscribe', 'HomeController@ajaxSubscribe')->name('subscribe');
 
 //contact page

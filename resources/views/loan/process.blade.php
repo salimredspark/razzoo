@@ -108,6 +108,7 @@
                             <div id="auto-complete-address" style="width: 550px; height: 400px;display:none"></div>
                         </div>
 
+                        <!--industry fields-->
                         <div class="tab">
                             <h3 class="text-center">Which industry are you in?</h3>
                             <div class="task-types">
@@ -138,6 +139,7 @@
                             </div>
                         </div>
 
+                        <!--industry category-->
                         <div class="cond-section section-Healthcare">
                             <div class="tab ">
                                 <h3 class="text-center">Let's find you a business loan</h3>
@@ -266,13 +268,10 @@
 
                             <div class="tab">
                                 <div class="form-group">
-                                    <div class="form-group files">
-                                        <input type="file" class="form-control" multiple name="supporting_bank_file[]" id="supporting_bank_file">
-                                    </div>
-                                    <div class="load_bank_process"></div>
-                                    <div id="uploaded_bank_files">
-                                        <ul></ul>
-                                    </div>
+
+                                    <label>Enter Access ID?</label>
+                                    <input type="text" class="form-control" placeholder="Bank Access ID" name="bank_access_id" id="bank_access_id">
+                                    <label id="bank_access_id-error" class="error" for="bank_access_id"></label>        
                                 </div>
                             </div>
 
@@ -576,7 +575,7 @@
 
                             if (isValidAB == '') $("#abn_number_valid").val('');
 
-                            exporturl = "{{ route('verifyabn') }}";
+                            exporturl = "{{ route('api-verifyABN') }}";
                             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                             application_id = $("input[name='application_id']").val();
 
@@ -809,6 +808,61 @@
                             $(".submit").show();
                         },
                     },
+                    bank_access_id: {
+                        required: true,
+                        minlength: 9,
+                        maxlength: 10,
+                        digits: true,
+                        callback: function() {
+                            var bank_access_id = $("#bank_access_id").val();
+                            if (bank_access_id) {
+                                console.log("Bank Process Now");
+
+                                exporturl = "{{ route('api-getBankStatment') }}";
+                                CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                                accounting_software = $("input[name='accounting_software']:checked").val();
+                                application_id = $("input[name='application_id']").val();
+
+                                if (application_id > 0) {
+
+                                    $("#bank_access_id-error").html("Please wait...");
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        cache: false,
+                                        dataType: 'json',
+                                        url: exporturl,
+                                        data: {
+                                            postdata: {
+                                                accounting_software: accounting_software,
+                                                bank_access_id: bank_access_id,
+                                                application_id: application_id,
+                                            },
+                                            _token: CSRF_TOKEN
+                                        },
+                                        success: function(data) {
+                                            if (data.status == 'success') {
+                                                console.log("Step Bank Statment Saved");
+                                                if (data.application_id) {
+                                                    $("#application_id").val(data.application_id);
+                                                    $("#bank_access_id-error").html("Process Done");
+                                                }
+                                            } else {
+                                                console.log("Step Bank Statment Error Data: " + data);
+                                                $("#bank_access_id-error").html("Process Error");
+                                            }
+                                        },
+                                        error: function(xhr) {
+                                            console.log("Step Bank Statment Ajax Error: Something went wrong!");
+                                        }
+                                    });
+                                } else {
+                                    console.log("Step Bank Statment Error: Application Id does not exist");
+                                }
+
+                            }
+                        },
+                    },
                 },
 
                 // Specify validation error messages
@@ -845,6 +899,7 @@
                     customer_state: "State is required",
                     customer_city: "City is required",
                     customer_postalcode: "Postal code is required",
+                    bank_access_id: "Valid Bank Access ID is required",
                 }
             }
 
