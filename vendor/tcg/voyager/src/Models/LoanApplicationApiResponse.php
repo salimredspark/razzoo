@@ -16,41 +16,80 @@ class LoanApplicationApiResponse extends Model
 
     protected $fillable = ['application_id', 'api_name', 'api_response'];
 
-    public static function fileUrl($id)
+    public static function getAPIResponsInPdf($application_id, $text_label)
     {
-        if ($id) {
-            $obj = LoanApplicationApiResponse::where([['application_id', '=', $id], ['api_name', '=', 'secure.uat.mogoplus.com']])->first();
+        if ($application_id) {
 
-            if ($obj) {
+            $_html = '';
+
+            //Bank Statment
+            $bankObj = LoanApplicationApiResponse::where([['application_id', '=', $application_id], ['api_name', '=', 'secure.uat.mogoplus.com']])->first();
+            if ($bankObj) {
                 $public = public_path();
-                $rootPath = '/storage/loan_application/' . $obj->application_id . "/";
+                $rootPath = '/storage/loan_application/' . $bankObj->application_id . "/";
                 $dirPath =  $public . $rootPath;
                 $uploadDir = 'bank_statement/';
-                $pdfname = 'bank_statement.pdf';
+                $pdfname = 'Bank-Statement.pdf';
 
                 $filepath = $dirPath . $uploadDir . $pdfname;
-               // if (!file_exists($filepath)) {
+                // if (!file_exists($filepath)) {
 
-                    //create application_id folder
-                    if (!file_exists($dirPath . $pdfname)) {
-                        File::makeDirectory($dirPath, 0777, true, true);
-                    }
+                //create application_id folder
+                if (!file_exists($dirPath . $pdfname)) {
+                    File::makeDirectory($dirPath, 0777, true, true);
+                }
 
-                    //create sub folder
-                    $rootPath_sub = $dirPath . $uploadDir;
-                    if (!file_exists($rootPath_sub . $pdfname)) {
-                        File::makeDirectory($rootPath_sub, 0777, true, true);
-                    }
+                //create sub folder
+                $rootPath_sub = $dirPath . $uploadDir;
+                if (!file_exists($rootPath_sub . $pdfname)) {
+                    File::makeDirectory($rootPath_sub, 0777, true, true);
+                }
 
-                    $_data = unserialize($obj->api_response);
-                    $pdf = PDF::loadView('voyager::bankpdf', ['transactions' => $_data[0]->transactions , 'data' => $_data[0]]);
-                    $pdf->save($rootPath_sub . $pdfname);
-              //  }
+                $_data = unserialize($bankObj->api_response);
+                $pdf = PDF::loadView('voyager::bankpdf', ['transactions' => $_data[0]->transactions, 'data' => $_data[0]]);
+                $pdf->save($rootPath_sub . $pdfname);
+                //  }
 
-                $uploadUrl = url('/') . $rootPath . $uploadDir . $pdfname.'?rand='.microtime();
-                return $uploadUrl;
+                $uploadUrl = url('/') . $rootPath . $uploadDir . $pdfname . '?rand=' . microtime();
+                //return $uploadUrl;
+                $_html .= '<p><a href="' . $uploadUrl . '" target="_blank"> Bank Statement </a></p>';
             }
+
+            //ABN/ACN Response
+            $abnObj = LoanApplicationApiResponse::where([['application_id', '=', $application_id], ['api_name', '=', 'abr.business.gov.au']])->first();
+            if ($abnObj) {
+                $public = public_path();
+                $rootPath = '/storage/loan_application/' . $abnObj->application_id . "/";
+                $dirPath =  $public . $rootPath;
+                $uploadDir = 'abn_statement/';
+                $pdfname = 'ABN-Statement.pdf';
+
+                $filepath = $dirPath . $uploadDir . $pdfname;
+                // if (!file_exists($filepath)) {
+
+                //create application_id folder
+                if (!file_exists($dirPath . $pdfname)) {
+                    File::makeDirectory($dirPath, 0777, true, true);
+                }
+
+                //create sub folder
+                $rootPath_sub = $dirPath . $uploadDir;
+                if (!file_exists($rootPath_sub . $pdfname)) {
+                    File::makeDirectory($rootPath_sub, 0777, true, true);
+                }
+
+                $_data = json_decode( $abnObj->api_response, true);
+                $pdf = PDF::loadView('voyager::abnpdf', ['data' => $_data]);
+                $pdf->save($rootPath_sub . $pdfname);
+                //  }
+
+                $uploadUrl = url('/') . $rootPath . $uploadDir . $pdfname . '?rand=' . microtime();
+                //return $uploadUrl;
+                $_html .= '<p><a href="' . $uploadUrl . '" target="_blank"> ABN Report </a></p>';
+            }
+
+            return $_html;
         }
-        return '#';
+        return '<p>No Data</p>';
     }
 }

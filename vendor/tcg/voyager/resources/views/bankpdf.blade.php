@@ -5,6 +5,12 @@
         padding: 5px;
     }
 
+    table.border-bottom th,
+    table.border-bottom td {
+        border: none;
+        border-bottom: solid 1px #dddddd;
+    }
+
     table {
         page-break-inside: auto;
         width: 100%;
@@ -26,7 +32,7 @@
     .container {
         font-family: Arial, serif;
         font-size: 12px;
-        color: #000000;
+        color: #555;
         font-weight: normal;
         font-style: normal;
         text-decoration: none
@@ -43,6 +49,10 @@
     .green {
         color: green
     }
+
+    .page-break {
+        page-break-after: always;
+    }
 </style>
 
 <div class="container">
@@ -57,7 +67,7 @@
             <tbody>
                 <tr>
                     <td valign="top">
-                        <table>
+                        <table class="border-bottom">
                             <tr>
                                 <td>Case ID</td>
                                 <td class="right">{{ $data->reportDetails->providerReference }}</td>
@@ -85,7 +95,7 @@
                         </table>
                     </td>
                     <td valign="top">
-                        <table>
+                        <table class="border-bottom">
                             <tr>
                                 <td>Account No</td>
                                 <td class="right">{{ $data->accountCaptured->account }}</td>
@@ -123,48 +133,35 @@
                 </tr>
             </tbody>
         </table>
-
+        
+        <h2>Transactions</h2>
         <table class="table table-striped database-tables">
             <thead>
                 <tr>
-                    <th>Transactions</th>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                    <th>Balance</th>
                 </tr>
             </thead>
             <tbody>
+                {{$listattime = 20}}
+                @foreach($transactions as $k => $d)
                 <tr>
-                    <td>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>Date</td>
-                                    <td>Category</td>
-                                    <td>Description</td>
-                                    <td>Debit</td>
-                                    <td>Credit</td>
-                                    <td>Balance</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{$listattime = 20}}
-                                @foreach($transactions as $k => $d)
-                                <tr>
-                                    <td>{{ $d->date }}</td>
-                                    <td>{{ $d->category }}</td>
-                                    <td>{{ $d->description }}</td>
-                                    <td class="red right">{{ $d->debit }}</td>
-                                    <td class="green right">{{ $d->credit }}</td>
-                                    <td class="right">{{ $d->balance }}</td>
-                                </tr>
-                                @if($listattime == 0) $listattime = 20; @endif;
-
-                                {{ $listattime-- }}
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </td>
+                    <td>{{ $d->date }}</td>
+                    <td>{{ $d->category }}</td>
+                    <td>{{ $d->description }}</td>
+                    <td class="red right">{{ $d->debit }}</td>
+                    <td class="green right">{{ $d->credit }}</td>
+                    <td class="right">{{ $d->balance }}</td>
                 </tr>
+                @if($listattime == 0) $listattime = 20; @endif;
+
+                {{ $listattime-- }}
+                @endforeach
             </tbody>
         </table>
-
     </div>
 </div>

@@ -57,7 +57,7 @@
 
             @if(isset($query))
             @if($options->table ==  'loan_application_api_response')                    
-                <p><a href="{{ $options->model::fileUrl( $query->{$options->key} ) }}" target="_blank"> {{ $query->{$options->label} }} </a></p>
+                {!! $options->model::getAPIResponsInPdf( $query->{$options->key} , $query->{$options->label} ) !!}
             @else   
                 <p class="hasOne-if">{{ $query->{$options->label} }}</p>
                 @endif
