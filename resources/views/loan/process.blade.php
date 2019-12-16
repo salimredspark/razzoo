@@ -617,8 +617,11 @@
                                     error: function(xhr) {
                                         console.log("ABC False");
                                         //$("button.next").hide();
+                                        $(".api_process").html("");
                                     }
                                 });
+
+                                $(".api_process").html("");
                             }
                         },
                     },
