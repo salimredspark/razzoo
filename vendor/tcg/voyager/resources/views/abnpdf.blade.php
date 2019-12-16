@@ -32,7 +32,7 @@
     .container {
         font-family: Arial, serif;
         font-size: 12px;
-        color: #555;
+        color: #000;
         font-weight: normal;
         font-style: normal;
         text-decoration: none
@@ -74,11 +74,12 @@
         <h2>Business Entity Type</h2>
         <p><b>Entity Type Code:</b> {{ $data['businessEntity']['entityType']['entityTypeCode'] }} </p>
         <p><b>Description:</b> {{ $data['businessEntity']['entityType']['entityDescription'] }} </p>
-
-        <br />
-        <p><b>Note: </b> {{ $data['usageStatement'] }} </p>
         <p><b>Date Register Last Updated:</b> {{ $data['dateRegisterLastUpdated'] }}</p>
         <p><b>Date Time Retrieved:</b> {{ $data['dateTimeRetrieved'] }}</p>
+
+        <br />
+        <p style="background-color: yellow; color:red; padding:10px;font-size:13px;font-family:'Times New Roman', Times, serif"><b>Note: </b> {{ $data['usageStatement'] }} </p>
+        
 
     </div>
 </div>

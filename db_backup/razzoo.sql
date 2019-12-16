@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2019 at 01:42 PM
+-- Generation Time: Dec 16, 2019 at 11:20 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -102,10 +102,10 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (45, 7, 'customer_email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 5),
 (46, 7, 'customer_mobile', 'number', 'Mobile', 0, 1, 1, 1, 1, 1, '{}', 6),
 (47, 7, 'customer_industry', 'text', 'Industry', 0, 0, 1, 1, 1, 1, '{}', 9),
-(48, 7, 'allow_consultants_call', 'text', 'Allow Consultants Call', 0, 0, 1, 1, 1, 1, '{}', 10),
+(48, 7, 'allow_consultants_call', 'select_dropdown', 'Allow Consultants Call', 0, 0, 1, 1, 1, 1, '{\"default\":\"radio2\",\"options\":{\"radio1\":\"Yes\",\"radio2\":\"No\"}}', 10),
 (49, 7, 'loan_amout', 'text', 'Loan Amout', 0, 1, 1, 1, 1, 1, '{}', 12),
 (50, 7, 'loan_purpose', 'text', 'Loan Purpose', 0, 0, 1, 1, 1, 1, '{}', 14),
-(51, 7, 'abn_number', 'number', 'ABN Number', 0, 0, 1, 1, 1, 1, '{}', 16),
+(51, 7, 'abn_number', 'text', 'ABN Number', 0, 0, 1, 1, 1, 1, '{}', 16),
 (52, 7, 'dl_number', 'text', 'DL Number', 0, 0, 1, 1, 1, 1, '{}', 18),
 (53, 7, 'state_issue', 'text', 'State Issue', 0, 0, 1, 1, 1, 1, '{}', 19),
 (54, 7, 'business_trading', 'text', 'Business Trading', 0, 0, 1, 1, 1, 1, '{}', 20),
@@ -117,7 +117,7 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (60, 7, 'created_at', 'timestamp', 'Created At', 1, 0, 1, 0, 0, 0, '{}', 26),
 (61, 7, 'updated_at', 'timestamp', 'Updated At', 1, 0, 1, 0, 0, 0, '{}', 28),
 (62, 7, 'loan_application_belongstomany_loan_application_business_file_relationship', 'relationship', 'Business Files', 0, 0, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\LoanApplicationBusinessFiles\",\"table\":\"loan_application_business_files\",\"type\":\"hasMany\",\"column\":\"application_id\",\"key\":\"id\",\"label\":\"file_name\",\"pivot_table\":\"loan_application\",\"pivot\":\"0\",\"taggable\":\"0\"}', 29),
-(63, 7, 'loan_status', 'text', 'Status', 1, 1, 1, 1, 1, 1, '{}', 2),
+(63, 7, 'loan_status', 'select_dropdown', 'Status', 1, 1, 1, 1, 1, 1, '{\"default\":\"option1\",\"options\":{\"option1\":\"Pending\",\"option2\":\"In Process\",\"option3\":\"Approved\",\"option4\":\"Rejected\"}}', 2),
 (64, 7, 'facebook_id', 'text', 'Facebook Login', 0, 0, 1, 1, 1, 1, '{}', 27),
 (65, 7, 'customer_address1', 'text_area', 'Customer Address1', 0, 0, 1, 1, 1, 1, '{}', 7),
 (66, 7, 'customer_address2', 'text_area', 'Customer Address2', 0, 0, 1, 1, 1, 1, '{}', 8),
@@ -191,7 +191,7 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-02 01:29:02', '2019-12-12 03:40:04'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:02', '2019-12-02 01:29:02'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, NULL, '2019-12-02 01:29:03', '2019-12-02 01:29:03'),
-(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"id\",\"order_display_column\":\"id\",\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-13 05:20:11'),
+(7, 'loan_application', 'loan', 'Loan Application', 'Loan Applications', 'voyager-list', 'TCG\\Voyager\\Models\\Loan', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerLoanController', NULL, 1, 0, '{\"order_column\":\"id\",\"order_display_column\":\"id\",\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-06 04:15:02', '2019-12-16 02:02:51'),
 (8, 'newsletter_subscriber', 'newsletter', 'Newsletter Subscriber', 'Newsletter Subscribers', 'voyager-list', 'TCG\\Voyager\\Models\\Newsletter', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerNewsletterController', NULL, 1, 0, '{\"order_column\":\"id\",\"order_display_column\":\"id\",\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-10 08:14:52', '2019-12-12 07:39:48'),
 (10, 'contactus', 'contactus', 'Contact Us', 'Contact Us', 'voyager-list', 'TCG\\Voyager\\Models\\Contactus', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerContactusController', NULL, 1, 0, '{\"order_column\":\"id\",\"order_display_column\":\"id\",\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 01:33:05', '2019-12-12 07:39:19'),
 (11, 'pages', 'pages', 'Pages', 'Pages', 'voyager-list', 'TCG\\Voyager\\Models\\Pages', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerPagesController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2019-12-11 03:21:51', '2019-12-12 03:38:14'),
@@ -254,7 +254,7 @@ CREATE TABLE `loan_application` (
 --
 
 INSERT INTO `loan_application` (`id`, `customer_firstname`, `customer_lastname`, `customer_email`, `customer_mobile`, `customer_address1`, `customer_address2`, `customer_state`, `customer_city`, `customer_postalcode`, `customer_country`, `customer_industry`, `allow_consultants_call`, `loan_amout`, `loan_purpose`, `abn_number`, `dl_number`, `state_issue`, `business_trading`, `business_monthly_turnover`, `business_name`, `business_state`, `accounting_software`, `ip_address`, `loan_status`, `facebook_id`, `created_at`, `updated_at`) VALUES
-(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', '4320 Congress Ave, Austin, TX 78701, USA', '4320 Congress Ave', 'TX', 'Austin', '78701', 'US', 'Healthcare', 'Yes', 'Less than $5,000', 'Marketing', '51824753556', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '::1', 'Pending', '', '2019-12-13 09:30:10', '2019-12-13 04:00:10'),
+(1000000001, 'Salim', 'Kureshi', 'salim@redsparkinfo.com', '9909300392', 'Reguliersbreestraat 23, 1017 CL Amsterdam, Netherlands', '23 Reguliersbreestraat', 'NH', 'Amsterdam', '1017 CL', 'NL', 'Healthcare', 'Yes', 'Less than $5,000', 'Marketing', '0092882882', '998838838', 'New Shop', 'Less than 12 months', '2500', 'Red', 'Gujarat', 'MYOB', '127.0.0.1', 'Pending', '', '2019-12-16 09:46:34', '2019-12-16 04:16:34'),
 (1000000002, 'Deval', 'Barot', 'deval@redsparkifo.co.in', '9898338844', '', '', '', '', '', NULL, 'Healthcare', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:15:41', '2019-12-04 00:15:41'),
 (1000000003, 'Nirav', 'Patel', 'nirav@redsparkinfo.co.in', '8738473874', '', '', '', '', '', NULL, 'Education', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 00:19:05', '2019-12-04 00:19:05'),
 (1000000004, 'Vidhi', 'Patel', 'vidhi@redsparkinfo.co.in', '8393874874', '', '', '', '', '', NULL, 'Healthcare', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '::1', '', '', '2019-12-04 06:01:39', '2019-12-04 00:31:39'),
@@ -393,24 +393,25 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2019-12-01 19:59:11', '2019-12-01 19:59:11', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 9, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.media.index', NULL),
-(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.users.index', NULL),
-(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 8, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.roles.index', NULL),
-(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 11, '2019-12-01 19:59:12', '2019-12-12 00:45:42', NULL, ''),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 6, '2019-12-01 19:59:12', '2019-12-16 04:24:31', 'voyager.media.index', NULL),
+(3, 1, 'Staff', '', '_self', 'voyager-person', '#000000', NULL, 4, '2019-12-01 19:59:12', '2019-12-16 04:24:38', 'voyager.users.index', 'null'),
+(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 5, '2019-12-01 19:59:12', '2019-12-16 04:24:31', 'voyager.roles.index', NULL),
+(5, 1, 'Developer Tools', '', '_self', 'voyager-tools', '#000000', NULL, 8, '2019-12-01 19:59:12', '2019-12-16 04:24:31', NULL, ''),
 (6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.menus.index', NULL),
 (7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.database.index', NULL),
 (8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.compass.index', NULL),
 (9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2019-12-01 19:59:12', '2019-12-03 00:31:15', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 10, '2019-12-01 19:59:12', '2019-12-12 00:45:42', 'voyager.settings.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 7, '2019-12-01 19:59:12', '2019-12-16 04:24:31', 'voyager.settings.index', NULL),
 (14, 1, 'Loan Application', '', '_self', 'voyager-documentation', '#000000', NULL, 2, '2019-12-06 04:21:34', '2019-12-11 07:16:48', 'voyager.loan.index', 'null'),
-(16, 1, 'Newsletter', '', '_self', 'voyager-news', '#000000', NULL, 5, '2019-12-10 08:16:08', '2019-12-12 00:45:49', 'voyager.newsletter.index', 'null'),
-(17, 1, 'Contact List', '', '_self', 'voyager-telephone', '#000000', NULL, 4, '2019-12-11 01:33:05', '2019-12-12 01:05:27', 'voyager.contactus.index', 'null'),
-(19, 1, 'Pages', '', '_self', 'voyager-file-text', '#000000', NULL, 6, '2019-12-11 03:21:52', '2019-12-12 00:45:49', 'voyager.pages.index', 'null'),
+(16, 1, 'Newsletter Subscribers', '', '_self', 'voyager-news', '#000000', 25, 3, '2019-12-10 08:16:08', '2019-12-16 04:24:26', 'voyager.newsletter.index', 'null'),
+(17, 1, 'Contact Request', '', '_self', 'voyager-telephone', '#000000', 25, 2, '2019-12-11 01:33:05', '2019-12-16 04:26:46', 'voyager.contactus.index', 'null'),
+(19, 1, 'Pages', '', '_self', 'voyager-file-text', '#000000', 25, 4, '2019-12-11 03:21:52', '2019-12-16 04:24:30', 'voyager.pages.index', 'null'),
 (20, 2, 'About', 'about-us', '_self', NULL, '#000000', NULL, 1, '2019-12-11 03:27:11', '2019-12-11 04:09:44', NULL, ''),
 (21, 2, 'Services', 'services', '_self', NULL, '#000000', NULL, 2, '2019-12-11 03:27:26', '2019-12-11 04:04:11', NULL, ''),
 (22, 2, 'Approval', 'approval', '_self', NULL, '#000000', NULL, 3, '2019-12-11 04:05:07', '2019-12-11 04:12:22', NULL, ''),
 (23, 2, 'Contact Us', 'contact-us', '_self', NULL, '#000000', NULL, 4, '2019-12-11 04:05:20', '2019-12-11 04:12:29', NULL, ''),
-(24, 1, 'Staff', '', '_self', 'voyager-people', '#000000', NULL, 3, '2019-12-12 00:45:23', '2019-12-12 00:46:20', 'voyager.staff.index', 'null');
+(24, 1, 'Team', '', '_self', 'voyager-people', '#000000', 25, 1, '2019-12-12 00:45:23', '2019-12-16 04:25:04', 'voyager.staff.index', 'null'),
+(25, 1, 'CMS', '#', '_self', 'voyager-list', '#000000', NULL, 3, '2019-12-16 04:23:40', '2019-12-16 04:23:49', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -758,8 +759,8 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 (16, 'site.FACEBOOK_URL', 'Facebook URL', 'http://www.facebook.com', NULL, 'text', 7, 'Site'),
 (17, 'site.TWITTER_URL', 'Twitter URL', 'https://twitter.com', NULL, 'text', 8, 'Site'),
 (18, 'site.LINKEDIN_URL', 'Linkedin URL', 'http://www.linkedin.com', NULL, 'text', 9, 'Site'),
-(20, 'site.store_address', 'Store Address', 'Address : Suite 1203, 530 Lt Collins St Melbourne VIC 3000 <br>\r\nPhone: +81 000 2002, Email: office@razzoo.com, Web: www.razzoo.com', NULL, 'text_area', 11, 'Site'),
-(21, 'site.store_phone', 'Store Contact Number', '1300 000 000', NULL, 'text', 12, 'Site'),
+(20, 'site.store_address', 'Address', 'Address : Suite 1203, 530 Lt Collins St Melbourne VIC 3000 <br>\r\nPhone: +81 000 2002, Email: office@razzoo.com, Web: www.razzoo.com', NULL, 'text_area', 11, 'Site'),
+(21, 'site.store_phone', 'Contact Number', '1300 000 000', NULL, 'text', 12, 'Site'),
 (22, 'site.ABN_GUID', 'ABN GUID', '8f522b7d-f8fa-4503-a385-34a7399dbcca', NULL, 'text', 10, 'Site');
 
 -- --------------------------------------------------------
@@ -1069,7 +1070,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `migrations`

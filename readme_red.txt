@@ -181,10 +181,10 @@ stdClass Object (
 [column] => application_id 
 [key] => id 
 [label] => file_name [pivot_table] => loan_application [pivot] => 0 [taggable] => 0 ) 1 
+--------------------------------------------------------------------------------------------------------------------------------------------
+Error Declaration of Symfony\Component\Translation\TranslatorInterface::setLocale($locale) must be 
+vendor/symfony/translation-contracts/LocaleAwareInteface.php
+vendor/symfony/translation-contracts/TranslatorInteface.php
 
-12:30am -- 12:30pm
-
-08:00
-
-
-
+and delete all the string keywords
+--------------------------------------------------------------------------------------------------------------------------------------------

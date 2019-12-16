@@ -32,7 +32,7 @@
     .container {
         font-family: Arial, serif;
         font-size: 12px;
-        color: #555;
+        color: #000;
         font-weight: normal;
         font-style: normal;
         text-decoration: none
@@ -53,6 +53,7 @@
     .page-break {
         page-break-after: always;
     }
+    .database-tables th{background-color: #eee;}
 </style>
 
 <div class="container">
@@ -60,7 +61,7 @@
         <table class="table table-striped database-tables">
             <thead>
                 <tr>
-                    <th>Personal Details</th>
+                    <th>Account Details</th>
                     <th>Applicant Details</th>
                 </tr>
             </thead>
@@ -68,6 +69,14 @@
                 <tr>
                     <td valign="top">
                         <table class="border-bottom">
+                            <tr>
+                                <td>Account No</td>
+                                <td class="right">{{ $data->accountCaptured->account }}</td>
+                            </tr>
+                            <tr>
+                                <td>Created Date</td>
+                                <td class="right">{{ $data->accountCaptured->opened }}</td>
+                            </tr>
                             <tr>
                                 <td>Case ID</td>
                                 <td class="right">{{ $data->reportDetails->providerReference }}</td>
@@ -84,29 +93,22 @@
                                 <td>Capture Time</td>
                                 <td class="right">{{ $data->reportDetails->captureTime }} </td>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td>Report Date</td>
                                 <td class="right">{{ $data->reportDetails->reportDate }} </td>
                             </tr>
                             <tr>
                                 <td>Report Time</td>
                                 <td class="right">{{ $data->reportDetails->reportTime }} </td>
-                            </tr>
+                            </tr>-->
                         </table>
                     </td>
                     <td valign="top">
                         <table class="border-bottom">
-                            <tr>
-                                <td>Account No</td>
-                                <td class="right">{{ $data->accountCaptured->account }}</td>
-                            </tr>
+
                             <tr>
                                 <td>Name</td>
                                 <td class="right">{{ $data->accountCaptured->customerName }}</td>
-                            </tr>
-                            <tr>
-                                <td>Created Date</td>
-                                <td class="right">{{ $data->accountCaptured->opened }}</td>
                             </tr>
                             <tr>
                                 <td>Type</td>
@@ -133,7 +135,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <h2>Transactions</h2>
         <table class="table table-striped database-tables">
             <thead>
@@ -141,9 +143,9 @@
                     <th>Date</th>
                     <th>Category</th>
                     <th>Description</th>
-                    <th>Debit</th>
-                    <th>Credit</th>
-                    <th>Balance</th>
+                    <th align="center">Debit</th>
+                    <th align="center">Credit</th>
+                    <th align="center">Balance</th>
                 </tr>
             </thead>
             <tbody>

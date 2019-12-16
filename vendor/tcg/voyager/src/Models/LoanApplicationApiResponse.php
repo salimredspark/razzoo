@@ -20,7 +20,7 @@ class LoanApplicationApiResponse extends Model
     {
         if ($application_id) {
 
-            $_html = '';
+            $_html = '<ul>';
 
             //Bank Statment
             $bankObj = LoanApplicationApiResponse::where([['application_id', '=', $application_id], ['api_name', '=', 'secure.uat.mogoplus.com']])->first();
@@ -52,7 +52,7 @@ class LoanApplicationApiResponse extends Model
 
                 $uploadUrl = url('/') . $rootPath . $uploadDir . $pdfname . '?rand=' . microtime();
                 //return $uploadUrl;
-                $_html .= '<p><a href="' . $uploadUrl . '" target="_blank"> Bank Statement </a></p>';
+                $_html .= '<li> <a href="' . $uploadUrl . '" target="_blank"> Bank Statement </a></li>';
             }
 
             //ABN/ACN Response
@@ -78,16 +78,16 @@ class LoanApplicationApiResponse extends Model
                     File::makeDirectory($rootPath_sub, 0777, true, true);
                 }
 
-                $_data = json_decode( $abnObj->api_response, true);
+                $_data = json_decode($abnObj->api_response, true);
                 $pdf = PDF::loadView('voyager::abnpdf', ['data' => $_data]);
                 $pdf->save($rootPath_sub . $pdfname);
                 //  }
 
                 $uploadUrl = url('/') . $rootPath . $uploadDir . $pdfname . '?rand=' . microtime();
                 //return $uploadUrl;
-                $_html .= '<p><a href="' . $uploadUrl . '" target="_blank"> ABN Report </a></p>';
+                $_html .= '<li> <a href="' . $uploadUrl . '" target="_blank"> ABN Report </a></li>';
             }
-
+            $_html .= '</ul>';
             return $_html;
         }
         return '<p>No Data</p>';
