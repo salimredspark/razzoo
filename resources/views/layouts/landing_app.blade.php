@@ -164,11 +164,11 @@
             }
 
             //redirect to process page
-            $(document).on("click", 'button.subscribe', function(event) {
+            $(document).on("click", 'button.business_loan_process_btn', function(event) {
 
                 $(".show-message").removeClass("alert-success").addClass("alert-danger");
 
-                var email = $("#email").val();
+                var email = $("#loan_process_email").val();
                 if (!validateEmail(email)) {
                     $(".show-message").html("Please enter valid email address").show();
                 } else {
@@ -176,43 +176,12 @@
                     var makeUrl = "{{ route('loan-started', ['email' => 'replace_me' ]) }}";
                     window.location = makeUrl.replace('replace_me', email);
 
-                    /*
-                    exporturl = "{{ route('subscribe') }}";
-                    CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-                    $.ajax({
-                        type: 'POST',
-                        cache: false,
-                        dataType: 'json',
-                        url: exporturl,
-                        data: {
-                            postdata: {
-                                email: email
-                            },
-                            _token: CSRF_TOKEN
-                        },
-                        success: function(data) {
-                            $(".show-message").show();
-                            if (data.status == 'success') {
-                                $(".show-message").removeClass("alert-danger").addClass("alert-success");
-                                $(".show-message").html("You are sucessfully subscribed");
-                            } else if (data.status == 'exist') {
-                                $(".show-message").html("Your email adddress already ubscribed");
-                            } else {
-                                $(".show-message").html("Please enter valid email address");
-                            }
-                        },
-                        error: function(xhr) {
-                            console.log("Subscribe Error: Something went wrong!");
-                        }
-                    });
-                    */
                 }
 
             });
 
             //Subscribebtn
-            $(document).on("click", 'button.Subscribebtn', function(event) {
+            $(document).on("click", 'button.subscriber_btn', function(event) {
 
                 $(".show-sub-message").removeClass("alert-success").addClass("alert-danger");
 

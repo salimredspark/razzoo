@@ -9,9 +9,9 @@
                     to help you grow</h1>
                 <div class="input-group input-group-lg my-4">
                     <div class="input-group input-group-lg my-4">
-                        <input type="text" class="form-control " name="email" id="email" placeholder="Enter email address">
+                        <input type="text" class="form-control " name="loan_process_email" id="loan_process_email" placeholder="Enter email address">
                         <div class="input-group-append">
-                            <button class="btn btn-secondary px-4 subscribe" type="button"> Apply </button>
+                            <button class="btn btn-secondary px-4 business_loan_process_btn" type="button"> Apply </button>
                         </div>
                     </div>
                     <div class="show-message alert alert-danger" style="display: none"></div>
@@ -229,7 +229,7 @@
                 <div class="input-group input_group">
                     <input type="text" class="form-control" name="subscriber_email" id="subscriber_email" placeholder="Enter your email address" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append ml-2">
-                        <button class="btn btn-secondary btn-lg text-uppercase px-4 Subscribebtn">Submit</button>
+                        <button type="button" class="btn btn-secondary btn-lg text-uppercase px-4 subscriber_btn">Submit</button>
                     </div>
                 </div>
                 <div class="show-sub-message alert alert-danger" style="display: none"></div>
