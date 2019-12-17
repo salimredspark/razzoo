@@ -7,9 +7,8 @@
             <div class="col-sm-12">
                 <div class="wizard-steps text-center">
                     <span class="tick"><img src="{{ url('images/icon-tick.png') }}" class="img-fluid" alt=""></span>
-                    <h3 class="text-success">Congratulations! <br> your loan is pre-approved for value of $84,000 at 8.65% p.a. with no upfront or ongoing fees.</h3>
-                    <h4 class="mb-5">Your loan will be disembursed within 48 hours on sucessfull background verification.
-                    </h4>
+                    <h3 class="text-success">Congratulations! <br></h3>
+                    <h4 class="mb-5">Your loan will be disembursed within 48 hours on sucessfull background verification.</h4>
                     <h5 class="text-primary">Your application id is : {{$application_id}}.</h5>
                 </div>
 

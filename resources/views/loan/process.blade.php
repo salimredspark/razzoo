@@ -173,7 +173,7 @@
                                         <div class="form-group">
                                             <label>Please enter your ABN/ACN number</label>
                                             <input type="text" class="form-control" name="abn_number" id="abn_number" placeholder="ABN(11 Digits) or ACN(9 Digits)">
-                                            <span class="api_process"></span>
+                                            <div class="api_process"></div>
                                             <input type="text" id="abn_number_valid" name="abn_number_valid" value="" readonly />
                                         </div>
                                     </div>
@@ -195,7 +195,7 @@
                             <div class="tab">
                                 <span class="tick"><img src="{{ url('images/icon-tick.png') }}" class="img-fluid" alt=""></span>
                                 <h3 class="text-center text-success">Congratulations, <br>you are eligible for Razzoo Loan!</h3>
-                                <h4 class="text-center">Your loan will be approved within 24 hours on sucessful submission of documents.</h4>
+                                <h4 class="text-center">Your loan will be approved within 24 hours on successful submission of documents.</h4>
                                 <p class="text-center text-primary">Please click next and tell us more about your business.</p>
                             </div>
 
@@ -267,7 +267,7 @@
                             </div>
 
                             <div class="tab">
-                            <h3 class="text-center">Bank Statements</h3>
+                                <h3 class="text-center">Bank Statements</h3>
                                 <div class="form-group">
                                     <!--<div class="form-group files">
                                         <input type="file" class="form-control" multiple name="supporting_bank_file[]" id="supporting_bank_file">
@@ -279,7 +279,7 @@
 
                                     <label>Enter Access ID?</label>
                                     <input type="text" class="form-control" placeholder="Bank Access ID" name="bank_access_id" id="bank_access_id">
-                                    <label id="bank_access_id-error" class="error" for="bank_access_id"></label>
+                                    <label id="bank_access_id_error"></label>
                                 </div>
                             </div>
 
@@ -392,6 +392,7 @@
         $(document).ready(function() {
             var CSRF_TOKEN = false;
             var step2 = false;
+            var abn_api_response = '';
             var val = {
                 // Specify validation rules
                 rules: {
@@ -572,7 +573,7 @@
 
                         }
                     },
-                    /*abn_number_valid: "required",*/
+                    abn_number_valid: "required",
                     abn_number: {
                         required: true,
                         minlength: 9,
@@ -591,6 +592,7 @@
                             abn_number = $("input[name='abn_number']").val();
                             if (abn_number != '') {
                                 $(".api_process").html("Please wait....");
+
                                 $.ajax({
                                     type: 'POST',
                                     cache: false,
@@ -605,23 +607,26 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-                                            console.log("ABC True");
-                                            $(".api_process").html("");
+
                                             $("#abn_number_valid").val('valid');
+
+                                            var abn_api_response = data.api_response;
+
+                                            $("input[name='business_name']").val(abn_api_response.organisationName);
+                                            $("input[name='business_state']").val(abn_api_response.stateCode);
+
+                                            $(".api_process").html("Business Name: " + abn_api_response.organisationName);
+
                                         } else {
-                                            $("#abn_number_valid").val();
                                             $(".api_process").html(data.error);
-                                            console.log("API Result: " + data.error);
                                         }
                                     },
                                     error: function(xhr) {
                                         console.log("ABC False");
-                                        //$("button.next").hide();
                                         $(".api_process").html("");
                                     }
                                 });
 
-                                $(".api_process").html("");
                             }
                         },
                     },
@@ -812,13 +817,6 @@
                             }
                         },
                     },
-                    supporting_business_plan: {
-                        required: true,
-                        callback: function() {
-                            $(".next").hide();
-                            $(".submit").show();
-                        },
-                    },
                     bank_access_id: {
                         required: true,
                         minlength: 9,
@@ -827,7 +825,6 @@
                         callback: function() {
                             var bank_access_id = $("#bank_access_id").val();
                             if (bank_access_id) {
-                                console.log("Bank Process Now");
 
                                 exporturl = "{{ route('api-getBankStatment') }}";
                                 CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -836,7 +833,8 @@
 
                                 if (application_id > 0) {
 
-                                    $("#bank_access_id-error").html("Please wait...");
+                                    $("#bank_access_id_error").html("Please wait...");
+                                    $(".next").hide();
 
                                     $.ajax({
                                         type: 'POST',
@@ -853,14 +851,14 @@
                                         },
                                         success: function(data) {
                                             if (data.status == 'success') {
-                                                console.log("Step Bank Statment Saved");
                                                 if (data.application_id) {
                                                     $("#application_id").val(data.application_id);
-                                                    $("#bank_access_id-error").html("Process Done");
+                                                    $("#bank_access_id_error").html("Process completed and Bank Statement in Verification.");
+                                                    $(".next").show();                                                    
                                                 }
                                             } else {
                                                 console.log("Step Bank Statment Error Data: " + data);
-                                                $("#bank_access_id-error").html("Process Error");
+                                                $("#bank_access_id_error").html("Invalid Access ID");                                                
                                             }
                                         },
                                         error: function(xhr) {
@@ -874,6 +872,13 @@
                             }
                         },
                     },
+                    /*supporting_business_plan: {
+                        required: true,
+                        callback: function() {
+                            $(".next").hide();
+                            $(".submit").show();
+                        },
+                    },*/
                 },
 
                 // Specify validation error messages
@@ -895,9 +900,9 @@
                         required: "ABN/ACN number is required",
                         digits: "Only numbers are allowed in this field"
                     },
-                    /*abn_number_valid: {
+                    abn_number_valid: {
                         required: "Valid ABN/ACN number is required",
-                    },*/
+                    },
                     dl_number: "DL number is required",
                     state_issue: "Please enter state of issue",
                     business_trading: "Please selecy trading time",
@@ -905,7 +910,7 @@
                     business_name: "Please enter current credit profile",
                     business_state: "Please enter state name",
                     accounting_software: "Please select accounting software",
-                    supporting_business_plan: "Please upload business plan",
+                    //supporting_business_plan: "Please upload business plan",
                     customer_address: "Please enter your address",
                     customer_state: "State is required",
                     customer_city: "City is required",
@@ -1147,7 +1152,6 @@
                 }
 
             });
-
 
             //autocomplete adress
             $('#auto-complete-address').locationpicker({

@@ -170,7 +170,8 @@ Red@spark1
 Search by ABN: SearchByABNv201408
 Search by ACN: SearchByASICv201408
 Your GUID for accessing the web services is: 8f522b7d-f8fa-4503-a385-34a7399dbcca
-Test No: 51824753556
+ABN Number: 51824753556
+Bank Access Id: 680008546
 
 It cannot be created, unfortunately as it the primary account and also an A2 subdomain. Only one A2 subdomain is only available for a single cPanel account. So if you need an account like https://razzoo.a2hosted.com, you may need purchase a new hosting plan. 
 
@@ -188,3 +189,14 @@ vendor/symfony/translation-contracts/TranslatorInteface.php
 
 and delete all the string keywords
 --------------------------------------------------------------------------------------------------------------------------------------------
+
+1) Link -- Done
+2) ABN -- If verified then set company address on next page -- Done
+3) ABN -- Show Company Name
+4) Thank you page change -- Done
+5) Valid and show message on Access ID -- Done
+6) Upload Images -- Browss Button  and set optional -- Done
+7) Speling mistake -- Done
+8) Testing --- Pending
+9) View proper in block wise in Edit Aplication --- Pending
+

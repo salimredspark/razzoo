@@ -12,7 +12,7 @@ class LoanApplicationBusinessFiles extends Model
     protected $guarded = [];
 
     protected $fillable = ['application_id', 'file_name', 'file_url'];
-    
+
     public function files()
     {
         return $this->hasMany(Voyager::modelClass('Loan'))
@@ -24,14 +24,17 @@ class LoanApplicationBusinessFiles extends Model
     {
         return $this->belongsTo(self::class);
     }
-    
-    public static function fileUrl($id)
+
+    public static function getFileUrl($id, $text_label)
     {
+        $_html = '';
         if ($id) {
             $obj = LoanApplicationBusinessFiles::find($id);
-            if ($obj)
-                return url('/') . $obj->file_url;
+            if ($obj) {                
+                $url = url('/') . $obj->file_url;
+                $_html .= '<li><a href="' . $url . '" target="_blank"> ' . $text_label . ' </a></li>';
+            }
         }
-        return '#';
+        return $_html;
     }
-}   
+}

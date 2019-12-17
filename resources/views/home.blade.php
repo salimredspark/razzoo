@@ -225,14 +225,15 @@
                 <h3 class="pt-2"> CONTACT US NOW IF YOU HAVE ANY QUESTION <span>Get in Touch with us so Easy.</span></h3>
             </div>
             <div class="col-sm-6">
-                <form action="{{ 'contact-us' }}" method="get" name="frm_cnt">
-                    <div class="input-group input_group">
-                        <input type="text" class="form-control" name="email" placeholder="Enter your email address" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append ml-2">
-                            <button class="btn btn-secondary btn-lg text-uppercase px-4 Subscribebtn">Submit</button>
-                        </div>
+
+                <div class="input-group input_group">
+                    <input type="text" class="form-control" name="subscriber_email" id="subscriber_email" placeholder="Enter your email address" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append ml-2">
+                        <button class="btn btn-secondary btn-lg text-uppercase px-4 Subscribebtn">Submit</button>
                     </div>
-                </form>
+                </div>
+                <div class="show-sub-message alert alert-danger" style="display: none"></div>
+
             </div>
 
         </div>

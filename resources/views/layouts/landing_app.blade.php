@@ -163,7 +163,7 @@
                 return emailReg.test($email);
             }
 
-            //delete bank file
+            //redirect to process page
             $(document).on("click", 'button.subscribe', function(event) {
 
                 $(".show-message").removeClass("alert-success").addClass("alert-danger");
@@ -172,6 +172,11 @@
                 if (!validateEmail(email)) {
                     $(".show-message").html("Please enter valid email address").show();
                 } else {
+
+                    var makeUrl = "{{ route('loan-started', ['email' => 'replace_me' ]) }}";
+                    window.location = makeUrl.replace('replace_me', email);
+
+                    /*
                     exporturl = "{{ route('subscribe') }}";
                     CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
@@ -201,9 +206,54 @@
                             console.log("Subscribe Error: Something went wrong!");
                         }
                     });
+                    */
                 }
 
             });
+
+            //Subscribebtn
+            $(document).on("click", 'button.Subscribebtn', function(event) {
+
+                $(".show-sub-message").removeClass("alert-success").addClass("alert-danger");
+
+                var email = $("#subscriber_email").val();
+                if (!validateEmail(email)) {
+                    $(".show-sub-message").html("Please enter valid email address").show();
+                } else {
+
+                    exporturl = "{{ route('subscribe') }}";
+                    CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        dataType: 'json',
+                        url: exporturl,
+                        data: {
+                            postdata: {
+                                email: email
+                            },
+                            _token: CSRF_TOKEN
+                        },
+                        success: function(data) {
+                            $(".show-sub-message").show();
+                            if (data.status == 'success') {
+                                $(".show-sub-message").removeClass("alert-danger").addClass("alert-success");
+                                $(".show-sub-message").html("You are sucessfully subscribed");
+                            } else if (data.status == 'exist') {
+                                $(".show-sub-message").html("Your email adddress already ubscribed");
+                            } else {
+                                $(".show-sub-message").html("Please enter valid email address");
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log("Subscribe Error: Something went wrong!");
+                        }
+                    });
+                }
+
+            });
+
         })
     </script>
 </body>

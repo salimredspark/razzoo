@@ -11,7 +11,7 @@ use App\Pages;
 use App\Api;
 use Illuminate\Support\Facades\File;
 use Session;
-use SoapClient;
+//use SoapClient;
 
 class ApiController extends Controller
 {
@@ -35,11 +35,10 @@ class ApiController extends Controller
         $response['application_id'] = $applicationId;
         $authenticationGuid = setting('site.ABN_GUID');
 
-        $client = new \SoapClient(
+        $client = new \nusoap_client(
             'http://abr.business.gov.au/abrxmlsearch/ABRXMLSearch.asmx?WSDL',
             true
         );
-
         $err = $client->getError();
         if ($err) {
             $response['error'] = 'Constructor error: ' . $err;
@@ -72,10 +71,25 @@ class ApiController extends Controller
                     $params['api_response'] = $api_response;
 
                     $isSaved = $this->saveAPIResponse($applicationId, $params, $postdata);
-                    if ($isSaved)
-                        $response['status'] = 'success';
-                    else
-                        $response['status'] = 'db-error';
+                    $response['status'] = 'success';
+
+                    $businessObj = $api_response['businessEntity'];
+                    //echo "<pre>";print_r($businessObj);die;
+                    $entityTypeCode = $businessObj['entityType']['entityTypeCode'];
+                    $entityDescription = $businessObj['entityType']['entityDescription'];
+
+                    $organisationName = $businessObj['mainName']['organisationName'];
+                    $stateCode = $businessObj['mainBusinessPhysicalAddress']['stateCode'];
+                    $postcode = $businessObj['mainBusinessPhysicalAddress']['postcode'];
+
+                    $response['api_response'] = array(
+                        'entityTypeCode' => $entityTypeCode,
+                        'entityDescription' => $entityDescription,
+                        'organisationName' => $organisationName,
+                        'stateCode' => $stateCode,
+                        'postcode' => $postcode,
+                        'abn_number' => $abn_number,
+                    );
                 }
             }
         }
@@ -152,6 +166,7 @@ class ApiController extends Controller
                 $saveExistApiData->api_response = $params['api_response'];
 
                 $saveExistApiData->save();
+                return true;
             } else {
                 $saveNewApiData = new Api($postdata);
 
@@ -166,7 +181,9 @@ class ApiController extends Controller
                 $saveNewApiData->api_response = serialize($data);
 
                 $saveNewApiData->save();
+                return true;
             }
         }
+        return false;
     }
 }

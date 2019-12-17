@@ -32,27 +32,28 @@ class LoanApplicationApiResponse extends Model
                 $pdfname = 'Bank-Statement.pdf';
 
                 $filepath = $dirPath . $uploadDir . $pdfname;
-                // if (!file_exists($filepath)) {
+                if (!file_exists($filepath)) {
 
-                //create application_id folder
-                if (!file_exists($dirPath . $pdfname)) {
-                    File::makeDirectory($dirPath, 0777, true, true);
+                    //create application_id folder
+                    if (!file_exists($dirPath . $pdfname)) {
+                        File::makeDirectory($dirPath, 0777, true, true);
+                    }
+
+                    //create sub folder
+                    $rootPath_sub = $dirPath . $uploadDir;
+                    if (!file_exists($rootPath_sub . $pdfname)) {
+                        File::makeDirectory($rootPath_sub, 0777, true, true);
+                    }
+
+                    if (!empty($bankObj->api_response)) {
+                        $_data = json_decode($bankObj->api_response);
+                        $pdf = PDF::loadView('voyager::bankpdf', ['transactions' => $_data[0]->transactions, 'data' => $_data[0]]);
+                        $pdf->save($rootPath_sub . $pdfname);
+                    }
                 }
-
-                //create sub folder
-                $rootPath_sub = $dirPath . $uploadDir;
-                if (!file_exists($rootPath_sub . $pdfname)) {
-                    File::makeDirectory($rootPath_sub, 0777, true, true);
-                }
-
-                $_data = unserialize($bankObj->api_response);
-                $pdf = PDF::loadView('voyager::bankpdf', ['transactions' => $_data[0]->transactions, 'data' => $_data[0]]);
-                $pdf->save($rootPath_sub . $pdfname);
-                //  }
 
                 $uploadUrl = url('/') . $rootPath . $uploadDir . $pdfname . '?rand=' . microtime();
-                //return $uploadUrl;
-                $_html .= '<li> <a href="' . $uploadUrl . '" target="_blank"> Bank Statement </a></li>';
+                $_html .= '<li><a href="' . $uploadUrl . '" target="_blank"> Bank Statement </a></li>';
             }
 
             //ABN/ACN Response
@@ -65,27 +66,26 @@ class LoanApplicationApiResponse extends Model
                 $pdfname = 'ABN-Statement.pdf';
 
                 $filepath = $dirPath . $uploadDir . $pdfname;
-                // if (!file_exists($filepath)) {
+                if (!file_exists($filepath)) {
 
-                //create application_id folder
-                if (!file_exists($dirPath . $pdfname)) {
-                    File::makeDirectory($dirPath, 0777, true, true);
+                    //create application_id folder
+                    if (!file_exists($dirPath . $pdfname)) {
+                        File::makeDirectory($dirPath, 0777, true, true);
+                    }
+
+                    //create sub folder
+                    $rootPath_sub = $dirPath . $uploadDir;
+                    if (!file_exists($rootPath_sub . $pdfname)) {
+                        File::makeDirectory($rootPath_sub, 0777, true, true);
+                    }
+
+                    $_data = json_decode($abnObj->api_response, true);
+                    $pdf = PDF::loadView('voyager::abnpdf', ['data' => $_data]);
+                    $pdf->save($rootPath_sub . $pdfname);
                 }
-
-                //create sub folder
-                $rootPath_sub = $dirPath . $uploadDir;
-                if (!file_exists($rootPath_sub . $pdfname)) {
-                    File::makeDirectory($rootPath_sub, 0777, true, true);
-                }
-
-                $_data = json_decode($abnObj->api_response, true);
-                $pdf = PDF::loadView('voyager::abnpdf', ['data' => $_data]);
-                $pdf->save($rootPath_sub . $pdfname);
-                //  }
 
                 $uploadUrl = url('/') . $rootPath . $uploadDir . $pdfname . '?rand=' . microtime();
-                //return $uploadUrl;
-                $_html .= '<li> <a href="' . $uploadUrl . '" target="_blank"> ABN Report </a></li>';
+                $_html .= '<li><a href="' . $uploadUrl . '" target="_blank"> ABN Report </a></li>';
             }
             $_html .= '</ul>';
             return $_html;

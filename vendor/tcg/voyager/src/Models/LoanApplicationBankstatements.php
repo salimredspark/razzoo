@@ -12,14 +12,17 @@ class LoanApplicationBankstatements extends Model
     protected $guarded = [];
 
     protected $fillable = ['application_id', 'file_name', 'file_url'];
-    
-    public static function fileUrl($id)
+
+    public static function getFileUrl($id,  $text_label = null)
     {
+        $_html = '';
         if ($id) {
             $obj = LoanApplicationBankstatements::find($id);
-            if ($obj)
-                return url('/') . $obj->file_url;
+            if ($obj) {                
+                $url = url('/') . $obj->file_url;
+                $_html .= '<a href="' . $url . '" target="_blank"> 2222' . $text_label . ' </a>';
+            }
         }
-        return '#';
+        return $_html;
     }
 }

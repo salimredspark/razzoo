@@ -23,14 +23,18 @@ class LoanController extends Controller
         return view('loan.index');
     }
 
-    public function started()
-    {
+    public function started(Request $request)
+    {        
+        if (isset($request->email)) {
+            Session::put('email', $request->email);
+        }
         return view('loan.started');
     }
 
     public function process(Request $request)
     {
-        $appid = Session::get('fb_loan_application_id');
+        $email = Session::get('email');
+        $appid = Session::get('fb_loan_application_id');        
         $existLoan['customer_firstname'] = '';
         $existLoan['customer_lastname'] = '';
         $existLoan['customer_email'] = '';
@@ -38,6 +42,10 @@ class LoanController extends Controller
 
         if ($appid > 0) {
             $existLoan = LoanApplication::find($appid);
+        }
+        
+        if (isset($email)) {
+            $existLoan['customer_email'] = $email;
         }
 
         return view('loan.process', ['application_id' => $appid, 'existLoan' => $existLoan]);
@@ -438,5 +446,5 @@ class LoanController extends Controller
 
         $application_id = Session::get('application_id');
         return view('loan.thankyou', ['application_id' => $application_id]);
-    }   
+    }
 }

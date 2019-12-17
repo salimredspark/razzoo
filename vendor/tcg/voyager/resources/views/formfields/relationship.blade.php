@@ -79,7 +79,7 @@
                 @endphp
 
                 @if($view == 'browse')
-                    @php
+                    @php                        
                         $string_values = implode(", ", $selected_values);
                         if(mb_strlen($string_values) > 25){ $string_values = mb_substr($string_values, 0, 25) . '...'; }
                     @endphp
@@ -91,10 +91,14 @@
                 @else
                     @if(empty($selected_values))
                         <p>{{ __('voyager::generic.no_results') }}</p>
-                    @else
+                    @else                        
                         <ul class="demo-1">
                             @foreach($selected_values as $selected_value)
-                                <li>{{ $selected_value }}</li>
+                            @if($options->table == 'loan_application_business_files' || $options->table == 'loan_application_bankstatements')    
+                            <li> {{ $selected_value }} </li>
+                                @else
+                                <li> {{ $selected_value }} </li>
+                                @endif
                             @endforeach
                         </ul>
                     @endif
@@ -110,8 +114,8 @@
                 @if(isset($query))
                     <ul  class="demo-2 unique-relation-tbl">
                         @foreach($query as $query_res)
-                            @if($options->table == 'loan_application_business_files' || $options->table == 'loan_application_bankstatements' || $options->table ==  'loan_application_api_response')
-                                <li><a href="{{ $options->model::fileUrl($query_res->{$options->key} ) }}" target="_blank"> {{ $query_res->{$options->label} }} </a></li>
+                            @if($options->table == 'loan_application_business_files' || $options->table == 'loan_application_bankstatements')                                
+                                <li>{!! $options->model::getFileUrl( $query_res->{$options->key} , $query_res->{$options->label} ) !!}</li>
                             @else    
                                 <li>{{ $query_res->{$options->label} }}</li>
                             @endif
