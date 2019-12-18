@@ -192,7 +192,7 @@ and delete all the string keywords
 
 1) Link -- Done
 2) ABN -- If verified then set company address on next page -- Done
-3) ABN -- Show Company Name
+3) ABN -- Show Company Name -- auto fill
 4) Thank you page change -- Done
 5) Valid and show message on Access ID -- Done
 6) Upload Images -- Browss Button  and set optional -- Done

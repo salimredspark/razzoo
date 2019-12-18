@@ -141,7 +141,7 @@
 
                         <!--industry category-->
                         <div class="cond-section section-Healthcare">
-                            <div class="tab ">
+                            <div class="tab inner-step-1">
                                 <h3 class="text-center">Let's find you a business loan</h3>
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -192,14 +192,14 @@
                                 </div>
                             </div>
 
-                            <div class="tab">
+                            <div class="tab inner-step-2">
                                 <span class="tick"><img src="{{ url('images/icon-tick.png') }}" class="img-fluid" alt=""></span>
                                 <h3 class="text-center text-success">Congratulations, <br>you are eligible for Razzoo Loan!</h3>
                                 <h4 class="text-center">Your loan will be approved within 24 hours on successful submission of documents.</h4>
                                 <p class="text-center text-primary">Please click next and tell us more about your business.</p>
                             </div>
 
-                            <div class="tab">
+                            <div class="tab inner-step-3">
                                 <h3 class="text-center">How long have you been actively trading?</h3>
                                 <ul class="radio-option">
                                     <li>
@@ -222,7 +222,7 @@
                                 </ul>
                             </div>
 
-                            <div class="tab">
+                            <div class="tab inner-step-4">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -245,7 +245,7 @@
                                 </div>
                             </div>
 
-                            <div class="tab">
+                            <div class="tab inner-step-5">
                                 <h3 class="text-center">Accounting software you use?</h3>
                                 <div class="form-group">
                                     <ul class="radio-option">
@@ -266,24 +266,16 @@
                                 </div>
                             </div>
 
-                            <div class="tab">
+                            <div class="tab inner-step-6">
                                 <h3 class="text-center">Bank Statements</h3>
                                 <div class="form-group">
-                                    <!--<div class="form-group files">
-                                        <input type="file" class="form-control" multiple name="supporting_bank_file[]" id="supporting_bank_file">
-                                    </div>
-                                    <div class="load_bank_process"></div>
-                                    <div id="uploaded_bank_files">
-                                        <ul></ul>
-                                    </div>-->
-
                                     <label>Enter Access ID?</label>
                                     <input type="text" class="form-control" placeholder="Bank Access ID" name="bank_access_id" id="bank_access_id">
                                     <label id="bank_access_id_error"></label>
                                 </div>
                             </div>
 
-                            <div class="tab">
+                            <div class="tab inner-step-7">
                                 <div class="form-group">
                                     <div class="form-group files files1">
                                         <input type="file" class="form-control" multiple name="supporting_business_plan[]" id="supporting_business_plan">
@@ -391,6 +383,7 @@
     document.addEventListener("DOMContentLoaded", function(event) {
         $(document).ready(function() {
             var CSRF_TOKEN = false;
+            var bank_api_done = false;
             var step2 = false;
             var abn_api_response = '';
             var val = {
@@ -592,7 +585,7 @@
                             abn_number = $("input[name='abn_number']").val();
                             if (abn_number != '') {
                                 $(".api_process").html("Please wait....");
-
+                                $(".next").hide();
                                 $.ajax({
                                     type: 'POST',
                                     cache: false,
@@ -607,7 +600,7 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-
+                                            $(".next").show();
                                             $("#abn_number_valid").val('valid');
 
                                             var abn_api_response = data.api_response;
@@ -670,7 +663,7 @@
                                 },
                                 success: function(data) {
                                     if (data.status == 'success') {
-                                        console.log("Step 4 Error Data: " + data);
+                                        console.log("Step 4 Saved");
                                         if (data.application_id) {
                                             $("#application_id").val(data.application_id);
                                         }
@@ -831,7 +824,7 @@
                                 accounting_software = $("input[name='accounting_software']:checked").val();
                                 application_id = $("input[name='application_id']").val();
 
-                                if (application_id > 0) {
+                                if (application_id > 0 && !bank_api_done) {
 
                                     $("#bank_access_id_error").html("Please wait...");
                                     $(".next").hide();
@@ -854,11 +847,12 @@
                                                 if (data.application_id) {
                                                     $("#application_id").val(data.application_id);
                                                     $("#bank_access_id_error").html("Process completed and Bank Statement in Verification.");
-                                                    $(".next").show();                                                    
+                                                    $(".next").show();
+                                                    bank_api_done = true;
                                                 }
                                             } else {
                                                 console.log("Step Bank Statment Error Data: " + data);
-                                                $("#bank_access_id_error").html("Invalid Access ID");                                                
+                                                $("#bank_access_id_error").html("Invalid Access ID");
                                             }
                                         },
                                         error: function(xhr) {
@@ -873,7 +867,7 @@
                         },
                     },
                     /*supporting_business_plan: {
-                        required: true,
+                        required: false,
                         callback: function() {
                             $(".next").hide();
                             $(".submit").show();
@@ -1174,6 +1168,22 @@
                     var addressComponents = $(component).locationpicker('map').location.addressComponents;
                     updateControlsDigitalPickup(addressComponents);
                 }
+            });
+
+            //last step
+            $(document).on("click", '.next', function(event) {
+                var html_class = $(".current").attr('class');
+
+                if (html_class.indexOf('inner-step-6') != -1) {
+                    $(".next").hide();
+                }
+
+                if (html_class.indexOf('inner-step-7') != -1) {
+                    $(".next").hide();
+                    $(".submit").show();
+                }
+
+                console.log('html_class: ' + html_class);
             });
 
             function updateControlsDigitalPickup(addressComponents) {

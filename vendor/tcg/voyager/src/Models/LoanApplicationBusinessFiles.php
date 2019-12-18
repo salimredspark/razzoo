@@ -30,11 +30,27 @@ class LoanApplicationBusinessFiles extends Model
         $_html = '';
         if ($id) {
             $obj = LoanApplicationBusinessFiles::find($id);
-            if ($obj) {                
+            if ($obj) {
                 $url = url('/') . $obj->file_url;
                 $_html .= '<li><a href="' . $url . '" target="_blank"> ' . $text_label . ' </a></li>';
             }
         }
+        return $_html;
+    }
+
+    public static function getAllApplicationFileUrl($application_id)
+    {
+        $_html = '<ul class="uploaded-business-files">';
+        if ($application_id) {
+            $objArr = LoanApplicationBusinessFiles::where('application_id', '=', $application_id)->get();
+            if ($objArr) {
+                foreach ($objArr as $obj) {
+                    $url = url('/') . $obj->file_url;
+                    $_html .= '<li><a href="' . $url . '" target="_blank"> ' . $obj->file_name . ' </a></li>';
+                }
+            }
+        }
+        $_html .= '</ul>';
         return $_html;
     }
 }

@@ -158,9 +158,9 @@
                 }
             });
 
-            function validateEmail($email) {
+            function validateEmail(email) {
                 var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-                return emailReg.test($email);
+                return emailReg.test(email);
             }
 
             //redirect to process page
@@ -169,11 +169,11 @@
                 $(".show-message").removeClass("alert-success").addClass("alert-danger");
 
                 var email = $("#loan_process_email").val();
-                if (!validateEmail(email)) {
+                if (email == "" || !validateEmail(email)) {
                     $(".show-message").html("Please enter valid email address").show();
                 } else {
-
-                    var makeUrl = "{{ route('loan-started', ['email' => 'replace_me' ]) }}";
+                    
+                    var makeUrl = "{{ route('loan-started', ['email' => 'replace_me' ]) }}";                    
                     window.location = makeUrl.replace('replace_me', email);
 
                 }
