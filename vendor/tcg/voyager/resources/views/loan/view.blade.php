@@ -148,7 +148,7 @@
 
                                 <div class="row">
                                     <!--industry fields-->
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-2">
                                         <div class="tab1 cropper-view-box">
                                             <h4>Selected Industry</h4>
                                             <div class="task-types">
@@ -184,10 +184,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--industry category-->
-                                <div class="row">
-                                    <div class="col-sm-12">
+
+                                    <div class="col-sm-10">
                                         @if ($existLoan['customer_industry']=='Healthcare' )
                                         <div class="cond-section section-Healthcare">
                                             <div class="tab2 cropper-view-box">
@@ -214,7 +212,7 @@
                                                     <div class="col-sm-4">
                                                         <label>ABN/ACN number</label>
                                                         <div class="form-group">
-                                                            {{ $existLoan['abn_number'] }} - {!! $apis['abn'] !!} 
+                                                            {{ $existLoan['abn_number'] }} - {!! $apis['abn'] !!}
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
@@ -263,13 +261,13 @@
                                         <div class="col-sm-12">
                                             <div class="cond-section section-{{$existLoan['customer_industry'] }}">
                                                 <div class="tab1 opt-hospitality cropper-view-box">
-                                                    <h3 class="text-center clicked-customer">{{ $existLoan['customer_industry']}} - Our Consultants can call you? {{ $existLoan['allow_consultants_call'] }}</h3>
+                                                    <h3 class="text-center clicked-customer">Our Consultants can call you? {{ $existLoan['allow_consultants_call'] }}</h3>
                                                 </div>
                                             </div>
                                         </div>
                                         @endif
                                     </div>
-                                </div>
+                                </div>                               
                             </div>
                         </form>
                     </div>

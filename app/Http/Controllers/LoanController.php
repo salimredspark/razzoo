@@ -24,7 +24,7 @@ class LoanController extends Controller
     }
 
     public function started(Request $request)
-    {        
+    {
         if (isset($request->email)) {
             Session::put('email', $request->email);
         }
@@ -34,7 +34,8 @@ class LoanController extends Controller
     public function process(Request $request)
     {
         $email = Session::get('email');
-        $appid = Session::get('fb_loan_application_id');        
+        $appid = Session::get('fb_loan_application_id');
+
         $existLoan['customer_firstname'] = '';
         $existLoan['customer_lastname'] = '';
         $existLoan['customer_email'] = '';
@@ -43,19 +44,16 @@ class LoanController extends Controller
         if ($appid > 0) {
             $existLoan = LoanApplication::find($appid);
         }
-        
+
         if (isset($email)) {
             $existLoan['customer_email'] = $email;
         }
 
-        return view('loan.process', ['application_id' => $appid, 'existLoan' => $existLoan]);
-    }
+        if (!$appid) {
+           // $appid = Session::get('application_id');
+        }
 
-    public function save(Request $request)
-    {
-        Session::put('application_id', $request->application_id);
-        //return redirect()->route('thankyou')->with('success', 'Loan Application Submitted');
-        return redirect()->route('thankyou');
+        return view('loan.process', ['application_id' => $appid, 'existLoan' => $existLoan]);
     }
 
     //step 1
@@ -97,6 +95,8 @@ class LoanController extends Controller
 
             $applicationId = $saveApplication->id;
         }
+
+        Session::put('application_id', $applicationId);
 
         $response = array(
             'status' => 'success',
@@ -439,6 +439,13 @@ class LoanController extends Controller
             'file_id' => $file_id,
         );
         return response()->json($response);
+    }
+
+    public function save(Request $request)
+    {
+        Session::put('application_id', $request->application_id);
+        //return redirect()->route('thankyou')->with('success', 'Loan Application Submitted');
+        return redirect()->route('thankyou');
     }
 
     public function thankyou()
