@@ -9,6 +9,7 @@
                     {!! csrf_field() !!}
                     <input type="hidden" name="application_id" id="application_id" value="{{ $application_id }}" />
                     <div class="wizard-steps">
+                        <div class="wizard-error-message"></div>
                         <div class="tab">
                             <h3 class="text-center">Eligibility Criteria</h3>
                             <ul class="eligibility">
@@ -384,6 +385,7 @@
         $(document).ready(function() {
             var CSRF_TOKEN = false;
             var bank_api_done = false;
+            var prev = false;
             var step2 = false;
             var abn_api_response = '';
             var val = {
@@ -429,10 +431,19 @@
                                     _token: CSRF_TOKEN
                                 },
                                 success: function(data) {
+
                                     if (data.status == 'success') {
                                         console.log("Step 1 Saved");
                                         if (data.application_id) {
                                             $("#application_id").val(data.application_id);
+                                        }
+                                    } else if (data.status == 'exist') {
+                                        $(".previous").trigger("click");
+                                        if (data.application_id) {
+                                            $("#application_id").val(data.application_id);
+                                            var loanStatus = data.loanData.loan_status;
+                                            $(".wizard-error-message").html("Your Loan Application ID #" + data.application_id + " already exist in our data and status is " + loanStatus + ".").addClass("alert alert-warning");
+                                            $(".next ").hide();
                                         }
                                     } else {
                                         console.log("Step 1 Error Data: " + data);
@@ -866,6 +877,7 @@
                             }
                         },
                     },
+
                     /*supporting_business_plan: {
                         required: false,
                         callback: function() {

@@ -50,7 +50,7 @@ class LoanController extends Controller
         }
 
         if (!$appid) {
-           // $appid = Session::get('application_id');
+            // $appid = Session::get('application_id');
         }
 
         return view('loan.process', ['application_id' => $appid, 'existLoan' => $existLoan]);
@@ -62,45 +62,54 @@ class LoanController extends Controller
         $response = array();
         $postdata = $request->postdata;
         $application_id = $postdata['application_id'];
+        $loanData['loan_status'] = [];
 
-        if ($application_id > 0) {
-            $saveExistAppData = LoanApplication::find($application_id); //where([['id', '=', $application_id]])->first();
+        if (strlen($postdata['customer_mobile'])  == 10) {
+            if ($application_id > 0) {
+                $saveExistAppData = LoanApplication::find($application_id); //where([['id', '=', $application_id]])->first();
+            } else {
+                $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
+            }
+
+            if ($saveExistAppData) {
+                $application_id = $saveExistAppData->id;
+                $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
+                $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
+                $saveExistAppData->customer_email =  $postdata['customer_email'];
+                $saveExistAppData->customer_mobile =  $postdata['customer_mobile'];
+                $saveExistAppData->ip_address =  User::getClientIPAddress();
+                $saveExistAppData->loan_status = 'Pending';
+
+                $saveExistAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
+                $saveExistAppData->save();
+                $status = 'exist';
+                $loanData['loan_status'] = $saveExistAppData->loan_status;
+            } else {
+                $saveApplication = new LoanApplication($postdata);
+                $saveApplication->customer_firstname =  $postdata['customer_firstname'];
+                $saveApplication->customer_lastname =  $postdata['customer_lastname'];
+                $saveApplication->customer_email =  $postdata['customer_email'];
+                $saveApplication->customer_mobile =  $postdata['customer_mobile'];
+                $saveApplication->ip_address =   User::getClientIPAddress();
+                $saveApplication->loan_status = 'Pending';
+
+                $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
+                $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
+                $saveApplication->save();
+
+                $application_id = $saveApplication->id;
+                $status = 'success';
+            }
+
+            Session::put('application_id', $application_id);
         } else {
-            $saveExistAppData = LoanApplication::where([['customer_email', '=', $postdata['customer_email']], ['customer_mobile', '=', $postdata['customer_mobile']]])->first();
+            $status = 'success';
         }
-
-        if ($saveExistAppData) {
-            $applicationId = $saveExistAppData->id;
-            $saveExistAppData->customer_firstname =  $postdata['customer_firstname'];
-            $saveExistAppData->customer_lastname =  $postdata['customer_lastname'];
-            $saveExistAppData->customer_email =  $postdata['customer_email'];
-            $saveExistAppData->customer_mobile =  $postdata['customer_mobile'];
-            $saveExistAppData->ip_address =  User::getClientIPAddress();
-            $saveExistAppData->loan_status = 'Pending';
-
-            $saveExistAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
-            $saveExistAppData->save();
-        } else {
-            $saveApplication = new LoanApplication($postdata);
-            $saveApplication->customer_firstname =  $postdata['customer_firstname'];
-            $saveApplication->customer_lastname =  $postdata['customer_lastname'];
-            $saveApplication->customer_email =  $postdata['customer_email'];
-            $saveApplication->customer_mobile =  $postdata['customer_mobile'];
-            $saveApplication->ip_address =   User::getClientIPAddress();
-            $saveApplication->loan_status = 'Pending';
-
-            $saveApplication->created_at =  strtotime(date('Y-m-d h:i:s'));
-            $saveApplication->updated_at =  strtotime(date('Y-m-d h:i:s'));
-            $saveApplication->save();
-
-            $applicationId = $saveApplication->id;
-        }
-
-        Session::put('application_id', $applicationId);
 
         $response = array(
-            'status' => 'success',
-            'application_id' => $applicationId,
+            'status' => $status,
+            'application_id' => $application_id,
+            'loanData' => $loanData,
         );
         return response()->json($response);
     }
