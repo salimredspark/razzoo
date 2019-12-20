@@ -82,7 +82,7 @@ class LoanController extends Controller
 
                 $saveExistAppData->updated_at =  strtotime(date('Y-m-d h:i:s'));
                 $saveExistAppData->save();
-                $status = 'exist';
+                $status = 'success'; //set exist
                 $loanData['loan_status'] = $saveExistAppData->loan_status;
             } else {
                 $saveApplication = new LoanApplication($postdata);
