@@ -438,12 +438,12 @@
                                             $("#application_id").val(data.application_id);
                                         }
                                     } else if (data.status == 'exist') {
-                                        $(".previous").trigger("click");
+                                        //$(".previous").trigger("click");
                                         if (data.application_id) {
                                             $("#application_id").val(data.application_id);
                                             var loanStatus = data.loanData.loan_status;
                                             $(".wizard-error-message").html("Your Loan Application ID #" + data.application_id + " already exist in our data and status is " + loanStatus + ".").addClass("alert alert-warning");
-                                            $(".next ").hide();
+                                            //$(".next ").hide();
                                         }
                                     } else {
                                         console.log("Step 1 Error Data: " + data);
