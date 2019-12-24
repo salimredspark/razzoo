@@ -6,7 +6,7 @@
     	<div class="row">
         	<div class="col-sm-12">
             	<div class="tagline">
-                	<h1 class="text-center text-primary">Your go to place for Business Loans</h1>
+                	<h1 class="text-center text-primary">Thank you for registering your email. Now, let's find a business loan that's right for you</h1>
                 </div>
 			    <div class="find-business text-center">
                 <a href="{{ url('/loan-process') }}" class="btn btn-primary">Find a Business Loan</a>

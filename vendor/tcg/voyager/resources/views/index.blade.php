@@ -20,7 +20,7 @@
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ route('voyager.contactus.index') }}" class="voyager-link">
+                                <a href="{{ route('voyager.staff.index') }}" class="voyager-link">
                                     <span class="resource_label"><i class="voyager-people"></i> <span class="copy">Team ({{ $counts['staff'] }})</span></span>
                                 </a>
                             </div>

@@ -5,13 +5,13 @@
     <div class="container">
         <div class="row text-center justify-content-center">
             <div class="col-sm-6">
-                <h1 class="mb-3">The right business loan
-                    to help you grow</h1>
+                <h1 class="mb-3">The business loan you can trust</h1>
+				<h5 class="mb-3"><span style="color: #ffffff;font-weight: 300;">We solve the problem of lengthy, hassling loans. Swift, in depth credit analysis with lending within minutes.</span></h5>
                 <div class="input-group input-group-lg my-4">
                     <div class="input-group input-group-lg my-4">
                         <input type="text" class="form-control " name="loan_process_email" id="loan_process_email" placeholder="Enter email address">
                         <div class="input-group-append">
-                            <button class="btn btn-secondary px-4 business_loan_process_btn" type="button"> Apply </button>
+                            <button class="btn btn-secondary px-4 business_loan_process_btn" type="button"> Submit </button>
                         </div>
                     </div>
                     <div class="show-message alert alert-danger" style="display: none"></div>
@@ -26,40 +26,34 @@
         <ul class="row list-unstyled ">
             <li class="col-sm-6">
                 <div class="list_img"><img src="{{ asset('landing/images/icons/listicon2.png') }}" width="54" height="54"> </div>
-                <span>Razzoo exists to empower SMEs Healthcare to gain access to
-                    rapdi business landing.</span>
+                <span>Razzoo exists to empower small businesses within healthcare to gain access to rapid business lending.</span>
 
 
             </li>
             <li class="col-sm-6">
                 <div class="list_img"><img src="{{ asset('landing/images/icons/listicon2.png') }}" width="54" height="54"> </div>
-                <span>Razzoo exists to empower SMEs Healthcare to gain access to
-                    rapdi business landing.</span>
+                <span>Our lending platform has been build using sophisticated technology to maximise assurance and minimise risk.</span>
 
 
             </li>
 
             <li class="col-sm-6">
                 <div class="list_img"><img src="{{ asset('landing/images/icons/listicon1.png') }}" width="54" height="54"> </div>
-                <span>We go beyond conventional banking - we leverage disruptive
-                    technology, in time for the open banking scheme.</span>
+                <span>We go beyond conventional banking - we offer an in depth, non-obligatory credit assessment.</span>
 
 
             </li>
 
             <li class="col-sm-6">
                 <div class="list_img"><img src="{{ asset('landing/images/icons/listicon2.png') }}" width="54" height="54"> </div>
-                <span>Together, SME funcing and Razzoo will promote GDP growth.
-
-                </span>
+                <span>We equip you with financial literacy - helping you understand which financial decisions you are making are having the most impact.</span>
 
 
             </li>
 
             <li class="col-sm-6">
                 <div class="list_img"><img src="{{ asset('landing/images/icons/listicon2.png') }}" width="54" height="54"> </div>
-                <span>Our fintech ecosystem features a landing platform that uses
-                    sophisticated technology such as AI and ML.</span>
+                <span>Business lending doesn't have to be complicated. Our credit experts have over 25 years professional experience combined in healthcare lending.</span>
             </li>
         </ul>
     </div>
@@ -135,8 +129,7 @@
         <div class="row  text-center">
             <div class="col-sm-12">
                 <h2>Business Loan Options</h2>
-                <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis <br>
-                    accumsan nisi Ut ut felis congue nisl hendrerit commodo.</h6>
+                <h6>Choose the right loan type to meet your needs</h6>
             </div>
         </div>
 
@@ -253,8 +246,7 @@
                 <div class="approvalbox">
                     <div class="number"> 1</div>
                     <span>
-                        <h4> Fill Out The Form To Start The Loaning
-                            Procedure</h4>
+                        <h4> Fill out the form to start the loaning procedure</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </span>
                 </div>
@@ -263,7 +255,7 @@
                 <div class="approvalbox">
                     <div class="number"> 2</div>
                     <span>
-                        <h4> It Will Take Up To 3 Days To Qualify Your Loan Request</h4>
+                        <h4> It will take up to 3 days to qualify your loan request</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </span>
                 </div>
@@ -272,7 +264,7 @@
                 <div class="approvalbox">
                     <div class="number"> 3</div>
                     <span>
-                        <h4>We'll Call You With The Answer From The Analysis Team</h4>
+                        <h4>We'll call you with the answer from the analysis team</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </span>
                 </div>
@@ -281,7 +273,7 @@
                 <div class="approvalbox">
                     <div class="number"> 4</div>
                     <span>
-                        <h4>You Enjoy The Money Submitted To Your Bank Account</h4>
+                        <h4>You enjoy the money submitted to your bank account</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </span>
                 </div>
