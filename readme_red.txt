@@ -146,7 +146,7 @@ Passphrase: magento_2
 cd /home/redspar2/public_html/razzoo
 --------------------------------------------------------------------------------------------------------------------------------------------
 Admin Login
-https://razzoo.redspark.biz/public/admin/login
+http://red.a2hosted.com/razzoo/public/admin/login
 email: admin@razzoo.com
 password: red@spark
 
@@ -154,7 +154,7 @@ email: salim@redsparkinfo.co.in
 password: red@spark
 ---------------------------------------------------------------------------------------------------------------------------------------------
 Development Domain URL
-https://razzoo.redspark.biz/public
+http://red.a2hosted.com/razzoo/public
 --------------------------------------------------------------------------------------------------------------------------------------------
 https://secure.uat.mogoplus.com/maroubra/login
 dpatel 

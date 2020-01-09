@@ -279,7 +279,7 @@
                             <div class="tab inner-step-7">
                                 <div class="form-group">
                                     <div class="form-group files files1">
-                                        <input type="file" class="form-control" multiple name="supporting_business_plan[]" id="supporting_business_plan">
+                                        <input type="file" class="form-control" multiple name="supporting_business_plan[]" id="supporting_business_plan">                                        
                                     </div>
                                     <div class="load_biz_process"></div>
                                     <div id="uploaded_business_files">
@@ -288,6 +288,17 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab inner-step-8">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <input type="hidden" name="isVerifyDocument" id="isVerifyDocument">
+                                    <a href="javascript://" class="verify-doc">Please verify document</a>
+                                    <div class="doc-verify-error-message"></div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="cond-section section-Hospitality">
                             <div class="tab opt-hospitality">
@@ -433,7 +444,7 @@
                                 success: function(data) {
 
                                     if (data.status == 'success') {
-                                        console.log("Step 1 Saved");
+                                        //console.log("Step 1 Saved");
                                         if (data.application_id) {
                                             $("#application_id").val(data.application_id);
                                         }
@@ -502,7 +513,7 @@
                                 },
                                 success: function(data) {
                                     if (data.status == 'success') {
-                                        console.log("Step 2 Saved");
+                                        //console.log("Step 2 Saved");
                                         if (data.application_id) {
                                             $("#application_id").val(data.application_id);
                                         }
@@ -561,7 +572,7 @@
                                 },
                                 success: function(data) {
                                     if (data.status == 'success') {
-                                        console.log("Step 3 Saved");
+                                        //console.log("Step 3 Saved");
                                         if (data.application_id) {
                                             $("#application_id").val(data.application_id);
                                         }
@@ -674,7 +685,7 @@
                                 },
                                 success: function(data) {
                                     if (data.status == 'success') {
-                                        console.log("Step 4 Saved");
+                                        //console.log("Step 4 Saved");
                                         if (data.application_id) {
                                             $("#application_id").val(data.application_id);
                                         }
@@ -714,7 +725,7 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-                                            console.log("Step 5 Saved");
+                                            //console.log("Step 5 Saved");
                                             if (data.application_id) {
                                                 $("#application_id").val(data.application_id);
                                             }
@@ -762,7 +773,7 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-                                            console.log("Step 6 Saved");
+                                            //console.log("Step 6 Saved");
                                             if (data.application_id) {
                                                 $("#application_id").val(data.application_id);
                                             }
@@ -804,7 +815,7 @@
                                     },
                                     success: function(data) {
                                         if (data.status == 'success') {
-                                            console.log("Step 7 Saved");
+                                            //console.log("Step 7 Saved");
                                             if (data.application_id) {
                                                 $("#application_id").val(data.application_id);
                                             }
@@ -838,7 +849,7 @@
                                 if (application_id > 0 && !bank_api_done) {
 
                                     $("#bank_access_id_error").html("Please wait...");
-                                    $(".next").hide();
+                                    //$(".next").hide();
 
                                     $.ajax({
                                         type: 'POST',
@@ -877,14 +888,8 @@
                             }
                         },
                     },
+                    isVerifyDocument: "required"                   
 
-                    /*supporting_business_plan: {
-                        required: false,
-                        callback: function() {
-                            $(".next").hide();
-                            $(".submit").show();
-                        },
-                    },*/
                 },
 
                 // Specify validation error messages
@@ -1021,8 +1026,8 @@
                             $("#uploaded_business_files ul").append(result.upload_path);
                             //console.log("File: " + result.upload_path);
 
-                            $(".next").hide();
-                            $(".submit").show();
+                            //$(".next").hide();
+                            //$(".submit").show();
                             $(".load_biz_process").html("");
                         },
                         error: function(data) {
@@ -1190,12 +1195,47 @@
                     $(".next").hide();
                 }
 
-                if (html_class.indexOf('inner-step-7') != -1) {
+                if (html_class.indexOf('inner-step-8') != -1) {
                     $(".next").hide();
-                    $(".submit").show();
+                    //$(".submit").show();
                 }
 
-                console.log('html_class: ' + html_class);
+                //console.log('html_class: ' + html_class);
+            });
+
+            $(document).on("click", '.verify-doc', function(event) {
+
+                exporturl = "{{ route('document-verify') }}";
+                CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                application_id = $("input[name='application_id']").val();
+
+                $(".doc-verify-error-message").html('Please wait....').removeClass("alert-success alert-danger").addClass("alert alert-warning");                    
+
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'json',
+                    url: exporturl,
+                    data: {
+                        postdata: {                            
+                            application_id: application_id,
+                        },
+                        _token: CSRF_TOKEN
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            $(".next").hide();
+                            $(".submit").show();
+                            $(".doc-verify-error-message").html("Your documents are verified.").removeClass("alert-danger alert-warning").addClass("alert alert-success");
+                        } else {                            
+                            $(".doc-verify-error-message").html(data.code + ' -  ' + data.error).removeClass("alert-success alert-warning").addClass("alert alert-danger");
+                            $(".submit").hide();
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log("Verify document Error: Something went wrong!");
+                    }
+                });
             });
 
             function updateControlsDigitalPickup(addressComponents) {

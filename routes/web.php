@@ -43,6 +43,8 @@ Route::post('delete-uploads-bank-files', 'LoanController@ajaxDeleteBankFile')->n
 //calling APIs
 Route::post('api-verifyABN', 'ApiController@verifyABN')->name('api-verifyABN');
 Route::post('api-getBankStatment', 'ApiController@getBankStatement')->name('api-getBankStatment');
+//Route::post('view-statment', 'TCG\Voyager\Http\VoyagerLoanController@show')->name('view-statment');
+Route::post('document-verify', 'ApiController@documentVerify')->name('document-verify');
 
 //Newsletter Subscriber
 Route::post('subscribe', 'HomeController@ajaxSubscribe')->name('subscribe');

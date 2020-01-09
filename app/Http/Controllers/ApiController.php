@@ -36,8 +36,8 @@ class ApiController extends Controller
         $authenticationGuid = setting('site.ABN_GUID');
 
         $client = new \nusoap_client(
-            'http://abr.business.gov.au/abrxmlsearch/ABRXMLSearch.asmx?WSDL',
-            true
+        'http://abr.business.gov.au/abrxmlsearch/ABRXMLSearch.asmx?WSDL',
+        true
         );
         $err = $client->getError();
         if ($err) {
@@ -46,9 +46,9 @@ class ApiController extends Controller
 
         // Doc/lit parameters get wrapped
         $param = array(
-            'searchString' => $abn_number,
-            'includeHistoricalDetails' => 'N',
-            'authenticationGuid' => $authenticationGuid
+        'searchString' => $abn_number,
+        'includeHistoricalDetails' => 'N',
+        'authenticationGuid' => $authenticationGuid
         );
         $result = $client->call('ABRSearchByABN', array('parameters' => $param), '', '', false, true);
 
@@ -83,12 +83,12 @@ class ApiController extends Controller
                     $postcode = $businessObj['mainBusinessPhysicalAddress']['postcode'];
 
                     $response['api_response'] = array(
-                        'entityTypeCode' => $entityTypeCode,
-                        'entityDescription' => $entityDescription,
-                        'organisationName' => $organisationName,
-                        'stateCode' => $stateCode,
-                        'postcode' => $postcode,
-                        'abn_number' => $abn_number,
+                    'entityTypeCode' => $entityTypeCode,
+                    'entityDescription' => $entityDescription,
+                    'organisationName' => $organisationName,
+                    'stateCode' => $stateCode,
+                    'postcode' => $postcode,
+                    'abn_number' => $abn_number,
                     );
                 }
             }
@@ -128,12 +128,12 @@ class ApiController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt(
-                $ch,
-                CURLOPT_HTTPHEADER,
-                array(
-                    'Content-Type: application/json',
-                    'Content-Length: ' . strlen($data_string)
-                )
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data_string)
+            )
             );
 
             $result = curl_exec($ch);
@@ -185,5 +185,89 @@ class ApiController extends Controller
             }
         }
         return false;
+    }
+
+    public function documentVerify(Request $request){
+
+        // Access data
+        $curl = 'https://api.cloudcheck.co.nz/verify/';
+        $key = 'yZrD7XBasMFKQbki';
+        $secret = '2wL0zGgXYNn0ZUsrF56UThNqPgK75JZ';
+        $nonce = rand(1111,9999);
+        $timestamp = strtotime(date('Y-m-d H:i:s.u')) * 1000;
+        $data = '{"details": {"address": {"suburb": "Hillsborough","street": "27 Indira Lane","postcode": "8022","city": "Christchurch"},"name": {"given": "Cooper","middle": "John","family": "Down"},"dateofbirth": "1978-01-10"},"reference": "1","consent": "Yes"}';
+
+        // The API call path.
+        $path = '/verify/';
+
+        // Set up some dummy parameters. Sort alphabetically.
+        $parameterMap = array(
+        'key' => $key,        
+        'secret' => $secret,        
+        'access_key' => $secret,        
+        'nonce' => $nonce,
+        'timestamp' => $timestamp,
+        'data' => $data
+        );
+
+        ksort($parameterMap);
+
+        // Build the signature string from the parameters.
+        $signatureString = $path;
+        foreach ($parameterMap as $key => $value) {
+            if ($key === 'signature') {
+                continue;
+            }
+
+            $signatureString .= "$key=$value;";
+        }
+        $signatureHex = hash_hmac('sha256', $signatureString, $secret, false);                
+        $parameterMap['signature'] = $signatureHex;
+
+        //echo '<pre>';print_r($parameterMap);echo '</pre>';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $curl);
+        curl_setopt($ch, CURLOPT_POST, true);
+        //urlencode('{"key":"yZrD7XBasMFKQbki","secret":"2wL0zGgXYNn0ZUsrF56UThNqPgK75JZ","nonce":"'.rand(1111,9999).'", "timestamp":"'.$timestamp.'"}')
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($parameterMap) );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+        'Content-Type: application/x-www-form-urlencoded',        
+        )                                                                       
+        );
+        $result = curl_exec($ch);
+
+        $reportData = json_decode($result);
+
+        $response = array();
+        $postdata = $request->postdata;
+        $application_id = $postdata['application_id'];
+        $response['application_id'] = $application_id;
+        $response['timestamp'] = $timestamp; 
+
+        //echo '<pre>';print_r($reportData);echo '</pre>';
+
+        if($reportData->verification){
+            if($reportData->verification->error){
+                $response['error'] = $reportData->verification->message;         
+                $response['code'] = $reportData->verification->error;         
+            }else{
+                $response['status'] = 'success';         
+                $saveExistApiData = Api::where([['application_id', '=', $application_id], ['api_name', '=', 'cloudcheck']])->first();
+                if ($saveExistApiData) {                    
+                    $saveExistApiData->api_name = 'cloudcheck';
+                    $saveExistApiData->api_response = serialize($reportData);
+                    $saveExistApiData->save();                    
+                } else {
+                    $saveNewApiData = new Api($postdata);                                        
+                    $saveNewApiData->application_id = $application_id;
+                    $saveNewApiData->api_name = 'cloudcheck';                                                            
+                    $saveNewApiData->api_response = serialize($reportData);
+                    $saveNewApiData->save();                    
+                }
+            }
+        }
+        return response()->json($response);                    
     }
 }
