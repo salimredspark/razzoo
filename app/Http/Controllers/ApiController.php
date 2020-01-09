@@ -202,9 +202,7 @@ class ApiController extends Controller
 
         // Set up some dummy parameters. Sort alphabetically.
         $parameterMap = array(
-        'key' => $key,        
-        'secret' => $secret,        
-        'access_key' => $secret,        
+        'key' => $key,
         'nonce' => $nonce,
         'timestamp' => $timestamp,
         'data' => $data

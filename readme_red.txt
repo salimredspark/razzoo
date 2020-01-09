@@ -1,4 +1,4 @@
-https://laravel.com/docs/6.x | Version 5.5.48
+://laravel.com/docs/6.x | Version 5.5.48
 ---------------------------------------------------------------------------------------------------
 Via Laravel Installer
 First, download the Laravel installer using Composer.
@@ -199,4 +199,12 @@ and delete all the string keywords
 7) Speling mistake -- Done
 8) Testing --- Pending
 9) View proper in block wise in Edit Aplication --- Pending
+
+
+DELETE FROM public.users where usertype = 'practice';
+DELETE FROM public.roles where bizaccount_id in (select id from public.bizaccounts);
+DELETE FROM public.role_user where role_id not in (select id from public.roles );
+DELETE FROM public.bizaccounts;
+DELETE FROM public.permissions where groupname in ('Practice Admin','Doctor','Nurse','Receptionist','Accountant','Cleaning Staff','Others');
+DELETE FROM public.permission_role where role_id not in (select id from public.roles);
 
