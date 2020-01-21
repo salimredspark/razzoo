@@ -187,7 +187,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
-        * for Captcha
+        * for No-Captcha
         */
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         
@@ -200,6 +200,11 @@ return [
         * for PDF 
         */
         Barryvdh\DomPDF\ServiceProvider::class,
+        
+        /*
+        * for Captcha
+        */
+        Mews\Captcha\CaptchaServiceProvider::class,
 
     ],
 
@@ -254,8 +259,10 @@ return [
 
         //for facebook login
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        //for Captcha login
+        //for No-Captcha login
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        //for Captcha login
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
         
         // for html form
         'Form' => Collective\Html\FormFacade::class,

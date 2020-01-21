@@ -189,7 +189,6 @@ vendor/symfony/translation-contracts/TranslatorInteface.php
 
 and delete all the string keywords
 --------------------------------------------------------------------------------------------------------------------------------------------
-
 1) Link -- Done
 2) ABN -- If verified then set company address on next page -- Done
 3) ABN -- Show Company Name -- auto fill
@@ -207,4 +206,29 @@ DELETE FROM public.role_user where role_id not in (select id from public.roles )
 DELETE FROM public.bizaccounts;
 DELETE FROM public.permissions where groupname in ('Practice Admin','Doctor','Nurse','Receptionist','Accountant','Cleaning Staff','Others');
 DELETE FROM public.permission_role where role_id not in (select id from public.roles);
+--------------------------------------------------------------------------------------------------------------------------------------------
+Wizard Follow
+https://share.proto.io/MUGDTU/
+----------------------------------------------------------------------------
 
+GIThub
+https://github.com/salimredspark/razzoo
+
+HTML
+http://redspark.biz/Designers/razzoo/index.html
+
+Admin Users
+http://localhost/projects/razzoo/public/admin/login
+Username: salim@redsparkinfo.co.in
+Password: red@spark
+
+admin@Razzoo.com
+Username: admin@razzoo.com
+Password: red@spark
+--------------------------------------------------------------------------------------------------------------------------------------------
+13/01/2020
+Razzoo Client reply
+
+Key: yZrD7XBasMFKQbki
+Secret: 2wL0zGgXYNn0ZUsrF56UThNqPgK75JZ9
+--------------------------------------------------------------------------------------------------------------------------------------------

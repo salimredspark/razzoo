@@ -14,9 +14,41 @@
                             <h3 class="text-center">Eligibility Criteria</h3>
                             <ul class="eligibility">
                                 <li>Valid ABN/ACN registered for minimum 6 Months</li>
-                                <li>Business registered for GST</li>
-                                <li>Valid Business Visa / PR / Citizenship</li>
+                                <li>Business registered for GST</li>                                
                             </ul>
+
+                            <div class="form-group" style="padding-left: 50px;">                                
+                                <input id="recaptcha" type="hidden" class="form-control" placeholder="Enter Captcha" name="recaptcha">
+                                <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPCTHA_KEY') }}"></script>
+                                <script>
+                                    /*
+                                    function getReCaptcha(){
+                                    grecaptcha.ready(function() {
+                                    grecaptcha.execute("{{ env('GOOGLE_RECAPCTHA_KEY') }}", {action: 'homepage'}).then(function(token) {                                                            
+                                    if(token){
+                                    jQuery("#recaptcha").val(token);
+                                    }
+                                    });
+                                    });
+                                    }
+                                    (function($) {
+                                    "use strict";
+
+                                    getReCaptcha();  // This is the initial call
+                                    setInterval(function(){getReCaptcha();}, 150000);
+
+                                    })(jQuery);
+                                    */
+
+                                    grecaptcha.ready(function() {
+                                        grecaptcha.execute("{{ env('GOOGLE_RECAPCTHA_KEY') }}", {action: 'homepage'}).then(function(token) {
+                                            if(token){
+                                                jQuery("#recaptcha").val(token);
+                                            }
+                                        })    
+                                    })
+                                </script>
+                            </div>
                         </div>
 
                         <!--personal fields-->
@@ -299,7 +331,6 @@
                             </div>
                         </div>
 
-
                         <div class="cond-section section-Hospitality">
                             <div class="tab opt-hospitality">
                                 <h3 class="text-center clicked-customer">Hospitality - Do you want one of our Consultants to call you?</h3>
@@ -402,6 +433,9 @@
             var val = {
                 // Specify validation rules
                 rules: {
+                    recaptcha: {
+                        required: true,                        
+                    },
                     customer_firstname: "required",
                     customer_lastname: "required",
                     customer_email: {
@@ -415,16 +449,11 @@
                         maxlength: 10,
                         digits: true,
                         callback: function() {
-                            //calling ajax request for step 1
-                            exporturl = "{{ route('loan-save-step1') }}";
+                                                        
+                            //valid first recaptcha
+                            exporturl = "{{ route('recaptcha') }}";
                             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-                            //save to database
-                            fname = $("input[name='customer_firstname']").val();
-                            lname = $("input[name='customer_lastname']").val();
-                            email = $("input[name='customer_email']").val();
-                            mobile = $("input[name='customer_mobile']").val();
-                            application_id = $("input[name='application_id']").val();
+                            recaptcha = $("#recaptcha").val();
 
                             $.ajax({
                                 type: 'POST',
@@ -432,39 +461,76 @@
                                 dataType: 'json',
                                 url: exporturl,
                                 data: {
-                                    postdata: {
-                                        customer_firstname: fname,
-                                        customer_lastname: lname,
-                                        customer_email: email,
-                                        customer_mobile: mobile,
-                                        application_id: application_id,
-                                    },
+                                    recaptcha: recaptcha,
                                     _token: CSRF_TOKEN
                                 },
                                 success: function(data) {
+                                    $(".wizard-error-message").html(" ").removeClass("alert alert-danger");
+                                    if (data.status == 'success' || data.returnobj == 'timeout-or-duplicate') {
 
-                                    if (data.status == 'success') {
-                                        //console.log("Step 1 Saved");
-                                        if (data.application_id) {
-                                            $("#application_id").val(data.application_id);
-                                        }
-                                    } else if (data.status == 'exist') {
-                                        //$(".previous").trigger("click");
-                                        if (data.application_id) {
-                                            $("#application_id").val(data.application_id);
-                                            var loanStatus = data.loanData.loan_status;
-                                            $(".wizard-error-message").html("Your Loan Application ID #" + data.application_id + " already exist in our data and status is " + loanStatus + ".").addClass("alert alert-warning");
-                                            //$(".next ").hide();
-                                        }
-                                    } else {
-                                        console.log("Step 1 Error Data: " + data);
-                                        location.reload();
+                                        //calling ajax request for step 1
+                                        exporturl = "{{ route('loan-save-step1') }}";
+                                        CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                                        //save to database
+                                        fname = $("input[name='customer_firstname']").val();
+                                        lname = $("input[name='customer_lastname']").val();
+                                        email = $("input[name='customer_email']").val();
+                                        mobile = $("input[name='customer_mobile']").val();
+                                        application_id = $("input[name='application_id']").val();
+
+                                        $.ajax({
+                                            type: 'POST',
+                                            cache: false,
+                                            dataType: 'json',
+                                            url: exporturl,
+                                            data: {
+                                                postdata: {
+                                                    customer_firstname: fname,
+                                                    customer_lastname: lname,
+                                                    customer_email: email,
+                                                    customer_mobile: mobile,
+                                                    application_id: application_id,
+                                                },
+                                                _token: CSRF_TOKEN
+                                            },
+                                            success: function(data) {
+
+                                                if (data.status == 'success') {
+                                                    //console.log("Step 1 Saved");
+                                                    if (data.application_id) {
+                                                        $("#application_id").val(data.application_id);
+                                                    }
+                                                } else if (data.status == 'exist') {
+                                                    //$(".previous").trigger("click");
+                                                    if (data.application_id) {
+                                                        $("#application_id").val(data.application_id);
+                                                        var loanStatus = data.loanData.loan_status;
+                                                        $(".wizard-error-message").html("Your Loan Application ID #" + data.application_id + " already exist in our data and status is " + loanStatus + ".").addClass("alert alert-warning");
+                                                        //$(".next ").hide();
+                                                    }
+                                                } else {
+                                                    console.log("Step 1 Error Data: " + data);
+                                                    location.reload();
+                                                }
+                                            },
+                                            error: function(xhr) {
+                                                console.log("Step 1 Error: Something went wrong!");
+                                            }
+                                        });
+
+                                    }else{
+                                        $(".wizard-error-message").html("Security captcha has expired!").addClass("alert alert-danger");
+                                        $(".next").hide();
+                                        location.reload(true);
+                                        return false;
                                     }
                                 },
-                                error: function(xhr) {
-                                    console.log("Step 1 Error: Something went wrong!");
+                                error: function(xhr) {                                    
                                 }
                             });
+                            //recaptcha validaton end here
+
                         }
                     },
                     customer_address: {
@@ -789,7 +855,7 @@
                                 console.log("Step 6 Error: Application Id does not exist");
                             }
                         },
-                    },
+                    },                    
                     //step 7
                     accounting_software: {
                         required: true,
@@ -872,9 +938,12 @@
                                                     $(".next").show();
                                                     bank_api_done = true;
                                                 }
-                                            } else {
-                                                console.log("Step Bank Statment Error Data: " + data);
-                                                $("#bank_access_id_error").html("Invalid Access ID");
+                                            } else {                                                
+                                                if(data.errorCode != ''){
+                                                    $("#bank_access_id_error").html(data.errorMessage);    
+                                                }else{
+                                                    $("#bank_access_id_error").html("Invalid Access ID");
+                                                }                                                                                                        
                                             }
                                         },
                                         error: function(xhr) {
@@ -888,12 +957,12 @@
                             }
                         },
                     },
-                    isVerifyDocument: "required"                   
-
+                    isVerifyDocument: "required"
                 },
 
                 // Specify validation error messages
                 messages: {
+                    recaptcha: "Captcha is required",
                     customer_firstname: "First name is required",
                     customer_lastname: "Last name is required",
                     customer_email: {

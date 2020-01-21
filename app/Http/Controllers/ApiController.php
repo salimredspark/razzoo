@@ -139,14 +139,23 @@ class ApiController extends Controller
             $result = curl_exec($ch);
             $reportData = json_decode($result);
 
-            $params['accounting_software'] = $accounting_software;
-            $params['api_name'] = 'secure.uat.mogoplus.com';
-            $params['api_response'] = $reportData->mogoData->detailsList;
+            if(!$reportData->errorCode){
+                $params['accounting_software'] = $accounting_software;
+                $params['api_name'] = 'secure.uat.mogoplus.com';
+                $params['api_response'] = $reportData->mogoData->detailsList;
 
-            $this->saveAPIResponse($applicationId, $params, $postdata);
-            $response['status'] = 'success';
+                $this->saveAPIResponse($applicationId, $params, $postdata);
+                $response['status'] = 'success';
+            }else{
+
+                $response['status'] = 'error';
+                $response['errorCode'] = $reportData->errorCode;
+                $response['errorMessage'] = $reportData->errorMessage;
+            }
         } else {
             $response['status'] = 'error';
+            $response['errorCode'] = '404';
+            $response['errorMessage'] = 'Please enter valid Access ID'; 
         }
 
         return response()->json($response);
@@ -187,12 +196,13 @@ class ApiController extends Controller
         return false;
     }
 
-    public function documentVerify(Request $request){
+    public function documentVerify(Request $request)
+    {
 
         // Access data
-        $curl = 'https://api.cloudcheck.co.nz/verify/';
-        $key = 'yZrD7XBasMFKQbki';
-        $secret = '2wL0zGgXYNn0ZUsrF56UThNqPgK75JZ';
+        $curl = env('cloudcheck_API_URL'); //'https://api.cloudcheck.co.nz/verify/';
+        $key = env('cloudcheck_API_KEY'); //'yZrD7XBasMFKQbki';
+        $secret = env('cloudcheck_API_SECRET'); //'2wL0zGgXYNn0ZUsrF56UThNqPgK75JZ';
         $nonce = rand(1111,9999);
         $timestamp = strtotime(date('Y-m-d H:i:s.u')) * 1000;
         $data = '{"details": {"address": {"suburb": "Hillsborough","street": "27 Indira Lane","postcode": "8022","city": "Christchurch"},"name": {"given": "Cooper","middle": "John","family": "Down"},"dateofbirth": "1978-01-10"},"reference": "1","consent": "Yes"}';
@@ -267,5 +277,44 @@ class ApiController extends Controller
             }
         }
         return response()->json($response);                    
+    }
+
+    public function validReCaptcha(Request $request){
+        $recaptcha = $request->recaptcha;
+        $response = array();
+        if($recaptcha){
+            $url = env('GOOGLE_RECAPCTHA_URL'); //'https://www.google.com/recaptcha/api/siteverify';
+            $data = [
+            'secret' => env('GOOGLE_RECAPCTHA_SECRET_KEY'),
+            'response'=> request('recaptcha')
+            ];
+
+            $options= [
+            'http' => [
+            'header' =>  "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' =>  "POST",
+            'content' =>  http_build_query($data),                
+            ]
+            ];
+
+            $context = stream_context_create($options);
+            $result = file_get_contents($url, false, $context);
+            $resultjson = json_decode($result, true);
+            
+            if($resultjson['success']){
+                $response['status'] = 'success';
+                $response['returnobj'] = $resultjson;                
+            }elseif($resultjson['error-codes'][0]){
+                $response['status'] = 'error';
+                $response['returnobj'] = $resultjson['error-codes'][0];
+            }else{
+                $response['status'] = 'error';
+                $response['returnobj'] = '';
+            }
+            return response()->json($response);
+        }
+
+        $response['status'] = 'error';        
+        return response()->json($response);        
     }
 }

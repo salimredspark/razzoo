@@ -20,7 +20,8 @@ Your go to place for Business Loans
  - Newsletter | Ref: https://github.com/spatie/laravel-newsletter
  - Publish Cookies Policy | Ref: https://github.com/spatie/laravel-cookie-consent
  - Google Map | Ref: https://www.mapsdirections.info/en/custom-google-maps
- - Captcha | Ref: https://github.com/anhskohbo/no-captcha
+ - NoCaptcha | Ref: https://github.com/anhskohbo/no-captcha
+ - Captcha | Ref: https://www.itsolutionstuff.com/post/how-to-create-captcha-code-in-laravel-5example.html
  - PDF | https://www.itsolutionstuff.com/post/laravel-5-generate-pdf-from-html-view-file-and-download-using-dompdfexample.html 
  - API MogoPluse | Ref: http://mogoplus.com
  - API ABN/ACN Verify | Ref: https://abr.business.gov.au

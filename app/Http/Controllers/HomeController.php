@@ -55,13 +55,32 @@ class HomeController extends Controller
         }
 
         $response = array(
-            'status' => $r,
-            'email' => $email
+        'status' => $r,
+        'email' => $email
         );
         return response()->json($response);
 
         //Newsletter::unsubscribe('the.luggage@discworld.com');
         //Newsletter::subscribe('rincewind@discworld.com', ['firstName'=>'Rince', 'lastName'=>'Wind']);
         //Newsletter::subscribeOrUpdate('rincewind@discworld.com', ['firstName'=>'Foo', 'lastname'=>'Bar']);
+    }
+
+    public function myCaptcha(){
+        return view('myCaptcha');
+    }           
+    
+    public function myCaptchaPost(Request $request){
+
+        request()->validate([
+        'email' => 'required|email',
+        'password' => 'required',   
+        'captcha' => 'required|captcha'
+        ],
+        ['captcha.captcha'=>'Invalid captcha code.']);
+        dd("You are here :) .");
+    }
+    
+    public function refreshCaptcha(){
+        return response()->json(['captcha'=> captcha_img()]);
     }
 }

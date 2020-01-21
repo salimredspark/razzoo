@@ -19,12 +19,13 @@
 
 <div class="row pt-4">
     <div class="col-6">
-        {!! NoCaptcha::renderJs() !!}
-        {!! NoCaptcha::display() !!}
-
-        @if ($errors->has('g-recaptcha-response'))
-        <span class="htext-danger">{{ $errors->first('g-recaptcha-response') }}</span>
-        @endif
+        <div class="form-group">                                            
+            <div class="captcha">
+                <span>{!! captcha_img() !!}</span>
+                <button type="button" class="btn btn-success btn-refresh-captcha"><i class="fa fa-refresh"></i></button>
+            </div>
+            <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha">
+        </div>
     </div>
     <div class="col-6">
         <button class="btn btn-secondary btn-lg pull-right px-5 my-2"> Submit</button>

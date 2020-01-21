@@ -20,6 +20,9 @@ Route::group(['prefix' => '/admin'], function () {
     Voyager::routes();
 });
 
+//Captcha
+Route::post('recaptcha', 'ApiController@validReCaptcha')->name('recaptcha');
+
 Route::get('loan-started', 'LoanController@started')->name('loan-started');
 Route::get('loan-process', 'LoanController@process')->name('loan-process');
 Route::post('loan-submit', 'LoanController@save')->name('loan-submit');
